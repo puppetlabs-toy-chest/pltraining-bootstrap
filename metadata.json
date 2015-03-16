@@ -1,0 +1,25 @@
+{
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.7.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "name": "pltraining-rbac",
+  "version": "0.0.1",
+  "author": "pltraining",
+  "summary": "Bootstrap scripts for Puppetlabs Education VMs",
+  "license": "Apache 2.0",
+  "source": "https://github.com/puppetlabs/pltraining-bootstrap",
+  "project_page": "https://github.com/puppetlabs/pltraining-bootstrap",
+  "issues_url": "https://github.com/puppetlabs/pltraining-bootstrap/issues",
+  "description": "Bootstrap scripts for Puppetlabs Education VMs",
+  "dependencies": [  
+    {"name":"stahnma/epel"},
+    {"name":"pltraining/userprefs"}
+  ]
+}
