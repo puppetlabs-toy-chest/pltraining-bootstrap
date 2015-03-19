@@ -29,16 +29,8 @@ class bootstrap ($print_console_login = false) {
     ],
     require => Package['yum-plugin-priorities'],
   }
-  #  yumrepo { [ 'updates', 'base', 'extras']:
-  #  enabled  => '0',
-  #  priority => '99',
-  #  skip_if_unavailable => '1',
-  #}
-  ## Include epel but leave it disabled.
-  #class { 'epel':
-  #  epel_enabled => '0',
-  #  before => Class['localrepo'],
-  #}
+
+  # ensure the EPEL repo is present
   include epel
 
   # Moving the root user declaration to the userprefs module.
