@@ -129,6 +129,13 @@ class bootstrap ($print_console_login = false) {
     force   => true,
   }
 
+  # Remove the udev ethernet naming rules, causes problems when
+  # moving VMs around. This works for rhel/centos
+  file {'/etc/udev/rules.d/70-persistent-net.rules':
+    ensure   => absent,
+    force    => true,
+  }
+
   # Disable GSS-API for SSH to speed up log in
   $ruby_aug_package = $::osfamily ? {
     'RedHat' => 'ruby-augeas',
