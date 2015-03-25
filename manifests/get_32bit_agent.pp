@@ -3,7 +3,7 @@
 # -------
 
 class bootstrap::get_32bit_agent(
-  $version   = 'latest',
+  $version        = '3.7.2',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
 ) {
