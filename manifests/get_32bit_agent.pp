@@ -4,16 +4,16 @@
 
 class bootstrap::get_32bit_agent(
   $version   = 'latest',
-  $puppet_dir = '/opt/puppet',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
 ) {
-  $repo_dir       = "${puppet_dir}/packages"
-  $public_dir     = "${repo_dir}/public"
-  $version_dir     = "${public_dir}/${verision}"
-  $agent_dir        = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-i386-agent"
-  $agent_file     = "${agent_dir}.tar.gz"
-  $url            = "https://s3.amazonaws.com/pe-builds/released/${version}"
+  $puppet_dir   = '/opt/puppet'
+  $repo_dir     = "${puppet_dir}/packages"
+  $public_dir   = "${repo_dir}/public"
+  $version_dir  = "${public_dir}/${verision}"
+  $agent_dir    = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-i386-agent"
+  $agent_file   = "${agent_dir}.tar.gz"
+  $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
 
   file { [$puppet_dir,$repo_dir,$public_dir,$version_dir]:
     ensure => directory
