@@ -10,7 +10,7 @@ class bootstrap::get_32bit_agent(
   $puppet_dir   = '/opt/puppet'
   $repo_dir     = "${puppet_dir}/packages"
   $public_dir   = "${repo_dir}/public"
-  $version_dir  = "${public_dir}/${verision}"
+  $version_dir  = "${public_dir}/${version}"
   $agent_dir    = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-i386-agent"
   $agent_file   = "${agent_dir}.tar.gz"
   $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
