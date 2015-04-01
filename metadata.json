@@ -9,7 +9,7 @@
       "version_requirement": "3.x"
     }
   ],
-  "name": "pltraining-rbac",
+  "name": "pltraining-bootstrap",
   "version": "0.0.1",
   "author": "pltraining",
   "summary": "Bootstrap scripts for Puppetlabs Education VMs",

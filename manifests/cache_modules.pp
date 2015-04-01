@@ -14,7 +14,6 @@ class bootstrap::cache_modules(
   # This is a temporary kludge as we transition from ripienaar-concat to puppetlabs
   # TODO: revisit this regularly and dump it when PE ships with this and all modules
   #       we use get updated to use this.
-  bootstrap::forge { 'camptocamp-augeasfacter':          version => '0.1.0' }
   bootstrap::forge { 'domcleal-augeasproviders':         version => '1.2.0' }
   bootstrap::forge { 'hunner-charybdis':                 version => '1.0.0' }
   bootstrap::forge { 'hunner-wordpress':                 version => '0.6.0' }
