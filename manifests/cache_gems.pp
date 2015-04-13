@@ -36,6 +36,7 @@ class bootstrap::cache_gems (
     command     => "gem generate_index -d ${cache_dir}",
     path        => '/opt/puppet/bin:/usr/local/bin:/usr/bin:/bin',
     refreshonly => true,
+    require     => Package['builder'],
   }
 
   file { '/root/.gemrc':
