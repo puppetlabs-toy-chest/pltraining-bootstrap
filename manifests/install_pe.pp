@@ -2,7 +2,7 @@ class bootstrap::install_pe {
   
   $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
 
-  file {'/root/boostrap.answers':
+  file {'/root/bootstrap.answers':
     ensure  => present,
     content => template('bootstrap/bootstrap.answers.erb'),
   }
