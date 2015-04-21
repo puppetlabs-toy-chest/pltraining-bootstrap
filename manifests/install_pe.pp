@@ -2,6 +2,11 @@ class bootstrap::install_pe {
   
   $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
 
+  file {'/root/boostrap.answers':
+    ensure  => present,
+    content => template('bootstrap/bootstrap.answers.erb'),
+  }
+
   exec {'install-pe':
     # This is a workaround for PE 3.2.0+ offline installations to work"
     # If you don't reset the rubylib, it'll inherit the one used during kickstart and the installer will blow up.
@@ -10,7 +15,7 @@ class bootstrap::install_pe {
     creates     => '/usr/local/bin/puppet',
     logoutput   => true,
     timeout     => '14400',
-    require     => [Class['bootstrap::get_pe'],Class['localrepo']],
+    require     => [Class['bootstrap::get_pe'],Class['localrepo'],File['/root/bootstrap.answers']],
   }
 
   augeas { "environment timeout":
