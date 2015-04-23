@@ -1,5 +1,6 @@
 # -------
 # Fetch and unzip 32bit agent installer
+# Pinned to el6
 # -------
 
 class bootstrap::get_32bit_agent(
@@ -11,7 +12,7 @@ class bootstrap::get_32bit_agent(
   $repo_dir     = "${puppet_dir}/packages"
   $public_dir   = "${repo_dir}/public"
   $version_dir  = "${public_dir}/${version}"
-  $agent_dir    = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-i386-agent"
+  $agent_dir    = "puppet-enterprise-${version}-el-6-i386-agent"
   $agent_file   = "${agent_dir}.tar.gz"
   $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
 
@@ -25,7 +26,7 @@ class bootstrap::get_32bit_agent(
     require => File[$public_dir]
   }
   #our nice symlink to make the .repo files happy
-  file { "${version_dir}/el-${operatingsystemmajrelease}-i386":
+  file { "${version_dir}/el-6-i386":
     ensure  => link,
     target  => "${public_dir}/${agent_dir}/agent_packages/${installer_build}",
     require => [Staging::Deploy[$agent_file],File[$version_dir]],
