@@ -28,7 +28,7 @@ class bootstrap::cache_gems (
 
   package { 'builder':
     ensure   => present,
-    provider => 'gem',
+    provider => 'pe_gem',
     require  => Package['rubygems'],
   }
 
@@ -82,6 +82,7 @@ class bootstrap::cache_gems (
   bootstrap::gem { 'rake':                           version => '10.3.2' }
   bootstrap::gem { 'puppet-syntax':                  version => '1.3.0'  }
   bootstrap::gem { 'hocon':                          version => '0.0.6'  }
+  bootstrap::gem { 'builder'}
 
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']

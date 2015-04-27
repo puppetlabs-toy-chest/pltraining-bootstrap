@@ -20,6 +20,7 @@
   "description": "Bootstrap scripts for Puppetlabs Education VMs",
   "dependencies": [  
     {"name":"stahnma/epel"},
-    {"name":"pltraining/userprefs"}
+    {"name":"pltraining/userprefs"},
+    {"name":"puppetlabs/pe_gem"}
   ]
 }
