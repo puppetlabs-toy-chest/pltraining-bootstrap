@@ -28,7 +28,7 @@ class bootstrap::cache_gems (
 
   package { 'builder':
     ensure   => present,
-    provider => 'pe_gem',
+    provider => 'gem',
     require  => Package['rubygems'],
   }
 
