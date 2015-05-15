@@ -19,6 +19,7 @@ class bootstrap::cache_modules(
   bootstrap::forge { 'hunner-wordpress':                 version => '0.6.0' }
   bootstrap::forge { 'jamtur01-irc':                     version => '0.0.7' }
   bootstrap::forge { 'pltraining-classroom':             version => '1.2.6' }
+  bootstrap::forge { 'pltraining-userprefs':}
   bootstrap::forge { 'pltraining-rbac':                  version => '0.0.3' }
   bootstrap::forge { 'nanliu-staging':                   version => '1.0.2' }
   bootstrap::forge { 'puppetlabs-apache':                version => '1.2.0' }
