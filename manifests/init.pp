@@ -80,12 +80,7 @@ class bootstrap ($print_console_login = false) {
     target => 'rc.d/rc.local',
     mode   => 0755,
   }
-  # Make sure we run the ip_info script.
-  file {'/etc/rc.d/rc.local':
-    ensure  => file,
-    content => template('bootstrap/rc.local.erb'),
-    mode    => 0755,
-  }
+
   service { 'sshd':
     ensure     => running,
     enable     => true,
@@ -156,5 +151,7 @@ class bootstrap ($print_console_login = false) {
 
   # configure user environment
   include userprefs::defaults
+
+  include bootstrap::splash
 
 }
