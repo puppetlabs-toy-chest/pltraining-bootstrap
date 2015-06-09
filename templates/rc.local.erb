@@ -20,9 +20,4 @@ password: puppet
 
 " > /etc/issue
 
-<% if @print_console_login == true -%>
-/root/.console_login.sh & 
-<% else -%>
 /root/.ssh_keygen.sh &
-<% end -%>
-
