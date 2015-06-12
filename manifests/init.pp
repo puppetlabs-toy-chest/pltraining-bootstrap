@@ -1,8 +1,59 @@
 class bootstrap ($print_console_login = false) {
+
+  # Cache forge modules locally in the vm:
+  class { 'bootstrap::cache_modules': cache_dir => '/usr/src/forge' }
+
+  # Cache gems locally in the vm:
+  class { 'bootstrap::cache_gems': }
+
+  # configure user environment
+  include userprefs::defaults
+
+  # Set defaults for file resources
   File {
     owner => 'root',
     group => 'root',
     mode  => '0644',
+  }
+
+  # Install augeas
+  $ruby_aug_package = $::osfamily ? {
+    'RedHat' => 'ruby-augeas',
+    'Debian' => 'libaugeas-ruby',
+  }
+
+  package { 'ruby_augeas_lib':
+    ensure  => 'present',
+    name    => $ruby_aug_package,
+    require => Class['localrepo']
+  }
+
+  # Conditionals to cover Training and Learning VM variance
+  case $::hostname {
+    /train/: {
+  
+      # This script generates the initial root SSH key for the fundamentals git workflow
+      file { '/root/.ssh_keygen.sh':
+        ensure => file,
+        source => 'puppet:///modules/bootstrap/ssh_keygen.sh',
+        mode   => 0755,
+      }
+  
+      # Disable GSSAPIAuth for training VM.
+      augeas { "GSSAPI_disable":
+        context => '/files/etc/ssh/sshd_config',
+        changes => 'set GSSAPIAuthentication no',
+      }
+  
+    }
+    /learn/: {
+  
+      # Enable GSSAPIAuth for learning VM (There is a quest related to this.)
+      augeas { "GSSAPI_enable":
+        context => '/files/etc/ssh/sshd_config',
+        changes => 'set GSSAPIAuthentication yes',
+    }
+  
   }
 
   # yum repos
@@ -14,9 +65,11 @@ class bootstrap ($print_console_login = false) {
     skip_if_unavailable => '1',
     descr               => 'Puppetlabs yum repo'
   }
+
   package { ['yum-plugin-priorities','lynx','wget']:
     ensure => installed,
   }
+
   package { 'yum-utils':
     ensure => installed,
     before => Class['localrepo'],
@@ -37,6 +90,7 @@ class bootstrap ($print_console_login = false) {
   # user { 'root':
   #   password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
   # }
+
   file { '/usr/bin/envpuppet':
     source => 'puppet:///modules/bootstrap/envpuppet',
     mode   => '0755',
@@ -48,44 +102,21 @@ class bootstrap ($print_console_login = false) {
     source => 'puppet:///modules/bootstrap/ip_info.sh',
     mode   => 0755,
   }
-  # This script generates the initial root SSH key for the fundamentals git workflow
-  if $::hostname =~ /train/ {
-    file { '/root/.ssh_keygen.sh':
-      ensure => file,
-      source => 'puppet:///modules/bootstrap/ssh_keygen.sh',
-      mode   => 0755,
-    }
-    # Disable GSSAPIAuth for training VM.
-    # The learning VM has a quest that relates to this, so leave
-    # it enabled for the LVM.
-    augeas { "GSSAPI_disable":
-      context => '/files/etc/ssh/sshd_config',
-      changes => 'set GSSAPIAuthentication no',
-    }
 
-  }
-  if $::hostname =~ /learn/ {
-    # Enable GSSAPIAuth for learning VM.
-    # The learning VM has a quest that relates to this, so leave
-    # it enabled for the LVM.
-    augeas { "GSSAPI_enable":
-      context => '/files/etc/ssh/sshd_config',
-      changes => 'set GSSAPIAuthentication yes',
-    }
-
-  }
   # This shouldn't change anything, but want to make sure it actually IS laid out the way I expect.
   file {'/etc/rc.local':
     ensure => symlink,
     target => 'rc.d/rc.local',
     mode   => 0755,
   }
+
   # Make sure we run the ip_info script.
   file {'/etc/rc.d/rc.local':
     ensure  => file,
     content => template('bootstrap/rc.local.erb'),
     mode    => 0755,
   }
+
   service { 'sshd':
     ensure     => running,
     enable     => true,
@@ -98,6 +129,7 @@ class bootstrap ($print_console_login = false) {
     enable => false,
     ensure => stopped,
   }
+
   # Add a few extra packages for convenience
   package { [ 'patch', 'screen', 'telnet', 'tree' ] :
     ensure  => present,
@@ -115,6 +147,7 @@ class bootstrap ($print_console_login = false) {
     ensure  => file,
     content => template('bootstrap/network.erb'),
   }
+
   service { 'network':
     ensure    => running,
     enable    => true,
@@ -135,26 +168,5 @@ class bootstrap ($print_console_login = false) {
     ensure   => absent,
     force    => true,
   }
-
-  # Disable GSS-API for SSH to speed up log in
-  $ruby_aug_package = $::osfamily ? {
-    'RedHat' => 'ruby-augeas',
-    'Debian' => 'libaugeas-ruby',
-  }
-
-  package { 'ruby_augeas_lib':
-    ensure  => 'present',
-    name    => $ruby_aug_package,
-    require => Class['localrepo']
-  }
-
-  # Cache forge modules locally in the vm:
-  class { 'bootstrap::cache_modules': cache_dir => '/usr/src/forge' }
-
-  # Cache gems locally in the vm:
-  class { 'bootstrap::cache_gems': }
-
-  # configure user environment
-  include userprefs::defaults
 
 }
