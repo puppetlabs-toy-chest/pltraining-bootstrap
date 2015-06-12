@@ -1,4 +1,4 @@
-class bootstrap ($print_console_login = false) {
+class bootstrap {
   File {
     owner => 'root',
     group => 'root',
@@ -42,12 +42,6 @@ class bootstrap ($print_console_login = false) {
     mode   => '0755',
   }
 
-  # This is the thing Dom came up with to print the IP to the TTY
-  file {'/root/.ip_info.sh':
-    ensure => file,
-    source => 'puppet:///modules/bootstrap/ip_info.sh',
-    mode   => 0755,
-  }
   # This script generates the initial root SSH key for the fundamentals git workflow
   if $::hostname =~ /train/ {
     file { '/root/.ssh_keygen.sh':
@@ -80,12 +74,7 @@ class bootstrap ($print_console_login = false) {
     target => 'rc.d/rc.local',
     mode   => 0755,
   }
-  # Make sure we run the ip_info script.
-  file {'/etc/rc.d/rc.local':
-    ensure  => file,
-    content => template('bootstrap/rc.local.erb'),
-    mode    => 0755,
-  }
+
   service { 'sshd':
     ensure     => running,
     enable     => true,
@@ -156,5 +145,7 @@ class bootstrap ($print_console_login = false) {
 
   # configure user environment
   include userprefs::defaults
+
+  include bootstrap::splash
 
 }
