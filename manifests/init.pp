@@ -65,13 +65,6 @@ class bootstrap {
     require => Class['localrepo'],
   }
 
-  # need rubygems to cache rubygems
-  package { 'rubygems' :
-    ensure  => present,
-    require => Class['localrepo'],
-    before  => Class['bootstrap::cache_gems'],
-  }
-
   file { '/etc/sysconfig/network':
     ensure  => file,
     content => template('bootstrap/network.erb'),
@@ -97,17 +90,7 @@ class bootstrap {
     force    => true,
   }
 
-  # Disable GSS-API for SSH to speed up log in
-  $ruby_aug_package = $::osfamily ? {
-    'RedHat' => 'ruby-augeas',
-    'Debian' => 'libaugeas-ruby',
-  }
-
-  package { 'ruby_augeas_lib':
-    ensure  => 'present',
-    name    => $ruby_aug_package,
-    require => Class['localrepo']
-  }
+  include bootstrap::ruby
 
   # Cache forge modules locally in the vm:
   class { 'bootstrap::cache_modules': cache_dir => '/usr/src/forge' }
