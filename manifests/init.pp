@@ -14,44 +14,11 @@ class bootstrap {
     mode   => '0755',
   }
 
-  # This script generates the initial root SSH key for the fundamentals git workflow
-  if $::hostname =~ /train/ {
-    file { '/root/.ssh_keygen.sh':
-      ensure => file,
-      source => 'puppet:///modules/bootstrap/ssh_keygen.sh',
-      mode   => 0755,
-    }
-    # Disable GSSAPIAuth for training VM.
-    # The learning VM has a quest that relates to this, so leave
-    # it enabled for the LVM.
-    augeas { "GSSAPI_disable":
-      context => '/files/etc/ssh/sshd_config',
-      changes => 'set GSSAPIAuthentication no',
-    }
-
-  }
-  if $::hostname =~ /learn/ {
-    # Enable GSSAPIAuth for learning VM.
-    # The learning VM has a quest that relates to this, so leave
-    # it enabled for the LVM.
-    augeas { "GSSAPI_enable":
-      context => '/files/etc/ssh/sshd_config',
-      changes => 'set GSSAPIAuthentication yes',
-    }
-
-  }
   # This shouldn't change anything, but want to make sure it actually IS laid out the way I expect.
   file {'/etc/rc.local':
     ensure => symlink,
     target => 'rc.d/rc.local',
     mode   => 0755,
-  }
-
-  service { 'sshd':
-    ensure     => running,
-    enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
   }
 
   # Make sure the firewall isn't running
