@@ -105,4 +105,5 @@ class bootstrap {
 
   include bootstrap::yum
 
+  include bootstrap::ssh
 }
