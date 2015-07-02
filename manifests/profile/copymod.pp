@@ -1,4 +1,4 @@
-define bootstrap::copymod(
+define bootstrap::profile::copymod(
   $pe_modules_path = '/root/puppet-enterprise/modules',
   $tar_source_path = '/usr/src/puppetlabs-training-bootstrap/modules',
 ){

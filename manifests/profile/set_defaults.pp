@@ -1,6 +1,6 @@
 # Add default memory settings after PE install
 
-class bootstrap::set_defaults {
+class bootstrap::profile::set_defaults {
   file { '/etc/puppetlabs/puppet/hieradata':
     ensure => directory,
     require => Class['bootstrap::install_pe'],

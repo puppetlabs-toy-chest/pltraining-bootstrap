@@ -1,4 +1,4 @@
-class bootstrap::install_pe {
+class bootstrap::profile::install_pe {
   
   $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
 

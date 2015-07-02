@@ -3,7 +3,7 @@
 # Stage agent installer.
 # -------
 
-class bootstrap::get_pe(
+class bootstrap::profile::get_pe(
   $version   = 'latest',
   $pe_destination = '/root',
   $architecture   = $::architecture,

@@ -1,4 +1,4 @@
-class bootstrap::ruby {
+class bootstrap::profile::ruby {
 
   # need rubygems to cache rubygems
   package { 'rubygems' :

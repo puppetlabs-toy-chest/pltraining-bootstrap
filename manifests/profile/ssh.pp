@@ -1,4 +1,4 @@
-class bootstrap:ssh {
+class bootstrap::profile::ssh {
 
   # This script generates the initial root SSH key for the fundamentals git workflow
   if $::hostname =~ /train/ {

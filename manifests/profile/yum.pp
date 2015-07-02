@@ -1,4 +1,4 @@
-class bootstrap::yum {
+class bootstrap::profile::yum {
 
   # yum repos
   yumrepo { 'puppetlabs':

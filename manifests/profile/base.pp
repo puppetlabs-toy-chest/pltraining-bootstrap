@@ -1,4 +1,4 @@
-class bootstrap::base {
+class bootstrap::profile::base {
   File {
     owner => 'root',
     group => 'root',

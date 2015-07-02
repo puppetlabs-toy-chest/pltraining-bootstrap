@@ -1,4 +1,4 @@
-class bootstrap::network {
+class bootstrap::profile::network {
 
   # Make sure the firewall isn't running
   service { 'iptables':

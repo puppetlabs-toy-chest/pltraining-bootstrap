@@ -1,11 +1,11 @@
 class bootstrap {
-  include bootstrap::base
-  include bootstrap::ruby
-  include bootstrap::cache_modules
-  include bootstrap::cache_gems
-  include userprefs::defaults
-  include bootstrap::splash
-  include bootstrap::yum
-  include bootstrap::ssh
-  include bootstrap::network
+  include bootstrap::profile::base
+  include bootstrap::profile::ruby
+  include bootstrap::profile::cache_modules
+  include bootstrap::profile::cache_gems
+  include userprefs::profile::defaults
+  include bootstrap::profile::splash
+  include bootstrap::profile::yum
+  include bootstrap::profile::ssh
+  include bootstrap::profile::network
 }
