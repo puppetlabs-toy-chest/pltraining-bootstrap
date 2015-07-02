@@ -1,4 +1,4 @@
-class bootstrap::profile::ssh {
+class bootstrap::profile::classroom_ssh {
 
   # This script generates the initial root SSH key for the fundamentals git workflow
   file { '/root/.ssh_keygen.sh':
@@ -6,9 +6,7 @@ class bootstrap::profile::ssh {
     source => 'puppet:///modules/bootstrap/ssh_keygen.sh',
     mode   => 0755,
   }
-  # Disable GSSAPIAuth for training VM.
-  # The learning VM has a quest that relates to this, so leave
-  # it enabled for the LVM.
+  # Disable GSSAPIAuth for classroom VMs.
   augeas { "GSSAPI_disable":
     context => '/files/etc/ssh/sshd_config',
     changes => 'set GSSAPIAuthentication no',

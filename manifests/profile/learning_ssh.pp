@@ -1,4 +1,4 @@
-class bootstrap::profile::base_ssh {
+class bootstrap::profile::learning_ssh {
 
   augeas { "GSSAPI_enable":
     context => '/files/etc/ssh/sshd_config',
