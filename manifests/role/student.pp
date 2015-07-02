@@ -1,4 +1,6 @@
 class bootstrap::role::student {
+  include userprefs::defaults
+  include localrepo
   include bootstrap::profile::scripts
   include bootstrap::profile::base
   include bootstrap::profile::yum
