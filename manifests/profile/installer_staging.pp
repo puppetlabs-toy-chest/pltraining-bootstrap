@@ -3,6 +3,5 @@ class bootstrap::profile::installer_staging {
     path   => '/usr/src/installer/',
     owner  => 'root',
     group  => 'root',
-    before => Class['install_pe'],
   }
 }

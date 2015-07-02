@@ -15,6 +15,10 @@ class bootstrap::profile::get_agent(
   $agent_file   = "${agent_dir}.tar.gz"
   $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
   $installer_build = "el-${operatingsystemmajrelease}-${architecture}"
+  
+  Staging::File {
+    require => Class['bootstrap::profile::installer_staging']
+  }
 
   file { [$puppet_dir,$repo_dir,$public_dir,$version_dir]:
     ensure => directory

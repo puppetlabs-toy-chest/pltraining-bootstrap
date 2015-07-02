@@ -14,6 +14,10 @@ class bootstrap::profile::get_pe(
   $agent_file     = "${pe_dir}-agent.tar.gz"
   $url            = "https://s3.amazonaws.com/pe-builds/released/${version}"
 
+  Staging::File {
+    require => Class['bootstrap::profile::installer_staging']
+  }
+
   # Check if there is a locally cached copy from the build
   if file_exists ("${file_cache}/installers/${agent_file}") == 1 {
     staging::file{ $agent_file:
