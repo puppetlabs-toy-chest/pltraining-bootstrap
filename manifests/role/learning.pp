@@ -1,4 +1,6 @@
 class bootstrap::role::learning {
+  include epel
+  include localrepo
   include bootstrap
   include bootstrap::profile::quest_content
   include bootstrap::profile::installer_staging

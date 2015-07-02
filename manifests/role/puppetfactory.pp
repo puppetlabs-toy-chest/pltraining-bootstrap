@@ -1,4 +1,6 @@
 class bootstrap::role::puppetfactory {
+  include epel
+  include localrepo
   include boostrap
   include bootstrap::profile::splash
   include bootstrap::profile::installer_staging

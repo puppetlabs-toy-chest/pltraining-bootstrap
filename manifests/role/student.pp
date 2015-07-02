@@ -1,4 +1,5 @@
 class bootstrap::role::student {
+  incldue epel
   include userprefs::defaults
   include localrepo
   include bootstrap::profile::scripts
