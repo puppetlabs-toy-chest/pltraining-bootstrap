@@ -14,7 +14,7 @@ class bootstrap::profile::yum {
   }
   package { 'yum-utils':
     ensure => installed,
-    before => Class['localrepo'],
+    before => [Class['localrepo'],Class['epel']],
   }
 
   augeas { 'enable_yum_priorities':
