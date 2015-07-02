@@ -12,10 +12,6 @@ class bootstrap::profile::yum {
   package { ['yum-plugin-priorities','lynx','wget']:
     ensure => installed,
   }
-  package { 'yum-utils':
-    ensure => installed,
-    before => [Class['localrepo'],Class['epel']],
-  }
 
   augeas { 'enable_yum_priorities':
     context => '/files/etc/yum/pluginconf.d/priorities.conf/main',
