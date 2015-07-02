@@ -1,6 +1,6 @@
 class bootstrap::profile::quest_content {
   class { 'learning':
-    require => Class['bootstrap::profile::install_pe'],
+    git_branch => 'master',
+    require    => Class['bootstrap::profile::install_pe'],
   }
-
 }
