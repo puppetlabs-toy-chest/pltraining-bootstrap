@@ -3,7 +3,7 @@
 # -------
 
 class bootstrap::profile::get_agent(
-  $version        = '3.7.2',
+  $version        = '3.8.1',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
 ) {

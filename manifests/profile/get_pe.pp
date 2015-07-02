@@ -4,7 +4,7 @@
 # -------
 
 class bootstrap::profile::get_pe(
-  $version   = 'latest',
+  $version   = '3.8.1',
   $pe_destination = '/root',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
