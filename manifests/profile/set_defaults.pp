@@ -3,7 +3,7 @@
 class bootstrap::profile::set_defaults {
   file { '/etc/puppetlabs/puppet/hieradata':
     ensure => directory,
-    require => Class['bootstrap::install_pe'],
+    require => Class['bootstrap::profile::install_pe'],
   }
   file { '/etc/puppetlabs/puppet/hieradata/defaults.yaml':
     ensure => present,
