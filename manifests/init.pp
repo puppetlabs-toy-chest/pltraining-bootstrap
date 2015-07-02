@@ -4,7 +4,6 @@ class bootstrap {
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_gems
   include userprefs::defaults
-  include bootstrap::profile::splash
   include bootstrap::profile::yum
   include bootstrap::profile::network
 }
