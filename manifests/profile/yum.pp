@@ -22,7 +22,7 @@ class bootstrap::profile::yum {
     changes => [
       "set enabled 1",
     ],
-    require => Package['yum-plugin-priorities'],
+    require => [Package['yum-plugin-priorities'],Package['ruby_augeas_lib']],
   }
 
   # ensure the EPEL repo is present

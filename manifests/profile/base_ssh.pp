@@ -3,6 +3,7 @@ class bootstrap::profile::base_ssh {
   augeas { "GSSAPI_enable":
     context => '/files/etc/ssh/sshd_config',
     changes => 'set GSSAPIAuthentication yes',
+    require => Package['ruby_augeas_lib'],
   }
 
   service { 'sshd':

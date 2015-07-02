@@ -15,7 +15,7 @@ class bootstrap::profile::install_pe {
     creates     => '/usr/local/bin/puppet',
     logoutput   => true,
     timeout     => '14400',
-    require     => [Class['bootstrap::get_pe'],Class['localrepo'],File['/root/bootstrap.answers']],
+    require     => [Class['bootstrap::profile::get_pe'],Class['localrepo'],File['/root/bootstrap.answers'],Package['ruby_augeas_lib']],
   }
 
   augeas { "environment timeout":
