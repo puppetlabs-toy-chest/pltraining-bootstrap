@@ -6,6 +6,5 @@ class bootstrap {
   include userprefs::profile::defaults
   include bootstrap::profile::splash
   include bootstrap::profile::yum
-  include bootstrap::profile::ssh
   include bootstrap::profile::network
 }
