@@ -1,4 +1,4 @@
-class bootstrap::cache_modules(
+class bootstrap::profile::cache_modules(
   $cache_dir = '/usr/src/forge',
 ) {
   Bootstrap::Forge {

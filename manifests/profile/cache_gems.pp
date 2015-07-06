@@ -1,4 +1,4 @@
-class bootstrap::cache_gems (
+class bootstrap::profile::cache_gems (
   $cache_dir = '/var/cache/rubygems',
   $file_cache = '/vagrant/file_cache'
 ) {

@@ -3,8 +3,8 @@
 # Stage agent installer.
 # -------
 
-class bootstrap::get_pe(
-  $version   = 'latest',
+class bootstrap::profile::get_pe(
+  $version   = '3.8.1',
   $pe_destination = '/root',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
@@ -13,6 +13,10 @@ class bootstrap::get_pe(
   $pe_file        = "${pe_dir}.tar.gz"
   $agent_file     = "${pe_dir}-agent.tar.gz"
   $url            = "https://s3.amazonaws.com/pe-builds/released/${version}"
+
+  Staging::File {
+    require => Class['bootstrap::profile::installer_staging']
+  }
 
   # Check if there is a locally cached copy from the build
   if file_exists ("${file_cache}/installers/${agent_file}") == 1 {

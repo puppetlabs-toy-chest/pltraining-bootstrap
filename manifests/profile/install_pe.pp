@@ -1,4 +1,4 @@
-class bootstrap::install_pe {
+class bootstrap::profile::install_pe {
   
   $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
 
@@ -15,7 +15,7 @@ class bootstrap::install_pe {
     creates     => '/usr/local/bin/puppet',
     logoutput   => true,
     timeout     => '14400',
-    require     => [Class['bootstrap::get_pe'],Class['localrepo'],File['/root/bootstrap.answers']],
+    require     => [Class['bootstrap::profile::get_pe'],Class['localrepo'],File['/root/bootstrap.answers'],Package['ruby_augeas_lib']],
   }
 
   augeas { "environment timeout":
