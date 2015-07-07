@@ -1,5 +1,4 @@
 class bootstrap::profile::ruby {
-
   # need rubygems to cache rubygems
   package { 'rubygems' :
     ensure  => present,
@@ -16,5 +15,9 @@ class bootstrap::profile::ruby {
     ensure  => 'present',
     name    => $ruby_aug_package,
     require => Class['localrepo']
+  }
+  package { 'puppet-lint':
+    ensure   => present,
+    provider => gem,
   }
 }
