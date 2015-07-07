@@ -1,4 +1,4 @@
-class bootstrap::role:lms {
+class bootstrap::role::lms {
   include epel
   include localrepo
   include lms::scripts
