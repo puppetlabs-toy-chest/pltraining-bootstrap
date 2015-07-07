@@ -9,15 +9,22 @@ touch /var/lock/subsys/local
 IP_ADDRESS=$(RUBYLIB="/usr/src/facter/lib" /usr/src/facter/bin/facter ipaddress)
 
 echo \
-"Welcome to the PuppetLabs <%= @hostname.capitalize -%> VM
-For the best experience please log in via SSH
-
-IP: $IP_ADDRESS
-username: root
-password: puppet
+"                --- Welcome to the PuppetLabs <%= @hostname.capitalize -%> VM ---
 
 <%= @login_message %>
+
+
+
+
+
+
+ For the best experience please log in via SSH
+
+    IP: $IP_ADDRESS
+    username: root
+    password: puppet
 
 " > /etc/issue
 
 /root/.ssh_keygen.sh &
+

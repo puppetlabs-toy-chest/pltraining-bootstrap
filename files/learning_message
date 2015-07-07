@@ -1,0 +1,6 @@
+ To get started with the Quest Guide, go to the following page in a web browser
+
+                           http://$IP_ADDRESS
+
+    If you cannot access the Quest Guide, your IP address may have changed.
+     To get the correct address, log in as root and type: facter ipaddress
