@@ -1,7 +1,8 @@
 class bootstrap::role::lms {
   include epel
   include localrepo
-  include lms::lab_deps
+  include lms::lab_repo
+  include lms::course_selector
   include lms::install_pe
   include userprefs::defaults
   include bootstrap::profile::yum
