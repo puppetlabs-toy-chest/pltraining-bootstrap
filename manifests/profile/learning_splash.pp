@@ -1,5 +1,6 @@
 class bootstrap::profile::learning_splash {
   class {'bootstrap::profile::splash':
-    login_message => 'To view the quest guide, go to http://<YOUR IP>'
+    # Note: the $IP_ADDRESS string is a variable determined at boot time by rc.local
+    login_message => 'Quest Guide: http://$IP_ADDRESS'
   }
 }
