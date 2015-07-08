@@ -8,7 +8,7 @@ class bootstrap::role::lms {
   include bootstrap::profile::yum
   include bootstrap::profile::base
   include bootstrap::profile::ruby
-  include bootstrap::profile::get_pe
+  include bootstrap::profile::lms_get_pe
   include bootstrap::profile::network
   include bootstrap::profile::lms_base
   include bootstrap::profile::cache_gems
