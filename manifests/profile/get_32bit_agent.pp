@@ -25,16 +25,15 @@ class bootstrap::profile::get_32bit_agent(
   file { [$puppet_dir,$data_dir,$repo_dir,$public_dir,$version_dir]:
     ensure => directory
   }
-  staging::deploy { $agent_file:
-    source  => "${url}/${agent_file}",
+  staging::extract { $agent_file:
     target  => $public_dir,
     creates => "${public_dir}/${agent_dir}",
-    require => File[$public_dir]
+    require => [File[$public_dir],Staging::File[$agent_file]]
   }
   #our nice symlink to make the .repo files happy
   file { "${version_dir}/el-6-i386":
     ensure  => link,
     target  => "${public_dir}/${agent_dir}/agent_packages/${installer_build}",
-    require => [Staging::Deploy[$agent_file],File[$version_dir]],
+    require => [Staging::Extract[$agent_file],File[$version_dir]],
   }
 }
