@@ -11,7 +11,7 @@ class bootstrap::profile::get_pe(
 ) {
   $pe_dir        = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-${architecture}"
   $pe_file        = "${pe_dir}.tar.gz"
-  $agent_file     = "${pe_dir}-agent.tar.gz"
+  $agent_file     = "puppet-agent-el-${operatingsystemmajrelease}-${architecture}.tar.gz"
   $url            = "https://s3.amazonaws.com/pe-builds/released/${version}"
 
   Staging::File {
