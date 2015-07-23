@@ -4,7 +4,7 @@
 # -------
 
 class bootstrap::profile::get_32bit_agent(
-  $version        = '3.8.1',
+  $version        = '2015.2.0',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
 ) {
