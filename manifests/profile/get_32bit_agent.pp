@@ -4,7 +4,8 @@
 # -------
 
 class bootstrap::profile::get_32bit_agent(
-  $version        = '2015.2.0',
+  $version        = '2015.2',
+  $agent_version  = '1.2.2',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
 ) {
@@ -16,7 +17,7 @@ class bootstrap::profile::get_32bit_agent(
   $agent_arch   = "el-6-i386"
   $agent_dir    = "puppet-agent-${agent_arch}"
   $agent_file   = "${agent_dir}.tar.gz"
-  $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
+  $url          = "https://s3.amazonaws.com/puppet-agents/${version}/puppet-agent/${agent_version}/repos/"
 
   Staging::File {
     require => Class['bootstrap::profile::installer_staging']
