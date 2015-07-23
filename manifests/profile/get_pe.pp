@@ -1,6 +1,5 @@
 # -------
 # Fetch PE and unzip full installer
-# Stage agent installer.
 # -------
 
 class bootstrap::profile::get_pe(
@@ -19,17 +18,7 @@ class bootstrap::profile::get_pe(
   }
 
   # Check if there is a locally cached copy from the build
-  if file_exists ("${file_cache}/installers/${agent_file}") == 1 {
-    staging::file{ $agent_file:
-      source => "${file_cache}/installers/${agent_file}",
-    }
-  }
-  else {
-    staging::file{ $agent_file:
-      source => "${url}/${agent_file}",
-    }
-  }
-  if file_exists ("${file_cache}/installers/${agent_file}") == 1 {
+  if file_exists ("${file_cache}/installers/${pe_file}") == 1 {
     staging::file{ $pe_file:
       source => "${file_cache}/installers/${pe_file}",
     }

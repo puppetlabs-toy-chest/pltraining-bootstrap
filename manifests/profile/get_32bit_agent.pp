@@ -22,6 +22,17 @@ class bootstrap::profile::get_32bit_agent(
   Staging::File {
     require => Class['bootstrap::profile::installer_staging']
   }
+  
+  if file_exists ("${file_cache}/installers/${agent_file}") == 1 {
+    staging::file{ $agent_file:
+      source => "${file_cache}/installers/${agent_file}",
+    }
+  }
+  else {
+    staging::file{ $agent_file:
+      source => "${url}/${agent_file}",
+    }
+  }
 
   file { [$puppet_dir,$data_dir,$repo_dir,$public_dir,$version_dir]:
     ensure => directory
