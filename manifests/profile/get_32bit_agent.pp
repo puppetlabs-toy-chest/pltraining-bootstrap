@@ -8,11 +8,12 @@ class bootstrap::profile::get_32bit_agent(
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
 ) {
-  $puppet_dir   = '/opt/puppet'
-  $repo_dir     = "${puppet_dir}/packages"
+  $puppet_dir   = '/opt/puppetlabs'
+  $repo_dir     = "${puppet_dir}/data/packages"
   $public_dir   = "${repo_dir}/public"
   $version_dir  = "${public_dir}/${version}"
-  $agent_dir    = "puppet-enterprise-${version}-el-6-i386-agent"
+  $agent_arch   = "el-6-i386"
+  $agent_dir    = "puppet-agent-${agent_arch}"
   $agent_file   = "${agent_dir}.tar.gz"
   $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
 
