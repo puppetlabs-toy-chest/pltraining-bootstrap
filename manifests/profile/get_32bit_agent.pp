@@ -9,7 +9,8 @@ class bootstrap::profile::get_32bit_agent(
   $file_cache     = '/vagrant/file_cache'
 ) {
   $puppet_dir   = '/opt/puppetlabs'
-  $repo_dir     = "${puppet_dir}/data/packages"
+  $data_dir     = "${puppet_dir}/data"
+  $repo_dir     = "${data_dir}/packages"
   $public_dir   = "${repo_dir}/public"
   $version_dir  = "${public_dir}/${version}"
   $agent_arch   = "el-6-i386"
@@ -21,7 +22,7 @@ class bootstrap::profile::get_32bit_agent(
     require => Class['bootstrap::profile::installer_staging']
   }
 
-  file { [$puppet_dir,$repo_dir,$public_dir,$version_dir]:
+  file { [$puppet_dir,$data_dir,$repo_dir,$public_dir,$version_dir]:
     ensure => directory
   }
   staging::deploy { $agent_file:
