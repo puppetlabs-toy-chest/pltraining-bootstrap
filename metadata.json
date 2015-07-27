@@ -18,9 +18,10 @@
   "project_page": "https://github.com/puppetlabs/pltraining-bootstrap",
   "issues_url": "https://github.com/puppetlabs/pltraining-bootstrap/issues",
   "description": "Bootstrap scripts for Puppetlabs Education VMs",
-  "dependencies": [  
+  "dependencies": [
     {"name":"stahnma/epel"},
     {"name":"pltraining/userprefs"},
-    {"name":"puppetlabs/pe_gem"}
+    {"name":"puppetlabs/pe_gem"},
+    {"name":"pltraining/dirtree"}
   ]
 }

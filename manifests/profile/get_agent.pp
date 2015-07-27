@@ -1,38 +1,39 @@
 # -------
-# Fetch and unzip agent installer
+# Cache agent installer where the pe_repo class expects it to be.
 # -------
-
+#
+# TODO: This should probably be refactored into a defined type so we can cache multiple agent installers
+#
 class bootstrap::profile::get_agent(
-  $version        = '2015.2.0',
-  $architecture   = $::architecture,
-  $file_cache     = '/vagrant/file_cache'
+  $pe_version    = '2015.2.0',
+  $agent_version = '1.2.2',
+  $architecture  = $::architecture,
 ) {
-  $puppet_dir   = '/opt/puppet'
-  $repo_dir     = "${puppet_dir}/packages"
-  $public_dir   = "${repo_dir}/public"
-  $version_dir  = "${public_dir}/${version}"
-  $agent_dir    = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-${architecture}-agent"
-  $agent_file   = "${agent_dir}.tar.gz"
-  $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
-  $installer_build = "el-${operatingsystemmajrelease}-${architecture}"
-  
-  Staging::File {
-    require => Class['bootstrap::profile::installer_staging']
+  case $osfamily {
+    'RedHat' : {
+      $buildname = "puppet-agent-el-${operatingsystemmajrelease}-${architecture}"
+    }
+    'Debian' : {
+      $buildname = "puppet-agent-debian-${operatingsystemmajrelease}-${architecture}"
+    }
+    default  : {
+      fail('We currently only cache agent installers for RedHat or Debian')
+    }
+  }
+  $staging_dir   = '/opt/puppetlabs/server/data/staging/pe_repo/'
+  $agent_file    = "${staging_dir}/${buildname}.tar.gz"
+  $url           = "https://pm.puppetlabs.com/puppet-agent/${pe_version}/${agent_version}/repos/${buildname}.tar.gz"
+
+  # TODO: This is tight coupling that should be refactored out
+  require bootstrap::profile::installer_staging
+
+  dirtree { $staging_dir:
+    path   => $staging_dir,
+    ensure => present,
   }
 
-  file { [$puppet_dir,$repo_dir,$public_dir,$version_dir]:
-    ensure => directory
-  }
-  staging::deploy { $agent_file:
-    source  => "${url}/${agent_file}",
-    target  => $public_dir,
-    creates => "${public_dir}/${agent_dir}",
-    require => File[$public_dir]
-  }
-  #our nice symlink to make the .repo files happy
-  file { "${version_dir}/${installer_build}":
-    ensure  => link,
-    target  => "${public_dir}/${agent_dir}/agent_packages/${installer_build}",
-    require => [Staging::Deploy[$agent_file],File[$version_dir]],
+  staging::file { 'cached 32 bit agent installer':
+    target => $agent_file,
+    source => $url,
   }
 }
