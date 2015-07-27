@@ -4,35 +4,48 @@
 # -------
 
 class bootstrap::profile::get_32bit_agent(
-  $version        = '3.8.1',
+  $version        = '2015.2',
+  $agent_version  = '1.2.2',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
 ) {
-  $puppet_dir   = '/opt/puppet'
-  $repo_dir     = "${puppet_dir}/packages"
+  $puppet_dir   = '/opt/puppetlabs'
+  $data_dir     = "${puppet_dir}/data"
+  $repo_dir     = "${data_dir}/packages"
   $public_dir   = "${repo_dir}/public"
   $version_dir  = "${public_dir}/${version}"
-  $agent_dir    = "puppet-enterprise-${version}-el-6-i386-agent"
+  $agent_arch   = "el-6-i386"
+  $agent_dir    = "puppet-agent-${agent_arch}"
   $agent_file   = "${agent_dir}.tar.gz"
-  $url          = "https://s3.amazonaws.com/pe-builds/released/${version}"
+  $url          = "https://s3.amazonaws.com/puppet-agents/${version}/puppet-agent/${agent_version}/repos/"
 
   Staging::File {
     require => Class['bootstrap::profile::installer_staging']
   }
+  
+  if file_exists ("${file_cache}/installers/${agent_file}") == 1 {
+    staging::file{ $agent_file:
+      source => "${file_cache}/installers/${agent_file}",
+    }
+  }
+  else {
+    staging::file{ $agent_file:
+      source => "${url}/${agent_file}",
+    }
+  }
 
-  file { [$puppet_dir,$repo_dir,$public_dir,$version_dir]:
+  file { [$puppet_dir,$data_dir,$repo_dir,$public_dir,$version_dir]:
     ensure => directory
   }
-  staging::deploy { $agent_file:
-    source  => "${url}/${agent_file}",
+  staging::extract { $agent_file:
     target  => $public_dir,
     creates => "${public_dir}/${agent_dir}",
-    require => File[$public_dir]
+    require => [File[$public_dir],Staging::File[$agent_file]]
   }
   #our nice symlink to make the .repo files happy
   file { "${version_dir}/el-6-i386":
     ensure  => link,
     target  => "${public_dir}/${agent_dir}/agent_packages/${installer_build}",
-    require => [Staging::Deploy[$agent_file],File[$version_dir]],
+    require => [Staging::Extract[$agent_file],File[$version_dir]],
   }
 }
