@@ -33,7 +33,7 @@ class bootstrap::profile::cache_modules(
   bootstrap::forge { 'pltraining-userprefs':}
   bootstrap::forge { 'puppetlabs-acl':                  version => '1.1.0'}
   bootstrap::forge { 'puppetlabs-apache':               version => '1.2.0'}
-  bootstrap::forge { 'puppetlabs-concat':               version => '2.0.0'}
+  bootstrap::forge { 'puppetlabs-concat':               version => '1.2.4'}
   bootstrap::forge { 'puppetlabs-git':                  version => '0.2.0'}
   bootstrap::forge { 'puppetlabs-haproxy':              version => '1.0.0'}
   bootstrap::forge { 'puppetlabs-inifile':              version => '1.2.0'}
