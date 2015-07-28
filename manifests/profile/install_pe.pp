@@ -1,6 +1,7 @@
 class bootstrap::profile::install_pe {
   
-  $prod_module_path = '/etc/puppetlabs/puppet/environments/production/modules'
+  $puppet_base_dir = '/opt/puppetlabs/puppet'
+  $prod_module_path = '/etc/puppetlabs/code/environments/production/modules'
 
   file {'/root/bootstrap.answers':
     ensure  => present,
@@ -37,29 +38,29 @@ class bootstrap::profile::install_pe {
   # using execs now till there is a more graceful solution
   
   exec { 'install trollop':
-    command => '/opt/puppet/bin/gem install trollop -v 2.0',
-    unless  => '/opt/puppet/bin/gem list trollop -i',
+    command => '${puppet_base_dir}/bin/gem install trollop -v 2.0',
+    unless  => '${puppet_base_dir}/bin/gem list trollop -i',
     require => Exec['install-pe'],
   }
   
   exec { 'install serverspec':
-    command => '/opt/puppet/bin/gem install serverspec -v 1.16.0',
-    unless  => '/opt/puppet/bin/gem list serverspec -i',
+    command => '${puppet_base_dir}/bin/gem install serverspec -v 1.16.0',
+    unless  => '${puppet_base_dir}/bin/gem list serverspec -i',
     require => Exec['install rspec-its'],
   }
   exec { 'install rspec-its':
-    command => '/opt/puppet/bin/gem install rspec-its -v 1.0.1',
-    unless  => '/opt/puppet/bin/gem list rspec-its -i',
+    command => '${puppet_base_dir}/bin/gem install rspec-its -v 1.0.1',
+    unless  => '${puppet_base_dir}/bin/gem list rspec-its -i',
     require => Exec['install rspec-core'],
   }
   exec { 'install rspec-core':
-    command => '/opt/puppet/bin/gem install rspec-core -v 2.99.0',
-    unless  => '/opt/puppet/bin/gem list rspec -i',
+    command => '${puppet_base_dir}/bin/gem install rspec-core -v 2.99.0',
+    unless  => '${puppet_base_dir}/bin/gem list rspec -i',
     require => Exec['install rspec'],
   }
   exec { 'install rspec':
-    command => '/opt/puppet/bin/gem install rspec -v 2.99.0',
-    unless  => '/opt/puppet/bin/gem list rspec -i',
+    command => '${puppet_base_dir}/bin/gem install rspec -v 2.99.0',
+    unless  => '${puppet_base_dir}/bin/gem list rspec -i',
     require => Exec['install-pe'],
   }
 
