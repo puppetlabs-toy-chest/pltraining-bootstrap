@@ -2,15 +2,14 @@
 # Fetch PE and unzip full installer
 # -------
 
-class bootstrap::profile::get_pe(
-  $version   = '2015.2.0',
+class bootstrap::profile::get_pe (
+  $version        = $bootstrap::params::pe_version,
   $pe_destination = '/root',
   $architecture   = $::architecture,
   $file_cache     = '/vagrant/file_cache'
-) {
-  $pe_dir        = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-${architecture}"
+) inherits bootstrap::params {
+  $pe_dir         = "puppet-enterprise-${version}-el-${operatingsystemmajrelease}-${architecture}"
   $pe_file        = "${pe_dir}.tar.gz"
-  $agent_file     = "puppet-agent-el-6-i386.tar.gz"
   $url            = "https://s3.amazonaws.com/pe-builds/released/${version}"
 
   Staging::File {
