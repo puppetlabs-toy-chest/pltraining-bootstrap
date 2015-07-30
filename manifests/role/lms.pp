@@ -1,5 +1,5 @@
 class bootstrap::role::lms {
-  class {'lms':}
+  include ::lms
   include epel
   include localrepo
   include userprefs::defaults
