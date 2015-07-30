@@ -4,6 +4,8 @@ echo "*      Welcome to the Online Learning Environment        *"
 echo "*                                                        *"
 echo "*          This shell has a 15 minute timeout.           *"
 echo "* You will be logged out after 15 minutes of inactivity. *"
+echo "*                                                        *"
+echo "*        To select a course type: course_selector        *"
 echo "**********************************************************"
 TMOUT=900
 readonly TMOUT
