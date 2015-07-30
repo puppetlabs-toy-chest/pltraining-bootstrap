@@ -1,7 +1,7 @@
 class bootstrap::role::lms_vm {
-  include lms
-  include epel
-  include localrepo
+  include ::lms
+  include ::epel
+  include ::localrepo
   include userprefs::defaults
   include bootstrap::profile::yum
   include bootstrap::profile::base
