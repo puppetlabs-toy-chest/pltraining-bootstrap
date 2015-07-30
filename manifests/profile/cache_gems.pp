@@ -83,6 +83,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'puppet-syntax':                  version => '1.3.0'  }
   bootstrap::gem { 'hocon':                          version => '0.0.6'  }
   bootstrap::gem { 'builder':}
+  bootstrap::gem { 'cowsay':                         version => '0.2.0'  }
 
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
