@@ -45,7 +45,7 @@ class bootstrap::profile::cache_gems (
   }
 
   # Please keep this list alphabetized. It makes it much easier to update.
-  bootstrap::gem { 'addressable':                    version => '2.3.6'  }
+  bootstrap::gem { 'addressable':                    version => '2.3.8'  }
   bootstrap::gem { 'builder':}
   bootstrap::gem { 'carrier-pigeon':                 version => '0.7.0'  }
   bootstrap::gem { 'diff-lcs':                       version => '1.2.5'  }
