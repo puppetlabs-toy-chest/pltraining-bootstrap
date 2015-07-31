@@ -44,36 +44,56 @@ class bootstrap::profile::cache_gems (
     source => 'puppet:///modules/bootstrap/gemrc',
   }
 
-  # Please keep this list alphabetized. It makes it much easier to update.
-  bootstrap::gem { 'addressable':                    version => '2.3.8'  }
-  bootstrap::gem { 'builder':}
-  bootstrap::gem { 'carrier-pigeon':                 version => '0.7.0'  }
+  # Please keep this list alphabetized and organized. It makes it much easier to update.
+
+  # rspec-puppet and family
   bootstrap::gem { 'diff-lcs':                       version => '1.2.5'  }
-  bootstrap::gem { 'formatr':                        version => '1.10.1' }
-  bootstrap::gem { 'hiera-eyaml':                    version => '2.0.6'  }
-  bootstrap::gem { 'highline':                       version => '1.6.21' }
   bootstrap::gem { 'metaclass':                      version => '0.0.4'  }
   bootstrap::gem { 'mocha':                          version => '1.1.0'  }
   bootstrap::gem { 'puppet-lint':                    version => '1.1.0'  }
   bootstrap::gem { 'puppet-syntax':                  version => '2.0.0'  }
   bootstrap::gem { 'puppetlabs_spec_helper':         version => '0.10.3' }
-  bootstrap::gem { 'rack':                           version => '1.4.0'  }
-  bootstrap::gem { 'rack-protection':                version => '1.4.0'  }
   bootstrap::gem { 'rspec':                          version => '3.3.0'  }
   bootstrap::gem { 'rspec-core':                     version => '3.3.2'  }
   bootstrap::gem { 'rspec-expectations':             version => '3.3.1'  }
   bootstrap::gem { 'rspec-mocks':                    version => '3.3.2'  }
   bootstrap::gem { 'rspec-puppet':                   version => '2.2.0'  }
   bootstrap::gem { 'rspec-support':                  version => '3.3.0'  }
-  bootstrap::gem { 'serverspec':                     version => '1.16.0' }
-  bootstrap::gem { 'sinatra':                        version => '1.4.5'  }
-  bootstrap::gem { 'specinfra':                      version => '1.27.0' }
-  bootstrap::gem { 'systemu':                        version => '2.5.2'  }
-  bootstrap::gem { 'tilt':                           version => '1.3.4'  }
+
+  # serverspec
+  bootstrap::gem { 'net-scp':                        version => '1.2.1'  }
+  bootstrap::gem { 'net-ssh':                        version => '2.10.0' }
+  bootstrap::gem { 'net-telnet':                     version => '0.1.1'  }
+  bootstrap::gem { 'rspec-its':                      version => '1.2.0'  }
+  bootstrap::gem { 'sfl':                            version => '2.2'    }
+  bootstrap::gem { 'serverspec':                     version => '2.20.0' }
+  bootstrap::gem { 'specinfra':                      version => '2.40.0' }
+
+  # carrier-pigeon, for jamtur01/irc report processor
+  bootstrap::gem { 'addressable':                    version => '2.3.8'  }
+  bootstrap::gem { 'carrier-pigeon':                 version => '0.7.0'  }
+
+  # formatr, for perlform mco reports
+  bootstrap::gem { 'formatr':                        version => '1.10.1' }
+
+  # hiera-eyaml
+  bootstrap::gem { 'hiera-eyaml':                    version => '2.0.6'  }
+  bootstrap::gem { 'highline':                       version => '1.6.21' }
   bootstrap::gem { 'trollop':                        version => '2.0'    }
+
+  # Sinatra and Puppetfactory gems
+  bootstrap::gem { 'rack':                           version => '1.4.0'  }
+  bootstrap::gem { 'rack-protection':                version => '1.4.0'  }
+  bootstrap::gem { 'sinatra':                        version => '1.4.5'  }
+  bootstrap::gem { 'tilt':                           version => '1.3.4'  }
 
   # Learning VM gems
   bootstrap::gem { 'cowsay':                         version => '0.2.0'  }
+
+  # Unidentified dependencies
+  bootstrap::gem { 'builder':}
+  bootstrap::gem { 'systemu':                        version => '2.5.2'  }
+
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
