@@ -56,19 +56,19 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'trollop':                        version => '2.0'    }
   bootstrap::gem { 'hiera-eyaml':                    version => '2.0.6'  }
   bootstrap::gem { 'diff-lcs':                       version => '1.2.5'  }
-  bootstrap::gem { 'rspec-puppet':                   version => '1.0.1'  }
+  bootstrap::gem { 'rspec-puppet':                   version => '2.2.0'  }
   bootstrap::gem { 'mocha':                          version => '1.1.0'  }
-  bootstrap::gem { 'metaclass':                      version => '0.0.1'  }
-  bootstrap::gem { 'puppetlabs_spec_helper':         version => '0.8.2'  }
+  bootstrap::gem { 'metaclass':                      version => '0.0.4'  }
+  bootstrap::gem { 'puppetlabs_spec_helper':         version => '0.10.3' }
   bootstrap::gem { 'puppet-lint':                    version => '1.1.0'  }
-  bootstrap::gem { 'rspec':                          version => '2.99.0' }
-  bootstrap::gem { 'rspec-its':                      version => '1.0.1'  }
-  bootstrap::gem { 'rspec-core':                     version => '2.99.0' }
-  bootstrap::gem { 'rspec-mocks':                    version => '2.99.0' }
-  bootstrap::gem { 'rspec-expectations':             version => '2.99.0' }
+  bootstrap::gem { 'rspec':                          version => '3.3.0'  }
+  bootstrap::gem { 'rspec-core':                     version => '3.3.2'  }
+  bootstrap::gem { 'rspec-support':                  version => '3.3.0'  }
+  bootstrap::gem { 'rspec-mocks':                    version => '3.3.2'  }
+  bootstrap::gem { 'rspec-expectations':             version => '3.3.1'  }
   bootstrap::gem { 'specinfra':                      version => '1.27.0' }
   bootstrap::gem { 'systemu':                        version => '2.5.2'  }
-  bootstrap::gem { 'puppet-syntax':                  version => '1.3.0'  }
+  bootstrap::gem { 'puppet-syntax':                  version => '2.0.0'  }
   bootstrap::gem { 'builder':}
   bootstrap::gem { 'cowsay':                         version => '0.2.0'  }
 
