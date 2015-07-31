@@ -51,7 +51,6 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'sinatra':                        version => '1.4.5'  }
   bootstrap::gem { 'tilt':                           version => '1.3.4'  }
   bootstrap::gem { 'formatr':                        version => '1.10.1' }
-  bootstrap::gem { 'net-ssh':                        version => '2.9.1'  }
   bootstrap::gem { 'highline':                       version => '1.6.21' }
   bootstrap::gem { 'serverspec':                     version => '1.16.0' }
   bootstrap::gem { 'trollop':                        version => '2.0'    }
@@ -68,20 +67,8 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'rspec-mocks':                    version => '2.99.0' }
   bootstrap::gem { 'rspec-expectations':             version => '2.99.0' }
   bootstrap::gem { 'specinfra':                      version => '1.27.0' }
-  bootstrap::gem { 'r10k':                           version => '1.3.4'  }
-  bootstrap::gem { 'colored':                        version => '1.2'    }
-  bootstrap::gem { 'cri':                            version => '2.5.0'  }
-  bootstrap::gem { 'faraday':                        version => '0.8.8'  }
-  bootstrap::gem { 'multipart-post':                 version => '2.0.0'  }
-  bootstrap::gem { 'faraday_middleware':             version => '0.9.0'  }
-  bootstrap::gem { 'faraday_middleware-multi_json':  version => '0.0.5'  }
-  bootstrap::gem { 'json_pure':                      version => '1.8.1'  }
-  bootstrap::gem { 'log4r':                          version => '1.1.10' }
-  bootstrap::gem { 'multi_json':                     version => '1.8.2'  }
   bootstrap::gem { 'systemu':                        version => '2.5.2'  }
-  bootstrap::gem { 'rake':                           version => '10.3.2' }
   bootstrap::gem { 'puppet-syntax':                  version => '1.3.0'  }
-  bootstrap::gem { 'hocon':                          version => '0.0.6'  }
   bootstrap::gem { 'builder':}
   bootstrap::gem { 'cowsay':                         version => '0.2.0'  }
 
