@@ -90,6 +90,9 @@ class bootstrap::profile::cache_gems (
   # Learning VM gems
   bootstrap::gem { 'cowsay':                         version => '0.2.0'  }
 
+  # Add bundler to make r10k & ruby happy
+  bootstrap::gem { 'bundler':                        version => '1.10.6' }
+
   # Unidentified dependencies
   bootstrap::gem { 'builder':}
   bootstrap::gem { 'systemu':                        version => '2.5.2'  }
