@@ -9,6 +9,11 @@ class bootstrap::profile::get_agent_packages {
     platform     => 'RedHat',
     architecture => 'i386',
   }
+  
+  bootstrap::cached_agent { '64 bit RedHat':
+    platform     => 'RedHat',
+    architecture => 'x86_64',
+  }
 
   bootstrap::cached_agent { '64 bit Ubuntu':
     platform     => 'Ubuntu',
