@@ -60,7 +60,8 @@ define bootstrap::cached_agent (
   }
 
   staging::file { "cached agent installer: ${buildname}":
-    target => $agent_file,
-    source => $url,
+    target  => $agent_file,
+    source  => $url,
+    require => Dirtree[$staging_dir],
   }
 }
