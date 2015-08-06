@@ -44,22 +44,22 @@ class bootstrap::profile::install_pe {
   }
   
   exec { 'install serverspec':
-    command => "${puppet_base_dir}/bin/gem install serverspec -v 1.16.0",
+    command => "${puppet_base_dir}/bin/gem install serverspec -v 2.20.0",
     unless  => "${puppet_base_dir}/bin/gem list serverspec -i",
     require => Exec['install rspec-its'],
   }
   exec { 'install rspec-its':
-    command => "${puppet_base_dir}/bin/gem install rspec-its -v 1.0.1",
+    command => "${puppet_base_dir}/bin/gem install rspec-its -v 1.2.0",
     unless  => "${puppet_base_dir}/bin/gem list rspec-its -i",
     require => Exec['install rspec-core'],
   }
   exec { 'install rspec-core':
-    command => "${puppet_base_dir}/bin/gem install rspec-core -v 2.99.0",
+    command => "${puppet_base_dir}/bin/gem install rspec-core -v 3.3.2",
     unless  => "${puppet_base_dir}/bin/gem list rspec -i",
     require => Exec['install rspec'],
   }
   exec { 'install rspec':
-    command => "${puppet_base_dir}/bin/gem install rspec -v 2.99.0",
+    command => "${puppet_base_dir}/bin/gem install rspec -v 3.3.0",
     unless  => "${puppet_base_dir}/bin/gem list rspec -i",
     require => Exec['install-pe'],
   }

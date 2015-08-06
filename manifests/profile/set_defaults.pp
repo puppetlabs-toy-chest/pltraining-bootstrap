@@ -1,14 +1,21 @@
 # Add default memory settings after PE install
 
 class bootstrap::profile::set_defaults {
-  file { '/etc/puppetlabs/puppet/hieradata':
-    ensure => directory,
-    require => Class['bootstrap::profile::install_pe'],
+  exec { 'mkdir -p /etc/puppetlabs/code':
+    path   => '/bin',
+    before => [File['/etc/puppetlabs/code/hiera.yaml','/etc/puppetlabs/code/hieradata'],Class['bootstrap::profile::install_pe']]
   }
-  file { '/etc/puppetlabs/puppet/hieradata/defaults.yaml':
-    ensure => present,
+  file { '/etc/puppetlabs/code/hiera.yaml':
+    ensure  => file,
+    source  => 'puppet:///modules/bootstrap/hiera.yaml',
+  }
+  file { '/etc/puppetlabs/code/hieradata':
+    ensure => directory,
+  }
+  file { '/etc/puppetlabs/code/hieradata/defaults.yaml':
+    ensure => file,
     source => 'puppet:///modules/bootstrap/defaults.yaml',
-    require => File['/etc/puppetlabs/puppet/hieradata'],
+    require => File['/etc/puppetlabs/code/hieradata'],
   }
 }
 
