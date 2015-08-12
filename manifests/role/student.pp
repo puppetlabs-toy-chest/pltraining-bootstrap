@@ -11,4 +11,5 @@ class bootstrap::role::student {
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_gems
   include bootstrap::profile::ruby
+  include bootstrap::profile::replace_factor
 }
