@@ -27,7 +27,7 @@ class bootstrap::profile::cache_modules(
   bootstrap::forge { 'nanliu-staging':                  version => '1.0.3'}
   bootstrap::forge { 'opentable-download_file':         version => '1.1.0'}
   bootstrap::forge { 'opentable-windowsfeature':        version => '1.0.0'}
-  bootstrap::forge { 'pltraining-classroom':            version => '1.3.2'}
+  bootstrap::forge { 'pltraining-classroom':            version => '1.3.3'}
   bootstrap::forge { 'pltraining-dirtree':              version => '0.2.2'}
   bootstrap::forge { 'pltraining-rbac':                 version => '0.0.4'}
   bootstrap::forge { 'pltraining-userprefs':}
