@@ -97,6 +97,8 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'builder':}
   bootstrap::gem { 'systemu':                        version => '2.5.2'  }
 
+  # Required by metrics scripts
+  bootstrap::gem { 'jmx':}
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
