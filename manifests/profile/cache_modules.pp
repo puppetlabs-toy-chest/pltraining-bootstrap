@@ -25,8 +25,8 @@ class bootstrap::profile::cache_modules(
   bootstrap::forge { 'jordan-fileshare':                version => '1.1.1'}
   bootstrap::forge { 'jriviere-windows_ad':             version => '0.2.0'}
   bootstrap::forge { 'nanliu-staging':                  version => '1.0.3'}
-  bootstrap::forge { 'opentable-download_file':         version => '1.1.0'}
-  bootstrap::forge { 'opentable-windowsfeature':        version => '1.0.0'}
+  bootstrap::forge { 'puppet-download_file':            version => '1.2.1'}
+  bootstrap::forge { 'puppet-windowsfeature':           version => '1.1.0'}
   bootstrap::forge { 'pltraining-classroom':            version => '1.3.3'}
   bootstrap::forge { 'pltraining-dirtree':              version => '0.2.2'}
   bootstrap::forge { 'pltraining-rbac':                 version => '0.0.4'}
