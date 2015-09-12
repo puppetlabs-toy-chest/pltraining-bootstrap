@@ -99,6 +99,7 @@ class bootstrap::profile::cache_gems (
 
   # Required by metrics scripts
   bootstrap::gem { 'jmx':}
+  bootstrap::gem { 'table_print':}
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
