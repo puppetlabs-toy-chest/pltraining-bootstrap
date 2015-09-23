@@ -51,4 +51,5 @@ class bootstrap::profile::cache_modules(
   bootstrap::forge { 'thias-vsftpd':                    version => '0.2.1'}
   bootstrap::forge { 'zack-exports':                    version => '0.0.4'}
   bootstrap::forge { 'zack-r10k':                       version => '3.0.0'}
+  bootstrap::forge { 'puppetlabs-aws':                  version => '1.1.1'}
 }

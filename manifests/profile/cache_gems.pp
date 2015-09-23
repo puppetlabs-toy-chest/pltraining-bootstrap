@@ -93,6 +93,10 @@ class bootstrap::profile::cache_gems (
   # Add bundler to make r10k & ruby happy
   bootstrap::gem { 'bundler':                        version => '1.10.6' }
 
+  # Required for the aws module
+  bootstrap::gem { 'aws-sdk-core':                   version => '2.1.20' }
+  bootstrap::gem { 'retries':                        version => '0.0.5'  }
+
   # Unidentified dependencies
   bootstrap::gem { 'builder':}
   bootstrap::gem { 'systemu':                        version => '2.5.2'  }
