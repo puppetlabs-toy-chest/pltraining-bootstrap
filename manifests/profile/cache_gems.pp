@@ -98,6 +98,10 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'systemu':                        version => '2.5.2'  }
 
 
+  # for the Architect AWS demo
+  bootstrap::gem { 'aws-sdk-core':}
+  bootstrap::gem { 'retries':}
+
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
 }
