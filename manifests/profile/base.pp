@@ -18,7 +18,7 @@ class bootstrap::profile::base {
   file {'/etc/rc.local':
     ensure => symlink,
     target => 'rc.d/rc.local',
-    mode   => 0755,
+    mode   => '0755',
   }
 
   # Add a few extra packages for convenience
