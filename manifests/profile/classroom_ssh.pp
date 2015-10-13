@@ -4,7 +4,7 @@ class bootstrap::profile::classroom_ssh {
   file { '/root/.ssh_keygen.sh':
     ensure => file,
     source => 'puppet:///modules/bootstrap/ssh_keygen.sh',
-    mode   => 0755,
+    mode   => '0755',
   }
   # Disable GSSAPIAuth for classroom VMs.
   augeas { "GSSAPI_disable":
