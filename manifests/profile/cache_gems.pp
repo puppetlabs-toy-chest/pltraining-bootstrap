@@ -45,6 +45,8 @@ class bootstrap::profile::cache_gems (
   }
 
   # Please keep this list alphabetized and organized. It makes it much easier to update.
+  # Puppet Enterprise
+  bootstrap::gem { 'hocon':                          version => '0.9.3'  }
 
   # rspec-puppet and family
   bootstrap::gem { 'diff-lcs':                       version => '1.2.5'  }
