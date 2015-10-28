@@ -9,6 +9,6 @@ class bootstrap::profile::scripts {
     ensure  => directory,
     recurse => true,
     replace => false,
-    source  => 'puppet://modules/bootstrap/scripts/classroom',
+    source  => 'puppet:///modules/bootstrap/scripts/classroom',
   }
 }
