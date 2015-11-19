@@ -3,7 +3,7 @@ class bootstrap::profile::scripts {
   File {
     owner => 'root',
     group => 'root',
-    mode  => '0644',
+    mode  => '0744',
   }
   file {'/usr/local/bin':
     ensure  => directory,
