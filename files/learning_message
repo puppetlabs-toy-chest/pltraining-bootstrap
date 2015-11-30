@@ -4,4 +4,6 @@
 
     If you cannot access the Quest Guide, your IP address may have changed.
      To get the correct address, log in as root and type: facter ipaddress
+
+   There is a also a readme.txt file included in the Zip archive with this VM
      If you have any issues, please email us at learningvm@puppetlabs.com
