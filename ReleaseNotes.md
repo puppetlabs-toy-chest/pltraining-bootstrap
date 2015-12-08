@@ -1,3 +1,7 @@
+### v0.0.7
+
+* Build for PE 2015.3.0
+
 ### v0.0.6
 
 * Build for PE 2015.2.3
