@@ -31,6 +31,7 @@ class bootstrap::profile::cache_modules(
   bootstrap::forge { 'pltraining-dirtree':              version => '0.2.2'}
   bootstrap::forge { 'pltraining-rbac':                 version => '0.0.4'}
   bootstrap::forge { 'pltraining-userprefs':}
+  bootstrap::forge { 'pltraining-puppetfactory':}
   bootstrap::forge { 'puppetlabs-acl':                  version => '1.1.1'}
   bootstrap::forge { 'puppetlabs-apache':               version => '1.6.0'}
   bootstrap::forge { 'puppetlabs-concat':               version => '1.2.4'}
