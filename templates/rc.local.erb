@@ -7,7 +7,24 @@
 touch /var/lock/subsys/local
 
 PRIMARY_INTERFACE=$(ip route show default scope global | awk '{print $5}')
-IP_ADDRESS=$(ip -o -4 a show eth0 | awk '{print $4}' | cut -d'/' -f1)
+IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | awk '{print $4}' | cut -d'/' -f1)
+
+if [ ! -f /var/lock/password ]
+then
+  MAJOR=$(cat /etc/redhat-release | awk '{print $3}' | cut -d'.' -f1)
+  GPL_PATH=/usr/share/doc/centos-release-$MAJOR
+
+  for word in $(shuf -n 1 $GPL_PATH/GPL)
+  do
+    echo $word | grep -v '^\s$' >> /tmp/wordlist
+  done
+
+  echo $(shuf -n 1 /tmp/wordlist).$(echo $RANDOM | cut -c-2).$(shuf -n 1 /tmp/wordlist) > /var/lock/password
+  echo "root:$(cat /var/lock/password)" | chpasswd
+fi
+
+PASSWORD=$(cat /var/lock/password)
+
 
 echo \
 "                --- Welcome to the PuppetLabs <%= @hostname.capitalize -%> VM ---
@@ -19,13 +36,13 @@ echo \
 
 
 
- For the best experience please log in via SSH
+For the best experience please log in via SSH
 
     IP: $IP_ADDRESS
     username: root
-    password: puppet
+    password: $PASSWORD
 
+Your password has been randomly generated
 " > /etc/issue
 
 /root/.ssh_keygen.sh &
-
