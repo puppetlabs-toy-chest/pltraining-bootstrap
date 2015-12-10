@@ -14,11 +14,13 @@ then
   MAJOR=$(cat /etc/redhat-release | awk '{print $3}' | cut -d'.' -f1)
   GPL_PATH=/usr/share/doc/centos-release-$MAJOR
 
+  # Generate wordlist from GPL
   for word in $(shuf -n 1 $GPL_PATH/GPL)
   do
     echo $word | grep -v '^\s$' >> /tmp/wordlist
   done
 
+  # Generate password in format WORD.Number.WORD
   echo $(shuf -n 1 /tmp/wordlist).$(echo $RANDOM | cut -c-2).$(shuf -n 1 /tmp/wordlist) > /var/lock/password
   echo "root:$(cat /var/lock/password)" | chpasswd
 fi
@@ -42,7 +44,7 @@ For the best experience please log in via SSH
     username: root
     password: $PASSWORD
 
-Your password has been randomly generated
+Your password was randomly generated from the text of the GNU public license
 " > /etc/issue
 
 /root/.ssh_keygen.sh &
