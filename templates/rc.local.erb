@@ -9,7 +9,7 @@ touch /var/lock/subsys/local
 PRIMARY_INTERFACE=$(ip route show default scope global | awk '{print $5}')
 IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | awk '{print $4}' | cut -d'/' -f1)
 
-if [ ! -f /var/lock/password ]
+if [ ! -f /var/local/password ]
 then
 <% if @operatingsystemmajrelease == "7" %>
   GPL_PATH=/usr/share/doc/centos-release/
@@ -24,11 +24,11 @@ then
   done
 
   # Generate password in format WORD.Number.WORD
-  echo $(shuf -n 1 /tmp/wordlist).$(echo $RANDOM | cut -c-2).$(shuf -n 1 /tmp/wordlist) > /var/lock/password
-  echo "root:$(cat /var/lock/password)" | chpasswd
+  echo $(shuf -n 1 /tmp/wordlist).$(echo $RANDOM | cut -c-2).$(shuf -n 1 /tmp/wordlist) > /var/local/password
+  echo "root:$(cat /var/local/password)" | chpasswd
 fi
 
-PASSWORD=$(cat /var/lock/password)
+PASSWORD=$(cat /var/local/password)
 
 
 echo \
