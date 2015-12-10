@@ -6,7 +6,8 @@
 
 touch /var/lock/subsys/local
 
-IP_ADDRESS=$(RUBYLIB="/usr/src/facter/lib" /usr/src/facter/bin/facter ipaddress)
+PRIMARY_INTERFACE=$(netstat -nr | tail -n+3 | head -1 | awk '{print $8}')
+IP_ADDRESS=$(ifconfig $PRIMARY_INTERFACE | grep inet | head -1 | awk '{print $2}' | sed 's/addr://')
 
 echo \
 "                --- Welcome to the PuppetLabs <%= @hostname.capitalize -%> VM ---
