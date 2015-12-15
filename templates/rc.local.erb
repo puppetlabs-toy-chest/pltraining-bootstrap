@@ -18,9 +18,9 @@ then
 <% end %>
 
   # Generate wordlist from GPL
-  for word in $(shuf -n 1 $GPL_PATH/GPL)
+  for word in $(cat $GPL_PATH/GPL)
   do
-    echo $word | grep -v '^\s$' >> /tmp/wordlist
+    echo $word | grep '[a-zA-Z]' >> /tmp/wordlist
   done
 
   # Generate password in format WORD.Number.WORD
@@ -48,6 +48,7 @@ For the best experience please log in via SSH
     password: $PASSWORD
 
 Your password was randomly generated from the text of the GNU public license
+It is stored in /var/local/password and will continue to appear on this screen
 " > /etc/issue
 
 /root/.ssh_keygen.sh &
