@@ -28,13 +28,13 @@ class bootstrap::profile::cache_gems (
 
   package { 'builder':
     ensure   => present,
-    provider => 'gem',
+    provider => 'puppet_gem',
     require  => Package['rubygems'],
   }
 
   exec { 'rebuild_gem_cache':
     command     => "gem generate_index -d ${cache_dir}",
-    path        => '/opt/puppet/bin:/usr/local/bin:/usr/bin:/bin',
+    path        => '/opt/puppetlabs/puppet/bin:/usr/local/bin:/usr/bin:/bin',
     refreshonly => true,
     require     => Package['builder'],
   }
