@@ -54,22 +54,23 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'mocha':                          version => '1.1.0'  }
   bootstrap::gem { 'puppet-lint':                    version => '1.1.0'  }
   bootstrap::gem { 'puppet-syntax':                  version => '2.0.0'  }
-  bootstrap::gem { 'puppetlabs_spec_helper':         version => '0.10.3' }
-  bootstrap::gem { 'rspec':                          version => '3.3.0'  }
-  bootstrap::gem { 'rspec-core':                     version => '3.3.2'  }
-  bootstrap::gem { 'rspec-expectations':             version => '3.3.1'  }
-  bootstrap::gem { 'rspec-mocks':                    version => '3.3.2'  }
-  bootstrap::gem { 'rspec-puppet':                   version => '2.2.0'  }
-  bootstrap::gem { 'rspec-support':                  version => '3.3.0'  }
+  bootstrap::gem { 'puppetlabs_spec_helper':         version => '1.0.1'  }
+  bootstrap::gem { 'rspec':                          version => '3.4.0'  }
+  bootstrap::gem { 'rspec-core':                     version => '3.4.1'  }
+  bootstrap::gem { 'rspec-expectations':             version => '3.4.0'  }
+  bootstrap::gem { 'rspec-mocks':                    version => '3.4.0'  }
+  bootstrap::gem { 'rspec-puppet':                   version => '2.3.0'  }
+  bootstrap::gem { 'rspec-support':                  version => '3.4.1'  }
 
   # serverspec
+  bootstrap::gem { 'multi_json':                     version => '1.11.2' }
   bootstrap::gem { 'net-scp':                        version => '1.2.1'  }
-  bootstrap::gem { 'net-ssh':                        version => '2.10.0' }
+  bootstrap::gem { 'net-ssh':                        version => '3.0.2'  }
   bootstrap::gem { 'net-telnet':                     version => '0.1.1'  }
   bootstrap::gem { 'rspec-its':                      version => '1.2.0'  }
   bootstrap::gem { 'sfl':                            version => '2.2'    }
-  bootstrap::gem { 'serverspec':                     version => '2.20.0' }
-  bootstrap::gem { 'specinfra':                      version => '2.40.0' }
+  bootstrap::gem { 'serverspec':                     version => '2.27.0' }
+  bootstrap::gem { 'specinfra':                      version => '2.47.1' }
 
   # carrier-pigeon, for jamtur01/irc report processor
   bootstrap::gem { 'addressable':                    version => '2.3.8'  }
