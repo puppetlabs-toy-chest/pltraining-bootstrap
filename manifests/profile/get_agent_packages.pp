@@ -8,6 +8,7 @@ class bootstrap::profile::get_agent_packages {
   bootstrap::cached_agent { '32 bit RedHat':
     platform     => 'RedHat',
     architecture => 'i386',
+    release      => '6',
   }
   
   bootstrap::cached_agent { '64 bit RedHat':
