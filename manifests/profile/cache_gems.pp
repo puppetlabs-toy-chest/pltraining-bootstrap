@@ -87,6 +87,7 @@ class bootstrap::profile::cache_gems (
   # Sinatra and Puppetfactory gems
   bootstrap::gem { 'rack':                           version => '1.4.0'  }
   bootstrap::gem { 'rack-protection':                version => '1.4.0'  }
+  bootstrap::gem { 'rest-client':                    version => '1.8.0'  }
   bootstrap::gem { 'sinatra':                        version => '1.4.5'  }
   bootstrap::gem { 'tilt':                           version => '1.3.4'  }
 
