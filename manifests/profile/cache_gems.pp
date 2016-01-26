@@ -109,6 +109,10 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'jmx':}
   bootstrap::gem { 'table_print':}
 
+  # Required by showoff
+  bootstrap::gem { 'fpm':}
+
+
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
 }
