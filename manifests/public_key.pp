@@ -1,4 +1,4 @@
-class bootstrap::public_key ( $admin_user = $bootstrap::params::admin_user ) {
+class bootstrap::public_key ( $admin_user = $bootstrap::params::admin_user ) inherits bootstrap::params {
   ssh_authorized_key { 'instructor':
     user => $admin_user,
     type => 'ssh-rsa',
