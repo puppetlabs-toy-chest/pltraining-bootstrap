@@ -22,9 +22,8 @@ class bootstrap::profile::base {
   }
 
   # Add a few extra packages for convenience
-  package { [ 'patch', 'screen', 'telnet', 'tree' ] :
+  package { [ 'patch', 'screen', 'telnet', 'tree', 'stunnel' ] :
     ensure  => present,
-    require => Class['localrepo'],
   }
 
   # /etc/puppet/ssl is confusing to have around. Sloppy. Kill.
