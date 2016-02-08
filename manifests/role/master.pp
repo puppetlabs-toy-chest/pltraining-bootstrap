@@ -1,4 +1,4 @@
-class bootstrap::role::puppetfactory {
+class bootstrap::role::master {
   include epel
   include localrepo
   include bootstrap
