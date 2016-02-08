@@ -4,5 +4,5 @@ class bootstrap::params {
 
   $source_path   = '/usr/src/installer/'
 
-  $admin_user    = 'centos'
+  $admin_user    = 'training'
 }
