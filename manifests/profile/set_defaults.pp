@@ -3,7 +3,7 @@
 class bootstrap::profile::set_defaults {
   exec { 'mkdir -p /etc/puppetlabs/code':
     path   => '/bin',
-    before => [File['/etc/puppetlabs/code/hiera.yaml','/etc/puppetlabs/code/hieradata'],Class['bootstrap::profile::install_pe']]
+    before => File['/etc/puppetlabs/code/hiera.yaml','/etc/puppetlabs/code/hieradata']
   }
   file { '/etc/puppetlabs/code/hiera.yaml':
     ensure  => file,
