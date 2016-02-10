@@ -7,6 +7,4 @@ class bootstrap::role::master {
   include pe_repo::platform::ubuntu_1404_amd64
   include bootstrap::profile::splash
   include bootstrap::public_key
-  include bootstrap::profile::scripts
-  include bootstrap::profile::classroom_ssh
 }
