@@ -6,5 +6,6 @@ class bootstrap::role::master {
   include pe_repo::platform::el_7_x86_64
   include pe_repo::platform::ubuntu_1404_amd64
   include bootstrap::profile::splash
+  include bootstrap::profile::pe_tweaks
   include bootstrap::public_key
 }
