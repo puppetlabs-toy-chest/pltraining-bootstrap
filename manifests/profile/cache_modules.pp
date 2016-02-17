@@ -11,7 +11,7 @@ class bootstrap::profile::cache_modules(
 
   exec { 'cache modules':
     command => "puppet module install pltraining-classroom --modulepath=${cache_dir}",
-    creates => "${cachedir}/classroom",
+    creates => "${cache_dir}/classroom",
     path    => '/opt/puppetlabs/bin',
     require => File[$cache_dir],
   }
