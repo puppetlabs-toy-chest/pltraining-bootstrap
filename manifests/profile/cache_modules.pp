@@ -1,9 +1,6 @@
 class bootstrap::profile::cache_modules(
   $cache_dir = '/usr/src/forge',
 ) {
-  Bootstrap::Forge {
-    cache_dir => $cache_dir,
-  }
 
   file { $cache_dir:
     ensure => directory,
