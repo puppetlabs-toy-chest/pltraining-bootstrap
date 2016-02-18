@@ -22,7 +22,14 @@ class bootstrap::profile::base {
   }
 
   # Add a few extra packages for convenience
-  package { [ 'patch', 'screen', 'telnet', 'tree', 'stunnel' ] :
+  package { [ 'patch', 
+              'screen', 
+              'telnet',
+              'tree', 
+              'stunnel', 
+              'redhat-lsb', 
+              'xorg-x11-fonts-75dpi.noarch', 
+              'open-sans-fonts.noarch' ] :
     ensure  => present,
   }
 
