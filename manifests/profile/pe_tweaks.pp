@@ -18,7 +18,7 @@ class bootstrap::profile::pe_tweaks {
   }
 
   package { ['trollop','serverspec','rspec-its','rspec-core','rspec']:
-    ensure   => present
+    ensure   => present,
     provider => 'pe_gem',
   }
 
