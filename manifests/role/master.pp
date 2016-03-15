@@ -7,5 +7,6 @@ class bootstrap::role::master {
   include pe_repo::platform::ubuntu_1404_amd64
   include bootstrap::profile::splash
   include bootstrap::profile::pe_tweaks
+  include bootstrap::profile::disable_selinux
   include bootstrap::public_key
 }
