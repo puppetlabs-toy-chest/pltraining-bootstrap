@@ -1,4 +1,4 @@
-class bootstrap::disable_selinux {
+class bootstrap::profile::disable_selinux {
   class { 'selinux':
     mode => 'disabled',
   }
