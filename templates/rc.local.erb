@@ -17,11 +17,13 @@ then
   GPL_PATH=/usr/share/doc/centos-release-6/
 <% end %>
 
-  # Generate wordlist from GPL
-  for word in $(cat $GPL_PATH/GPL)
-  do
-    echo $word | grep '^[a-zA-Z]*$' >> /tmp/wordlist
-  done
+  # Generate wordlist from GPL, if word list doesn't already exist
+  if [ ! -e /tmp/wordlist ]; then
+    for word in $(cat $GPL_PATH/GPL)
+    do
+      echo $word | egrep '^[[:alpha:]]{,6}$' | tr '[A-Z]' '[a-z]' > /tmp/wordlist
+    done
+  fi
 
   # Generate password in format WORD.Number.WORD
   echo $(shuf -n 1 /tmp/wordlist).$(echo $RANDOM | cut -c-2).$(shuf -n 1 /tmp/wordlist) > /var/local/password
