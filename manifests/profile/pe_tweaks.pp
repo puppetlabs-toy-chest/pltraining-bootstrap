@@ -1,5 +1,5 @@
 class bootstrap::profile::pe_tweaks {
-  
+
   $puppet_base_dir = '/opt/puppetlabs/puppet'
   $prod_module_path = '/etc/puppetlabs/code/environments/production/modules'
 
@@ -19,26 +19,26 @@ class bootstrap::profile::pe_tweaks {
 
   # to use pe_gem to install the following gems, we first need pe_gem installed
   # using execs now till there is a more graceful solution
-  
-  exec { 'install trollop':
-    command => "${puppet_base_dir}/bin/gem install trollop -v 2.0",
-    unless  => "${puppet_base_dir}/bin/gem list trollop -i",
+
+  package { 'trollop':
+    ensure   => '2.0',
+    provider => 'puppet_gem',
   }
-  exec { 'install serverspec':
-    command => "${puppet_base_dir}/bin/gem install serverspec -v 1.16.0",
-    unless  => "${puppet_base_dir}/bin/gem list serverspec -i",
+  package { 'serverspec':
+    ensure   => '1.16.0',
+    provider => 'puppet_gem',
   }
-  exec { 'install rspec-its':
-    command => "${puppet_base_dir}/bin/gem install rspec-its -v 1.0.1",
-    unless  => "${puppet_base_dir}/bin/gem list rspec-its -i",
+  package { 'rspec-its':
+    ensure   => '1.0.1',
+    provider => 'puppet_gem',
   }
-  exec { 'install rspec-core':
-    command => "${puppet_base_dir}/bin/gem install rspec-core -v 2.99.0",
-    unless  => "${puppet_base_dir}/bin/gem list rspec -i",
+  package { 'rspec-core':
+    ensure   => '2.99.0',
+    provider => 'puppet_gem',
   }
-  exec { 'install rspec':
-    command => "${puppet_base_dir}/bin/gem install rspec -v 2.99.0",
-    unless  => "${puppet_base_dir}/bin/gem list rspec -i",
+  package { 'rspec':
+    ensure   => '2.99.0',
+    provider => 'puppet_gem',
   }
 
 }
