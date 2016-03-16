@@ -23,5 +23,6 @@
     {"name":"pltraining/userprefs"},
     {"name":"puppetlabs/pe_gem"},
     {"name":"pltraining/dirtree"}
+    {"name":"jfryman/selinux"}
   ]
 }
