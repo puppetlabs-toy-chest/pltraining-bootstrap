@@ -13,7 +13,7 @@ if [ ! -s /var/local/password ]
 then
 
   # Generate password in format WORD.Number.WORD
-  echo $(shuf -n 1 /var/local/places.txt).$(echo $RANDOM | cut -c-2).$(shuf -n 1 /var/local/places.txt) > /var/local/password
+  echo $(shuf -n 1 --random-source=/dev/urandom /var/local/places.txt).$(shuf -n 1 --random-source=/dev/urandom /var/local/places.txt) > /var/local/password
   echo "root:$(cat /var/local/password)" | chpasswd
 fi
 
