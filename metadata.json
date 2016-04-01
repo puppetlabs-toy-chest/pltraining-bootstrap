@@ -10,7 +10,7 @@
     }
   ],
   "name": "pltraining-bootstrap",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "pltraining",
   "summary": "Bootstrap scripts for Puppetlabs Education VMs",
   "license": "Apache 2.0",
@@ -22,7 +22,7 @@
     {"name":"stahnma/epel"},
     {"name":"pltraining/userprefs"},
     {"name":"puppetlabs/pe_gem"},
-    {"name":"pltraining/dirtree"}
+    {"name":"pltraining/dirtree"},
     {"name":"jfryman/selinux"}
   ]
 }
