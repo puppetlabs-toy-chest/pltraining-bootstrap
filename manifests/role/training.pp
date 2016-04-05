@@ -7,7 +7,5 @@ class bootstrap::role::training (
   include bootstrap::profile::splash
   include bootstrap::profile::cache_wordpress
   include bootstrap::profile::installer_staging
-  class { 'bootstrap::profile::get_pe':
-    pe_version => $pe_version
-  }
+  include bootstrap::profile::get_pe
 }
