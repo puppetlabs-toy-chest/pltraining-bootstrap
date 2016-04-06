@@ -6,14 +6,9 @@ class bootstrap::profile::network {
     ensure => stopped,
   }
 
-  file { '/etc/sysconfig/network':
-    ensure  => file,
-    content => template('bootstrap/network.erb'),
-  }
   service { 'network':
     ensure    => running,
     enable    => true,
-    subscribe => File['/etc/sysconfig/network'],
     hasstatus => true,
   }
 
