@@ -20,12 +20,10 @@ fi
 
 offer_bailout
 
-# backup /etc/hosts and /etc/sysconfig/network
+# backup /etc/hosts 
 HOSTS=/etc/hosts
-NETWORK=/etc/sysconfig/network
 BACKUP_DIR=$(mktemp -d)
 cp "$HOSTS" "$BACKUP_DIR"
-cp "$NETWORK" "$BACKUP_DIR"
 
 function validate_name
 {
@@ -91,10 +89,7 @@ check_success "Adding host record for ${username}.puppetlabs.vm"    \
       "$(echo "${ipaddr} ${username}.puppetlabs.vm ${username}" >> /etc/hosts 2>&1)"
 
 check_success "Configuring hostname"                                \
-      "$(hostname ${username}.puppetlabs.vm 2>&1)"
-
-check_success "Setting hostname on boot"                            \
-      "$(sed -i "s/^HOSTNAME=.*$/HOSTNAME=${username}.puppetlabs.vm/" /etc/sysconfig/network 2>&1)"
+      "$(hostnamectl set-hostname ${username}.puppetlabs.vm --static 2>&1)"
 
 check_success "Synchronizing time with the classroom master"        \
       "$(ntpdate -u -t 5 master.puppetlabs.vm 2>&1)"
@@ -128,5 +123,4 @@ else
 
   # restore backup files
   cp "${BACKUP_DIR}/hosts" "$HOSTS"
-  cp "${BACKUP_DIR}/network" "$NETWORK"
 fi

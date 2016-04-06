@@ -23,13 +23,9 @@ echo
 
 ###### start running checks ######
 
-check "[ '`hostname`' == 'master.puppetlabs.vm' ]"                 \
+check "[ '`hostnamectl --static`' == 'master.puppetlabs.vm' ]"                 \
       "Checking hostname"                                           \
       "You should set the hostname to master.puppetlabs.vm"
-
-check "grep HOSTNAME=master.puppetlabs.vm /etc/sysconfig/network"  \
-      "Checking that the hostname will be set on boot"              \
-      "You should set HOSTNAME=master.puppetlabs.vm in /etc/sysconfig/network"
 
 check "ping -c1 master.puppetlabs.vm"                              \
       "Checking local hostname resolution"                          \
