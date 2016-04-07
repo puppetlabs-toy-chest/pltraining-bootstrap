@@ -41,8 +41,9 @@ Hiera::Config[:backends].each do |backend|
   next unless datadir
 
   Hiera::Backend.datasources(scope) do |source|
-    path = File.join(datadir, "#{source}.#{backend}")
-    puts "  * #{path}"
+    path   = File.join(datadir, "#{source}.#{backend}")
+    status = File.exists?(path) ? '[X]' : '[ ]'
+    puts "  #{status} #{path}"
 
     data = YAML.load_file(path) rescue {}
     priority_lookup = data.merge(priority_lookup)
