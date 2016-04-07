@@ -16,7 +16,8 @@ puppet --version > /dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo 'You appear to already have Puppet installed. Is this the Learning VM?'
-  exit 2
+  echo
+  offer_bailout
 fi
 
 offer_bailout
