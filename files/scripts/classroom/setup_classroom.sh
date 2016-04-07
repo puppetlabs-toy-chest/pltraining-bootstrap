@@ -7,8 +7,9 @@ echo
 
 if [ "`hostname`" == 'master.puppetlabs.vm' ]
 then
-  echo 'Do not run on the classroom master'
-  exit 1
+  echo 'Do not run on the classroom master!'
+  echo
+  offer_bailout
 fi
 
 puppet --version > /dev/null 2>&1
