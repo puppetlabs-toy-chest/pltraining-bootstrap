@@ -38,7 +38,8 @@ It is stored in /var/local/password and will continue to appear on this screen
 To reset password, run the command: reset_password.rb
 " > /etc/issue
 
-# Disable the floppy driver
+# Disable the floppy driver because it made virtualbox weird
 rmmod floppy
 
-/root/.ssh_keygen.sh &
+# make sure that root has an sshkey
+[[ -f /root/.ssh_keygen.sh ]] && /root/.ssh_keygen.sh &
