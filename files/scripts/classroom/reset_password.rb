@@ -10,4 +10,4 @@ File.open('/var/local/password','w') do |f|
   f.puts password
 end
 
-%(/etc/rc.local 2>/dev/null)
+%x(/etc/rc.local 2>/dev/null)
