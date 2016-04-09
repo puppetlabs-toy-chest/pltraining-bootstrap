@@ -58,6 +58,12 @@ function version ()
  fi
 }
 
+function get_centos_major_release()
+{
+  local major_version=`/bin/sed 's/[^0-9.]*\([0-9.]\).*/\1/' /etc/redhat-release`
+  echo "$major_version"
+}
+
 function confirm()
 {
   MESSAGE="$1"
