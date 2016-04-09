@@ -11,24 +11,4 @@ class bootstrap::profile::scripts {
     replace => false,
     source  => 'puppet:///modules/bootstrap/scripts/classroom',
   }
-
-  file { '/bin/passwd.orig':
-    ensure  => file,
-    mode    => '4755',
-    replace => false,
-    source  => '/bin/passwd',
-  }
-
-  file { '/sbin/chpasswd.orig':
-    ensure  => file,
-    mode    => '4755',
-    replace => false,
-    source  => '/sbin/chpasswd',
-  }
-
-  file { ['/bin/passwd', '/sbin/chpasswd']:
-    ensure  => link,
-    target  => '/usr/local/bin/reset_password.rb',
-  }
-
 }
