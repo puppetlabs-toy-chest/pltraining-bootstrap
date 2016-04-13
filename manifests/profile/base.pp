@@ -22,7 +22,8 @@ class bootstrap::profile::base {
   }
 
   # Add a few extra packages for convenience
-  package { [ 'patch', 
+  package { [ 'patch',
+              'jq',
               'screen', 
               'telnet',
               'tree', 
