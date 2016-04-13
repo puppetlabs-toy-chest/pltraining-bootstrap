@@ -1,4 +1,6 @@
 class bootstrap::profile::base {
+  include epel
+
   File {
     owner => 'root',
     group => 'root',
@@ -22,7 +24,8 @@ class bootstrap::profile::base {
   }
 
   # Add a few extra packages for convenience
-  package { [ 'patch', 
+  package { [ 'patch',
+              'jq',
               'screen', 
               'telnet',
               'tree', 
@@ -31,6 +34,7 @@ class bootstrap::profile::base {
               'xorg-x11-fonts-75dpi.noarch', 
               'open-sans-fonts.noarch' ] :
     ensure  => present,
+    require => Class['epel'],
   }
 
   # /etc/puppet/ssl is confusing to have around. Sloppy. Kill.

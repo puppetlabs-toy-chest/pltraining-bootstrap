@@ -1,5 +1,4 @@
 class bootstrap::role::learning {
-  include epel
   include localrepo
   include bootstrap
   include bootstrap::profile::pe_tweaks
