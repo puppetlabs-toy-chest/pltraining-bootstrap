@@ -1,4 +1,6 @@
 class bootstrap::profile::base {
+  include epel
+
   File {
     owner => 'root',
     group => 'root',

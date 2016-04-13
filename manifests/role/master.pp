@@ -1,5 +1,4 @@
 class bootstrap::role::master {
-  include epel
   include localrepo
   include bootstrap
   include pe_repo::platform::el_6_i386
