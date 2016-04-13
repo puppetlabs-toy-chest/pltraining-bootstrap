@@ -21,7 +21,4 @@ class bootstrap::profile::yum {
     require => [Package['yum-plugin-priorities'],Package['ruby_augeas_lib']],
   }
 
-  # ensure the EPEL repo is present
-  include epel
-
 }
