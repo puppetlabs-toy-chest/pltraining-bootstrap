@@ -32,6 +32,7 @@ class bootstrap::profile::base {
               'xorg-x11-fonts-75dpi.noarch', 
               'open-sans-fonts.noarch' ] :
     ensure  => present,
+    require => Class['epel'],
   }
 
   # /etc/puppet/ssl is confusing to have around. Sloppy. Kill.
