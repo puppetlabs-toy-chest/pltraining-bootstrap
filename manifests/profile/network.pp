@@ -1,9 +1,15 @@
 class bootstrap::profile::network {
 
-  # Make sure the firewall isn't running
-  service { 'iptables':
-    enable => false,
+  #Uninstall firewalld and clear all existing firewall rules
+  package { 'firewalld':
+    ensure => absent,
+  }
+  service { 'firewalld':
     ensure => stopped,
+    enable => false,
+  }
+  exec { 'iptables -F':
+    path => '/sbin',
   }
 
   service { 'network':
