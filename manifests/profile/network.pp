@@ -1,9 +1,8 @@
 class bootstrap::profile::network {
 
-  # Make sure the firewall isn't running
-  service { 'iptables':
-    enable => false,
-    ensure => stopped,
+  # Clear all existing firewall rules
+  resources { 'firewall':
+    purge => true,
   }
 
   service { 'network':
