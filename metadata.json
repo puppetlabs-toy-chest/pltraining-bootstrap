@@ -22,7 +22,6 @@
     {"name":"stahnma/epel"},
     {"name":"pltraining/userprefs"},
     {"name":"puppetlabs/pe_gem"},
-    {"name":"puppetlabs/firewall"},
     {"name":"pltraining/dirtree"},
     {"name":"jfryman/selinux"}
   ]
