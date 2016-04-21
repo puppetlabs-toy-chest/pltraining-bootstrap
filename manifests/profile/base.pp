@@ -27,6 +27,7 @@ class bootstrap::profile::base {
   package { [ 'patch',
               'jq',
               'screen', 
+              'ntpdate', 
               'telnet',
               'tree', 
               'stunnel', 
