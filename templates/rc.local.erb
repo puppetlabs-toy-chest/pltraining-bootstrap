@@ -25,14 +25,14 @@ echo \
 
 <%= @login_message %>
 
-For the best experience please log in via SSH with the generated password below
+Use SSH to log in with the randomly generated password below.
 
     IP: $IP_ADDRESS
     username: root
     password: $PASSWORD
 
 The password can be found in /var/local/password as well as this screen.
-To generate and set a new password, run the command: reset_password.rb
+To generate and set a new random password, run the command: reset_password.rb
 " > /etc/issue
 
 # Disable the floppy driver
