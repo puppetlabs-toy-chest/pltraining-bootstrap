@@ -8,7 +8,13 @@ touch /var/lock/subsys/local
 
 <% if @hostname == "learning" %>
 #Wait for network before loading IP address
-while ! [ $( ifconfig -s | grep ens ) ];do sleep 5; done
+COUNTER=0
+until 
+  ifconfig -s | grep ens || [ $COUNTER -gt 12 ]
+do 
+  sleep 5
+  let COUNTER+=1
+done
 <% end %>
 
 PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
