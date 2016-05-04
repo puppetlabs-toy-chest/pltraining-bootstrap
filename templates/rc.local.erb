@@ -10,14 +10,14 @@ touch /var/lock/subsys/local
 get_ip ()
 {
   PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
-  IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(ens|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}') || exit
+  IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(en|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}') || exit
   echo $IP_ADDRESS
 }
 
 #Wait for network before loading IP address
 COUNTER=0
 until
-  get_ip | grep '[0-9]' || [ $COUNTER -gt 8 ]
+  get_ip | grep '[0-9]' || [ $COUNTER -gt 12 ]
 do
   sleep 5
   let COUNTER+=1
@@ -52,7 +52,7 @@ Use SSH to log in with the randomly generated password below.
     password: $PASSWORD
 
 The password can be found in /var/local/password as well as this screen.
-To generate and set a new random password, run the command: reset_password.rb
+To set a new password, run the command: reset_password.rb
 " > /etc/issue
 
 # Disable the floppy driver
