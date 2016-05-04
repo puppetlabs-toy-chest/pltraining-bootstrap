@@ -7,21 +7,25 @@
 touch /var/lock/subsys/local
 
 <% if @hostname == "learning" %>
+get_ip ()
+{
+  PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
+  IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(ens|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}') || exit
+  echo $IP_ADDRESS
+}
+
 #Wait for network before loading IP address
 COUNTER=0
-until 
-  ifconfig -s | grep ens || [ $COUNTER -gt 12 ]
-do 
+until
+  get_ip | grep '[0-9]' || [ $COUNTER -gt 8 ]
+do
   sleep 5
   let COUNTER+=1
 done
-<% end %>
 
-PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
-
-<% if @hostname == "learning" %>
-IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(ens|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}')
+IP_ADDRESS=$(get_ip)
 <% else %>
+PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
 IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | awk 'BEGIN {FS = "[ /]+"} ; {print $4}')
 <% end %>
 
