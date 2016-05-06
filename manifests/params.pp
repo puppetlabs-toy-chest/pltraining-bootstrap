@@ -1,6 +1,6 @@
 class bootstrap::params {
-  $pe_version    = '2016.1.1'
-  $agent_version = '1.4.1'
+  $pe_version    = '2016.1.2'
+  $agent_version = '1.4.2'
 
   $source_path   = '/usr/src/installer/'
 

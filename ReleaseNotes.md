@@ -1,3 +1,9 @@
+### v0.0.11
+
+* Build for PE 2016.1.2
+* Uninstall firewalld to avoid issues with docker
+* Various improvments to the learning vm
+
 ### v0.0.10
 
 * Fixes TRAINVM-275 - set hostname for CentOS 6 VMs
