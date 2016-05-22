@@ -8,4 +8,5 @@ class bootstrap::role::training (
   include bootstrap::profile::installer_staging
   include bootstrap::profile::get_pe
   include bootstrap::public_key
+  include abalone
 }
