@@ -1,4 +1,7 @@
-class bootstrap::public_key ( $admin_user = $bootstrap::params::admin_user ) inherits bootstrap::params {
+class bootstrap::public_key ( 
+  $admin_user = $bootstrap::params::admin_user,
+  $ec2_lock_passwd = $bootstrap::params::ec2_lock_passwd
+) inherits bootstrap::params {
   ssh_authorized_key { 'instructor':
     user => $admin_user,
     type => 'ssh-rsa',
@@ -6,8 +9,12 @@ class bootstrap::public_key ( $admin_user = $bootstrap::params::admin_user ) inh
   }
   if $::ec2_metadata {
     file {'/etc/cloud/cloud.cfg.d/99_puppetlabs.cfg':
-      ensure => file,
-      source => 'puppet:///modules/bootstrap/99_puppetlabs.cfg',
+      ensure         => file,
+      content        => epp('bootstrap/99_puppetlabs.cfg.epp',{
+        admin_user   => $admin_user,
+        lock_passwd  => $ec2_lock_passwd,
+        ec2_hostname => $::hostname,
+      }),
     }
   }
 }
