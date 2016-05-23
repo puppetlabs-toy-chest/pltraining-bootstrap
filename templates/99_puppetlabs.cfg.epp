@@ -1,8 +1,8 @@
-hostname: master.puppetlabs.vm
+hostname: <%= $ec2_hostname %>
 system_info:
   default_user:
-    name: training
-    lock_passwd: true
+    name: <%= $admin_user %>
+    lock_passwd: <%= $lock_passwd %>
     gecos: Puppet Labs Training User
     groups: [wheel, adm, systemd-journal]
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
