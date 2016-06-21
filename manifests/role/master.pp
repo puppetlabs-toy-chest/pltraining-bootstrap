@@ -9,4 +9,5 @@ class bootstrap::role::master {
   include bootstrap::profile::pe_tweaks
   include bootstrap::profile::disable_selinux
   include bootstrap::public_key
+  include bootstrap::profile::cache_docker
 }
