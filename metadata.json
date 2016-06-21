@@ -24,6 +24,7 @@
     {"name":"puppetlabs/pe_gem"},
     {"name":"pltraining/dirtree"},
     {"name":"jfryman/selinux"},
-    {"name":"binford2k/abalone"}
+    {"name":"binford2k/abalone"},
+    {"name":"garethr/docker"}
   ]
 }
