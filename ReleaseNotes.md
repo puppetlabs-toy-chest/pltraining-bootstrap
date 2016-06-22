@@ -1,3 +1,8 @@
+### v0.0.12
+
+* PE 2016.2 support
+* Cache docker images on master
+
 ### v0.0.11
 
 * Build for PE 2016.1.2
