@@ -11,5 +11,7 @@ class bootstrap::role::training (
     ec2_lock_passwd => false,
   }
   include bootstrap::profile::disable_selinux 
-  include abalone
+  class { 'abalone':
+    port => '9091'
+  }
 }
