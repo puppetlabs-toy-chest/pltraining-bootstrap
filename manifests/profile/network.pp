@@ -8,8 +8,14 @@ class bootstrap::profile::network {
     ensure => stopped,
     enable => false,
   }
+
+  #Flush existing rules and save blank ruleset
   exec { 'iptables -F':
     path => '/sbin',
+  }
+  exec { 'iptables-save > /etc/sysconfig/iptables':
+    path    => 'sbin',
+    require => Exec['iptables -F'],
   }
 
   service { 'network':
