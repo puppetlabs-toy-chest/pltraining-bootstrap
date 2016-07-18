@@ -9,13 +9,15 @@ class bootstrap::profile::network {
     enable => false,
   }
 
-  #Flush existing rules and save blank ruleset
-  exec { 'iptables -F':
-    path => '/sbin',
-  }
-  exec { 'iptables-save > /etc/sysconfig/iptables':
-    path    => 'sbin',
-    require => Exec['iptables -F'],
+  #Flush existing rules and save blank ruleset on centos 6
+  if $::os['release']['major'] == '6' {
+    exec { 'iptables -F':
+      path => '/sbin',
+    }
+    exec { 'iptables-save > /etc/sysconfig/iptables':
+      path    => 'sbin',
+      require => Exec['iptables -F'],
+    }
   }
 
   service { 'network':
