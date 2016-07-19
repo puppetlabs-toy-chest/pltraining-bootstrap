@@ -2,7 +2,7 @@
 source puppetlabs_functions.sh
 version
 
-echo "This script will automate the setup of the Puppetlabs Training Classroom"
+echo "This script will automate the setup of the Puppet Training Classroom"
 echo
 
 if [ "`hostname`" == 'master.puppetlabs.vm' ]
@@ -22,7 +22,7 @@ fi
 
 offer_bailout
 
-# backup /etc/hosts 
+# backup /etc/hosts
 HOSTS=/etc/hosts
 NETWORK=/etc/sysconfig/network
 BACKUP_DIR=$(mktemp -d)
