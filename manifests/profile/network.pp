@@ -15,7 +15,7 @@ class bootstrap::profile::network {
       path => '/sbin',
     }
     exec { 'iptables-save > /etc/sysconfig/iptables':
-      path    => 'sbin',
+      path    => '/sbin',
       require => Exec['iptables -F'],
     }
   }
