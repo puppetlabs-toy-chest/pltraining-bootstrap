@@ -8,8 +8,16 @@ class bootstrap::profile::network {
     ensure => stopped,
     enable => false,
   }
-  exec { 'iptables -F':
-    path => '/sbin',
+
+  #Flush existing rules and save blank ruleset on centos 6
+  if $::os['release']['major'] == '6' {
+    exec { 'iptables -F':
+      path => '/sbin',
+    }
+    exec { 'iptables-save > /etc/sysconfig/iptables':
+      path    => '/sbin',
+      require => Exec['iptables -F'],
+    }
   }
 
   service { 'network':
