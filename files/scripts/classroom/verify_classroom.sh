@@ -37,7 +37,7 @@ check "[[ '`grep processor /proc/cpuinfo | wc -l`' -gt '1' ]]"      \
 
 check "[[ \"`awk '/MemTotal/{print $2}' /proc/meminfo`\" -ge '8000000' ]]"   \
       "Checking available memory for classroom Master"              \
-      "The classroom Master should have at least 6GB of memory, and preferably 8GB"
+      "The classroom Master should have at 8GB (8192MB) of memory. You can try it on 6GB, but it's not recommended."
 
 DEFAULT='$1$jrm5tnjw$h8JJ9mCZLmJvIxvDLjw1M/'  # 'puppet'
 check "[[ '$(awk -F ':' '/^root/{print $2}' /etc/shadow)' != '$DEFAULT' ]]"  \
