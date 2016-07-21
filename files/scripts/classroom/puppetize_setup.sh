@@ -19,20 +19,26 @@ function puppet_api () {
 PE_MASTER_ID=$(puppet_api classifier-api/v1/groups GET | jq -r '.[] | select(.name=="PE Master").id')
 
 # Create deployer user
+echo Creating deployer user with password "puppetlabs"
 puppet_api rbac-api/v1/group POST '{"login":"deployer","email":"deployer@puppet.vm","display_name":"Code Deployer","role_ids":[4],"password":"puppetlabs"}'
 
 # Get deployment token
+echo Requesting token for "deployer"
 echo "puppetlabs" | puppet access login deployer --lifetime 1y
 
 # Add upstream repo
+echo Configuring Code manager
 puppet_api classifier-api/v1/groups/$PE_MASTER_ID POST '{"classes":{"puppet_enterprise::profile::master":{"code_manager_auto_configure":true,"r10k_remote":"https://github.com/puppetlabs-education/classroom-control-pi"}}}' \
   | jq .
 
 # Run puppet to enable code-manager
+echo Running puppet for initial Code Manager configuration
 puppet agent -t
 
 # Install classroom module
+echo Installng the classroom module to the global modulepath
 puppet module install pltraining-classroom --modulepath=/etc/puppetlabs/code-staging/modules
 
 # Deploy code
-puppet code deploy production --wait
+echo Deploying production environment and global modules
+puppet code deploy production --wait | jq .
