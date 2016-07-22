@@ -1,4 +1,7 @@
 #!/bin/bash
+# This is a basic setup script that creates the user and token, 
+# sets up code manager and points it at the upstream repo, 
+# installs the classroom module and deploys the code.
 HOST_CERT=$(puppet config print hostcert)
 PRIV_KEY=$(puppet config print hostprivkey)
 CACERT=$(puppet config print cacert)
