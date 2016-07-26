@@ -110,6 +110,9 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'jmx':}
   bootstrap::gem { 'table_print':}
 
+  # used by classroom scripts
+  bootstrap::gem { 'puppetclassify':                 version => '0.1.5'  }
+
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
 }
