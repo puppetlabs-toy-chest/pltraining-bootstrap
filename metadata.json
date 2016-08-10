@@ -25,6 +25,8 @@
     {"name":"pltraining/dirtree"},
     {"name":"jfryman/selinux"},
     {"name":"binford2k/abalone"},
-    {"name":"garethr/docker"}
+    {"name":"garethr/docker"},
+    {"name":"thias/libvirt"},
+    {"name":"razorsedge/network"}
   ]
 }
