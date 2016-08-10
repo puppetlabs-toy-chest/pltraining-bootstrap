@@ -1,4 +1,6 @@
 class bootstrap::profile::virt {
+
+  # Set up libvirt and network
   include libvirt
   package {'kvm':
     ensure => present,
@@ -6,10 +8,15 @@ class bootstrap::profile::virt {
   network::bridge::dynamic {'br0':
     ensure => 'up',
   }
-  network::if::bridge { 'eno16777728':
-    ensure => 'up',
-    bridge => 'br0',
+  if $networking['primary'] != 'br0' {
+    network::if::bridge { $networking['primary']:
+      ensure => 'up',
+      bridge => 'br0',
+    }
   }
+
+
+  # Download VMs
   file { '/usr/src/vms':
     ensure => directory,
   }
@@ -17,10 +24,10 @@ class bootstrap::profile::virt {
     ensure => file,
     source => 'http://int-resources.ops.puppetlabs.net/EducationBeta/Windows/9600.16415.amd64fre.winblue_refresh.130928-2229_server_serverdatacentereval_en-us.vhd',
   }
-
   file { '/usr/src/vms/puppet-master.ova':
     ensure => file,
     source => 'http://downloads.puppetlabs.com/training/puppet-master.ova'
   }
+
 }
 
