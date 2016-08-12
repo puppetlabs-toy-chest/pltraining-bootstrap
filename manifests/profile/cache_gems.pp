@@ -73,7 +73,6 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'specinfra':                      version => '2.47.1' }
 
   # carrier-pigeon, for jamtur01/irc report processor
-  bootstrap::gem { 'addressable':                    version => '2.3.8'  }
   bootstrap::gem { 'carrier-pigeon':                 version => '0.7.0'  }
 
   # formatr, for perlform mco reports
@@ -137,7 +136,6 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'table_print':}
 
   # used by classroom scripts
-  bootstrap::gem { 'puppetclassify':                 version => '0.1.5'  }
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
