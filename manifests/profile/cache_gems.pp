@@ -85,11 +85,37 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'trollop':                        version => '2.0'    }
 
   # Sinatra and Puppetfactory gems
-  bootstrap::gem { 'rack':                           version => '1.4.0'  }
-  bootstrap::gem { 'rack-protection':                version => '1.4.0'  }
+  bootstrap::gem { 'rack':                           version => '1.6.4'  }
+  bootstrap::gem { 'rack-protection':                version => '1.5.3'  }
   bootstrap::gem { 'rest-client':                    version => '1.8.0'  }
-  bootstrap::gem { 'sinatra':                        version => '1.4.5'  }
-  bootstrap::gem { 'tilt':                           version => '1.3.4'  }
+  bootstrap::gem { 'sinatra':                        version => '1.4.7'  }
+  bootstrap::gem { 'tilt':                           version => '2.0.5'  }
+  bootstrap::gem { 'puppetclassify':                 version => '0.1.5'  }
+
+  # Showoff dependencies
+  bootstrap::gem { 'addressable':                    version => '2.4.0'  }
+  bootstrap::gem { 'blankslate':                     version => '3.1.3'  }
+  bootstrap::gem { 'daemons':                        version => '1.2.4'  }
+  bootstrap::gem { 'em-websocket':                   version => '0.3.8'  }
+  bootstrap::gem { 'eventmachine':                   version => '1.2.0.1' }
+  bootstrap::gem { 'gli':                            version => '2.14.0' }
+  bootstrap::gem { 'htmlentities':                   version => '4.3.4'  }
+  bootstrap::gem { 'mini_portile2':                  version => '2.1.0'  }
+  bootstrap::gem { 'nokogiri':                       version => '1.6.8'  }
+  bootstrap::gem { 'parslet':                        version => '1.7.1'  }
+  bootstrap::gem { 'pkg-config':                     version => '1.1.7'  }
+  bootstrap::gem { 'redcarpet':                      version => '3.3.4'  }
+  bootstrap::gem { 'showoff':                        version => '0.13.4' }
+  bootstrap::gem { 'sinatra-websocket':              version => '0.3.1'  }
+  bootstrap::gem { 'thin':                           version => '1.7.0'  }
+
+  # puppetdb-ruby & deps
+  bootstrap::gem { 'httparty':                       version => '0.14.0' }
+  bootstrap::gem { 'multi_xml':                      version => '0.5.5'  }
+  bootstrap::gem { 'puppetdb-ruby':                  version => '0.0.1'  }
+
+  # used to provide color output for various scripts
+  bootstrap::gem { 'colorize':                       version => '0.8.1'  }
 
   # Learning VM gems
   bootstrap::gem { 'cowsay':                         version => '0.2.0'  }
