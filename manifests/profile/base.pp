@@ -31,9 +31,7 @@ class bootstrap::profile::base {
               'telnet',
               'tree', 
               'stunnel', 
-              'redhat-lsb', 
-              'xorg-x11-fonts-75dpi.noarch', 
-              'open-sans-fonts.noarch' ] :
+              'redhat-lsb' ] :
     ensure  => present,
     require => Class['epel'],
   }
