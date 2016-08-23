@@ -58,4 +58,19 @@ To set a new password, run the command: reset_password.rb
 # Disable the floppy driver
 rmmod floppy
 
+<% unless @hostname == "learning" %>
+if ! [ -d "/etc/puppetlabs/code/modules/classroom" ]
+then
+  # set up the puppet codebase
+  puppet module install pltraining/classroom --modulepath /etc/puppetlabs/code-staging/modules
+  cp -a /etc/puppetlabs/code-staging/modules/* /etc/puppetlabs/code/modules/
+  chown -R pe-puppet:pe-puppet /etc/puppetlabs/code/modules
+
+  # set up deploy user
+  puppet plugin download
+  puppet resource rbac_user deployer ensure=present display_name=deployer email=deployer@puppetlabs.vm password=puppetlabs roles=4
+  echo 'puppetlabs' | puppet access login deployer --lifetime 5d
+fi
+<% end %>
+
 /root/.ssh_keygen.sh &
