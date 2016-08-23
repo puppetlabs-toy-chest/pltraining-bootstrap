@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 # Automate the process of regenerating certificates on a monolithic master
-# https://docs.puppetlabs.com/pe/latest/trouble_regenerate_certs_monolithic.html
+# https://docs.puppet.com/pe/latest/trouble_regenerate_certs_monolithic.html
 #
 if [[ $(hostname) != "master.puppetlabs.vm" && $(hostname) != "classroom.puppetlabs.vm" ]]
 then

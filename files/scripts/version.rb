@@ -12,4 +12,4 @@ end
 
 versions     = YAML.load_file('/usr/src/puppetlabs-training-bootstrap/version.yaml')
 @ptb_version = "#{versions[:major]}.#{versions[:minor]}"
-cputs "Puppet Labs Training VM #{@ptb_version} (Build #{@ptb_build})"
+cputs "Puppet Training VM #{@ptb_version} (Build #{@ptb_build})"
