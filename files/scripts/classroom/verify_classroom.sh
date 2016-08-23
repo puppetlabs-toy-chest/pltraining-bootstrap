@@ -18,7 +18,7 @@ then
   exit 1
 fi
 
-echo "Verifying Puppet Labs Training classroom setup:"
+echo "Verifying Puppet Training classroom setup:"
 echo
 
 ###### start running checks ######

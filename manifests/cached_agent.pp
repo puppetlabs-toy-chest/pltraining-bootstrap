@@ -41,11 +41,11 @@ define bootstrap::cached_agent (
     # platforms that download directly to the pe_repo directory instead of staging
     'Windows' : {
       $staging_dir = "/opt/puppetlabs/server/data/packages/public/${pe_version}/windows-${architecture}"
-      $url         = "https://pm.puppetlabs.com/puppet-agent/${pe_version}/${agent_version}/repos/windows/${buildname}"
+      $url         = "https://pm.puppet.com/puppet-agent/${pe_version}/${agent_version}/repos/windows/${buildname}"
     }
     default  : {
       $staging_dir = '/opt/puppetlabs/server/data/staging/pe_repo'
-      $url         = "https://pm.puppetlabs.com/puppet-agent/${pe_version}/${agent_version}/repos/${buildname}"
+      $url         = "https://pm.puppet.com/puppet-agent/${pe_version}/${agent_version}/repos/${buildname}"
     }
   }
 

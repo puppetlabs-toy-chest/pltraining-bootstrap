@@ -26,7 +26,7 @@ class bootstrap::profile::virt {
   }
   file { '/usr/src/vms/puppet-master.ova':
     ensure => file,
-    source => 'http://downloads.puppetlabs.com/training/puppet-master.ova'
+    source => 'http://downloads.puppet.com/training/puppet-master.ova'
   }
 
 }
