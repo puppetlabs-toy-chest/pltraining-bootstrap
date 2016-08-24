@@ -6,12 +6,40 @@
 
 touch /var/lock/subsys/local
 
+get_iana_ip_address ()
+{
+  local NETBLOCK
+  local IP_ADDRESS
+
+  # If there's no default route (possible with host-only networking), then
+  # look for devices assigned to an IANA private network with preference
+  # given to one assigned a 192.168.x.y address.
+  for NETBLOCK in 192.168.0.0/16 172.16.0.0/24 10.0.0.0/8; do
+    IP_ADDRESS=$(ip route show to root $NETBLOCK | awk 'NR == 1 {print $9}')
+    [ ! -z $IP_ADDRESS ] && echo $IP_ADDRESS && exit
+  done
+
+  # Nothing yet
+  exit
+}
+
+get_primary_interface ()
+{
+  echo $(ip route show default scope global | awk 'NR==1 {print $5}')
+}
+
 <% if @hostname == "learning" %>
 get_ip ()
 {
-  PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
-  IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(en|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}') || exit
-  echo $IP_ADDRESS
+  local IP_ADDRESS
+  local PRIMARY_INTERFACE=$(get_primary_interface)
+
+  if [ ! -z "$PRIMARY_INTERFACE" ]; then
+    IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(en|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}') || exit
+    echo $IP_ADDRESS
+  else
+    IP_ADDRESS=$(get_iana_ip_address)
+  fi
 }
 
 #Wait for network before loading IP address
@@ -25,14 +53,18 @@ done
 
 IP_ADDRESS=$(get_ip)
 <% else %>
-PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
-IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | awk 'BEGIN {FS = "[ /]+"} ; {print $4}')
+PRIMARY_INTERFACE=$(get_primary_interface)
+if [ ! -z "$PRIMARY_INTERFACE" ]; then
+  IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | awk 'BEGIN {FS = "[ /]+"} ; {print $4}')
+else
+  IP_ADDRESS=$(get_iana_ip_address)
+fi
 <% end %>
 
 if [ ! -s /var/local/password ]
 then
 
-  # Generate password in format WORD.Number.WORD
+  # Generate password in format WORD.WORD
   echo $(shuf -n 1 --random-source=/dev/urandom /var/local/places.txt).$(shuf -n 1 --random-source=/dev/urandom /var/local/places.txt) > /var/local/password
   echo "root:$(cat /var/local/password)" | chpasswd
 fi
