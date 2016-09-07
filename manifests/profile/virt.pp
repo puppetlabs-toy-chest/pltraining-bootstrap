@@ -6,6 +6,13 @@ class bootstrap::profile::virt {
     ensure => present,
   }
 
+  # Set dnsmasq to use the libvirt default network
+  file { '/etc/dnsmasq.conf':
+    ensure   => file,
+    contents => 'interface=virbr0',
+    require  => Package['dnsmasq'],
+  }
+
   # Download VMs
   file { '/usr/src/vms':
     ensure => directory,
