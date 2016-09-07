@@ -1,7 +1,9 @@
 class bootstrap::profile::virt {
 
   # Set up libvirt and network
-  include libvirt
+  class { 'libvirt':
+    defaultnetwork => true,
+  }
   package {['kvm','dnsmasq','hostapd']:
     ensure => present,
   }
