@@ -2,19 +2,9 @@ class bootstrap::profile::virt {
 
   # Set up libvirt and network
   include libvirt
-  package {'kvm':
+  package {['kvm','dnsmasq','hostapd']:
     ensure => present,
   }
-  network::bridge::dynamic {'br0':
-    ensure => 'up',
-  }
-  if $networking['primary'] != 'br0' {
-    network::if::bridge { $networking['primary']:
-      ensure => 'up',
-      bridge => 'br0',
-    }
-  }
-
 
   # Download VMs
   file { '/usr/src/vms':
