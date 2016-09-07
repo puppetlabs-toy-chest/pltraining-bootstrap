@@ -9,7 +9,7 @@ class bootstrap::profile::virt {
   # Set dnsmasq to use the libvirt default network
   file { '/etc/dnsmasq.conf':
     ensure   => file,
-    contents => 'interface=virbr0',
+    content  => 'interface=virbr0',
     require  => Package['dnsmasq'],
   }
 
