@@ -4,6 +4,14 @@ class bootstrap::profile::virt {
   class { 'libvirt':
     defaultnetwork => true,
   }
+  libvirt_pool { 'default':
+    ensure    => present,
+    type      => 'dir',
+    active    => true,
+    autostart => true,
+    target    => '/usr/src/vms',
+  }
+
   package {['kvm','dnsmasq','hostapd']:
     ensure => present,
   }
