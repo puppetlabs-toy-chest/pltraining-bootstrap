@@ -36,6 +36,18 @@ class bootstrap::profile::virt {
     ip => $::ipaddress
   }
 
+  file { '/etc/hostapd/hostapd.conf':
+    ensure    => file,
+    content   => epp('bootstrap/hostapd.conf.epp',{
+      iface   => 'wlp3s0',
+      hw_mode => 'g',
+      channel => '1',
+      ssid    => 'classroom_in_a_box',
+      bridge  => 'virbr0',
+    }),
+    require => Package['hostapd'],
+  }
+
   package {['kvm','dnsmasq','hostapd','iw']:
     ensure => present,
   }
