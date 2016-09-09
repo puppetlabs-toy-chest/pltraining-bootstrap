@@ -31,7 +31,12 @@ class bootstrap::profile::virt {
     groups => ['libvirt'],
   }
 
-  package {['kvm','dnsmasq','hostapd']:
+  # Add a hosts entry for the main ip so that dnsmasq will work
+  host { $::fqdn:
+    ip => $::ipaddress
+  }
+
+  package {['kvm','dnsmasq','hostapd','iw']:
     ensure => present,
   }
 
