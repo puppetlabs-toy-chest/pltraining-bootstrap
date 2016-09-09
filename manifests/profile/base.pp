@@ -42,4 +42,12 @@ class bootstrap::profile::base {
     recurse => true,
     force   => true,
   }
+
+  # Enable PrintMotd for classroom VMs.
+  # See: https://tickets.puppetlabs.com/browse/COURSES-2240
+  augeas { "PrintMotd_enable":
+    context => '/files/etc/ssh/sshd_config',
+    changes => 'set PrintMotd yes',
+    require => Package['ruby_augeas_lib'],
+  }
 }
