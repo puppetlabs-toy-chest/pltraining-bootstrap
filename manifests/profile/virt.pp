@@ -49,7 +49,8 @@ class bootstrap::profile::virt {
   }
 
   package {['kvm','dnsmasq','hostapd','iw']:
-    ensure => present,
+    ensure  => present,
+    require => Class['epel'],
   }
 
   # Set dnsmasq to use the libvirt default network
