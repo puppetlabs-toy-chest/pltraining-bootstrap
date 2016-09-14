@@ -15,7 +15,7 @@ IO.popen("puppet module install #{mod} --modulepath /tmp/nuker --debug").readlin
   next unless line =~ /Debug: HTTP GET.*module=(\w*-\w*)/
 
   puts "Uninstalling #{$1}..."
-  system("puppet module uninstall #{$1} #{ARGV.join(' ')} > /dev/null 2>&1")
+  system("puppet module uninstall #{$1} #{ARGV.join(' ')} --force > /dev/null 2>&1")
 end
 
 FileUtils.rm_rf '/tmp/nuker'
