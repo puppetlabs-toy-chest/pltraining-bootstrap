@@ -74,7 +74,9 @@ then
   puppet module install pltraining/classroom --modulepath /etc/puppetlabs/code-staging/modules
   cp -a /etc/puppetlabs/code-staging/modules/* /etc/puppetlabs/code/modules/
   chown -R pe-puppet:pe-puppet /etc/puppetlabs/code/modules
+fi
 
+if ! [ -f "/root/.puppetlabs/token" ]
   # wait for PE stack to boot.
   while true; do puppet status master.puppetlabs.vm --terminus rest && break; sleep 5; done
   sleep 300
