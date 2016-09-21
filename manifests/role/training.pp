@@ -3,6 +3,7 @@ class bootstrap::role::training (
 ) inherits bootstrap::params {
   include localrepo
   include bootstrap
+  include userprefs::defaults
   include bootstrap::profile::splash
   include bootstrap::profile::cache_wordpress
   include bootstrap::profile::installer_staging
