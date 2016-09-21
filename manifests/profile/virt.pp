@@ -87,7 +87,7 @@ class bootstrap::profile::virt {
     notify => Exec['expand master image']
   }
   exec { 'expand master image':
-    command     => 'tar xvf puppet-master.ova *.vmdk',
+    command     => "tar xvf ${image_source}/puppet-master.ova *.vmdk",
     cwd         => $image_source,
     path        => '/bin',
     refreshonly => true,
