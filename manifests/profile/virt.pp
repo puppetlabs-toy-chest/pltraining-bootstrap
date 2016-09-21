@@ -74,28 +74,31 @@ class bootstrap::profile::virt {
 		source => 'http://int-resources.ops.puppetlabs.net/EducationBeta/Windows/9600.16415.amd64fre.winblue_refresh.130928-2229_server_serverdatacentereval_en-us.vhd',
 	}
 	exec { 'convert windows image':
-		command   => "qemu-img convert -f vpc -O raw ${image_source}/windows.vhd windows.img",
-		cwd       => $image_location,
-		path      => '/bin',
-    creates   => 'windows.img'
-		require   => File["${image_source}/windows.vhd"],
+		command => "qemu-img convert -f vpc -O raw ${image_source}/windows.vhd windows.img",
+		cwd     => $image_location,
+		path    => '/bin',
+    creates => 'windows.img'
+		require => File["${image_source}/windows.vhd"],
 	}
 
 	file { "${image_location}/puppet-master.ova":
 		ensure => file,
 		source => 'http://downloads.puppet.com/training/puppet-master.ova',
+    notify => Exec['expand master image']
 	}
 	exec { 'expand master image':
-		command => 'tar xvf puppet-master.ova *.vmdk',
-		cwd     => $image_source,
-		path    => '/bin',
-		require => File["${image_source}/puppet-master.ova"],
+		command     => 'tar xvf puppet-master.ova *.vmdk',
+		cwd         => $image_source,
+		path        => '/bin',
+    refreshonly => true,
+		require     => File["${image_source}/puppet-master.ova"],
 	}
 	exec { 'convert master image': 
-    command   => 'qemu-img convert -f vmdk -O raw *.vmdk master.img && rm -rf *.vmdk':
-		cwd       => $image_location,
-		path      => '/bin',
-		require   => Exec['expand master image']
+    command => 'qemu-img convert -f vmdk -O raw *.vmdk master.img && rm -rf *.vmdk':
+		cwd     => $image_location,
+		path    => '/bin',
+    creates => 'master.img',
+		require => Exec['expand master image']
 	}
 
 }
