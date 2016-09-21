@@ -5,7 +5,6 @@ class bootstrap {
   include bootstrap::profile::cache_gems
   include userprefs::defaults
   include bootstrap::profile::yum
-  include bootstrap::profile::network
   include bootstrap::profile::scripts
   include bootstrap::profile::replace_factor
 }

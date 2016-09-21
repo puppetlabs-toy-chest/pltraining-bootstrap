@@ -1,6 +1,7 @@
 class bootstrap::role::master {
   include localrepo
   include bootstrap
+  include bootstrap::profile::network
   include pe_repo::platform::el_6_i386
   include pe_repo::platform::el_7_x86_64
   include pe_repo::platform::ubuntu_1404_amd64
