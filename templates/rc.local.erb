@@ -9,6 +9,9 @@ touch /var/lock/subsys/local
 <% if @hostname == "learning" %>
 get_ip ()
 {
+  # It's possible that PRIMARY_INTERFACE will be empty if the VM is
+  # configured with a host-only interface, but IP_ADDRESS should still
+  # get a valid address.
   PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
   IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(en|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}') || exit
   echo $IP_ADDRESS
@@ -25,8 +28,11 @@ done
 
 IP_ADDRESS=$(get_ip)
 <% else %>
+# It's possible that PRIMARY_INTERFACE will be empty if the VM is
+# configured with a host-only interface, but IP_ADDRESS should still
+# get a valid address.
 PRIMARY_INTERFACE=$(ip route show default scope global | awk 'NR==1 {print $5}')
-IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | awk 'BEGIN {FS = "[ /]+"} ; {print $4}')
+IP_ADDRESS=$(ip -o -4 a show $PRIMARY_INTERFACE | egrep '(en|eth)' | awk 'BEGIN {FS = "[ /]+"} ; {print $4}')
 <% end %>
 
 if [ ! -s /var/local/password ]
@@ -41,7 +47,7 @@ PASSWORD=$(cat /var/local/password)
 
 
 echo \
-"                --- Welcome to the PuppetLabs <%= @hostname.capitalize -%> VM ---
+"                --- Welcome to the Puppet, Inc. <%= @hostname.capitalize -%> VM ---
 
 <%= @login_message %>
 
@@ -58,4 +64,26 @@ To set a new password, run the command: reset_password.rb
 # Disable the floppy driver
 rmmod floppy
 
-/root/.ssh_keygen.sh &
+# generate ssh key on student machines
+[[ -r /root/.ssh_keygen.sh ]] && /root/.ssh_keygen.sh &
+
+<% unless @hostname == "learning" %>
+if ! [ -d "/etc/puppetlabs/code/modules/classroom" ]
+then
+  # set up the puppet codebase
+  puppet module install pltraining/classroom --modulepath /etc/puppetlabs/code-staging/modules
+  cp -a /etc/puppetlabs/code-staging/modules/* /etc/puppetlabs/code/modules/
+  chown -R pe-puppet:pe-puppet /etc/puppetlabs/code/modules
+fi
+
+if ! [ -f "/root/.puppetlabs/token" ]
+  # wait for PE stack to boot.
+  while true; do puppet status master.puppetlabs.vm --terminus rest && break; sleep 5; done
+  sleep 300
+  
+  # set up deploy user
+  puppet plugin download
+  puppet resource rbac_user deployer ensure=present display_name=deployer email=deployer@puppetlabs.vm password=puppetlabs roles=4
+  echo 'puppetlabs' | HOME=/root /opt/puppetlabs/bin/puppet-access login deployer --lifetime 5d
+fi
+<% end %>

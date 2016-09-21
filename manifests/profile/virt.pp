@@ -14,17 +14,63 @@ class bootstrap::profile::virt {
   }
   package {['kvm','virt-manager']:
     ensure => present,
+    defaultnetwork  => false,
+    auth_unix_rw    => 'none',
+    unix_sock_group => 'libvirt',
   }
-  network::bridge::dynamic {'br0':
-    ensure => 'up',
+  libvirt::network { 'classroom':
+    ensure       => 'enabled',
+    bridge       => 'virbr0',
+    forward_mode => 'nat',
+    domain_name  => 'puppetlabs.vm',
+    autostart    => true,
+    ip           => [{
+      address    => '192.168.233.1',
+      dhcp       => {
+        start    => '192.168.233.1',
+        end      => '192.168.233.254',
+      }
+    }],
   }
-  if $networking['primary'] != 'br0' {
-    network::if::bridge { $networking['primary']:
-      ensure => 'up',
-      bridge => 'br0',
-    }
+  libvirt_pool { 'default':
+    ensure    => present,
+    type      => 'dir',
+    active    => true,
+    autostart => true,
+    target    => '/var/lib/libvirt/images/',
+  }
+  user {'training':
+    groups => ['libvirt'],
   }
 
+  # Add a hosts entry for the main ip so that dnsmasq will work
+  host { $::fqdn:
+    ip => $::ipaddress
+  }
+
+  file { '/etc/hostapd/hostapd.conf':
+    ensure    => file,
+    content   => epp('bootstrap/hostapd.conf.epp',{
+      iface   => 'wlp3s0',
+      hw_mode => 'g',
+      channel => '1',
+      ssid    => 'classroom_in_a_box',
+      bridge  => 'virbr0',
+    }),
+    require => Package['hostapd'],
+  }
+
+  package {['kvm','dnsmasq','hostapd','iw']:
+    ensure  => present,
+    require => Class['epel'],
+  }
+
+  # Set dnsmasq to use the libvirt default network
+  file { '/etc/dnsmasq.conf':
+    ensure   => file,
+    content  => 'interface=virbr0',
+    require  => Package['dnsmasq'],
+  }
 
   # Download VMs
   file { "${image_location}":
@@ -41,9 +87,23 @@ class bootstrap::profile::virt {
     require => File["${image_location}/windows.vhd"],
   }
 
+  exec { "qemu-img convert -O raw ${image_location}/windows.vhd /var/lib/libvirt/images/windows.img":
+    path    => '/bin',
+    require => File["${image_location}/windows.vhd"],
+  }
+
   file { "${image_location}/puppet-master.ova":
     ensure => file,
-    source => 'http://downloads.puppetlabs.com/training/puppet-master.ova'
+    source => 'http://downloads.puppet.com/training/puppet-master.ova',
+  }
+  exec { "tar xvf ${image_location}/puppet-master.ova":
+    cwd     => '/usr/src/vms',
+    path    => '/bin',
+    require => File['${image_location}/puppet-master.ova'],
+  }
+  exec { "qemu-img convert -O raw ${image_location}/*.vmdk /var/lib/libvirt/images/master.img":
+    path    => '/bin',
+    require => Exec["tar xvf ${image_location}/puppet-master.ova"],
   }
   exec { 'convert master image':
     command => 'tar xvf puppet-master.ova *.vmdk && rm -rf puppet-master.ova',
