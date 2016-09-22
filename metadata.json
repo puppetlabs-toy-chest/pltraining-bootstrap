@@ -22,6 +22,7 @@
     {"name":"stahnma/epel"},
     {"name":"pltraining/userprefs"},
     {"name":"puppetlabs/pe_gem"},
+    {"name":"puppetlabs/mysql"},
     {"name":"pltraining/dirtree"},
     {"name":"jfryman/selinux"},
     {"name":"binford2k/abalone"},
