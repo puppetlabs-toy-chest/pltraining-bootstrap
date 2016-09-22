@@ -96,7 +96,7 @@ class bootstrap::profile::virt {
     require     => File["${image_source}/puppet-master.ova"],
   }
   exec { 'convert master image':
-    command => 'qemu-img convert -f vmdk -O raw *.vmdk master.img && rm -rf *.vmdk',
+    command => "qemu-img convert -f vmdk -O raw ${image_source}/*.vmdk master.img && rm -rf ${image_sourcE}/*.vmdk",
     cwd     => $image_location,
     path    => '/bin',
     creates => "${image_location}/master.img",

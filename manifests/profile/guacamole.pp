@@ -3,6 +3,9 @@ class bootstrap::profile::guacamole {
   include docker
   docker::run {'ciab-guacd':
     image => 'glyptodon/guacd'
+    extra_parameters => [
+      "--add-host ${::fqdn}:${::networking['ip']}",
+    ],
   }
   docker::run {'ciab-guacamole':
     image            => 'glyptodon/guacamole',
