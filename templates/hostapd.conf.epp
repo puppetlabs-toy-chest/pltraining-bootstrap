@@ -34,8 +34,8 @@ ignore_broadcast_ssid=0
 driver=nl80211
 
 # Customize these for your local configuration...
-interface=<%= iface %>
-hw_mode=<%= hw_mode %>
-channel=<%= channel %>
-ssid=<%= ssid %>
-bridge=<%= bridge %>
+interface=<%= $iface %>
+hw_mode=<%= $hw_mode %>
+channel=<%= $channel %>
+ssid=<%= $ssid %>
+bridge=<%= $bridge %>

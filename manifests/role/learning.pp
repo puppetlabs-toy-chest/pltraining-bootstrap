@@ -1,6 +1,7 @@
 class bootstrap::role::learning {
   include localrepo
   include bootstrap
+  include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
   class {'userprefs::vim':
     line_number => 'false',
