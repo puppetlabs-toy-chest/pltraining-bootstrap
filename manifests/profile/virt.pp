@@ -9,10 +9,12 @@ class bootstrap::profile::virt {
     require => Class['libvirt'],
   }
   class { 'libvirt':
-    qemu_vnc_listen    => '0.0.0.0',
-    listen_tcp         => true,
     defaultnetwork     => false,
     auth_unix_rw       => 'none',
+    qemu_user          => 'training',
+    qemu_group         => 'libvirt',
+    qemu_vnc_listen    => '0.0.0.0',
+    listen_tcp         => true,
     unix_sock_group    => 'libvirt',
     unix_sock_rw_perms => '0770',
   }
@@ -96,7 +98,7 @@ class bootstrap::profile::virt {
     require     => File["${image_source}/puppet-master.ova"],
   }
   exec { 'convert master image':
-    command => 'qemu-img convert -f vmdk -O raw *.vmdk master.img && rm -rf *.vmdk',
+    command => "qemu-img convert -f vmdk -O raw ${image_source}/*.vmdk master.img && rm -rf ${image_source}/*.vmdk",
     cwd     => $image_location,
     path    => '/bin',
     creates => "${image_location}/master.img",
