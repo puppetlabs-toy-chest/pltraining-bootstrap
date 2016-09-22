@@ -28,7 +28,7 @@ class bootstrap::profile::guacamole {
     source  => 'puppet:///modules/bootstrap/initdb.sql',
   }
   include ::mysql::server
-  mysql::db {'gucamole_db':
+  mysql::db {'guacamole_db':
     user     => 'guacamole_user',
     password => 'some_password',
     host     => '%',
