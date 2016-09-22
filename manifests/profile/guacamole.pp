@@ -9,13 +9,13 @@ class bootstrap::profile::guacamole {
     links            => ['ciab-guacd:guacd'],
     ports            => ['8080'],
     env              => [
-      "MYSQL_HOST=${::fqdn}",
+      "MYSQL_HOSTNAME=${::fqdn}",
       'MYSQL_DATABASE=guacamole_db',
       'MYSQL_USER=guacamole_user',
       'MYSQL_PASSWORD=some_password',
     ],
     extra_parameters => [
-      "--add-host ${::fqdn}:${networking['ip']}",
+      "--add-host ${::fqdn}:${::networking['ip']}",
     ],
     require => [Mysql::Db['guacamole_db'],Docker::Run['ciab-guacd']],
   }
@@ -35,6 +35,11 @@ class bootstrap::profile::guacamole {
     grant    => ['SELECT','INSERT','UPDATE','DELETE'],
     sql      => '/usr/src/guacamole/initdb.sql',
     require  => File['/usr/src/guacamole/initdb.sql'],
+  }
+  firewall { '010 allow mysql':
+    proto  => 'tcp',
+    action => 'accept',
+    dport   => '3306',
   }
     
 }
