@@ -3,6 +3,9 @@ class bootstrap::role::learning {
   include bootstrap
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
+  class {'userprefs::vim':
+    line_number => 'false',
+  }
   class {'learning':
     git_branch => 'master',
   }
