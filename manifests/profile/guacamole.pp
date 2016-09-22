@@ -7,7 +7,7 @@ class bootstrap::profile::guacamole {
   docker::run {'ciab-guacamole':
     image            => 'glyptodon/guacamole',
     links            => ['ciab-guacd:guacd'],
-    ports            => ['8080'],
+    ports            => ['8080:8080'],
     env              => [
       "MYSQL_HOSTNAME=${::fqdn}",
       'MYSQL_DATABASE=guacamole_db',
