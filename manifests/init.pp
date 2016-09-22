@@ -3,7 +3,6 @@ class bootstrap {
   include bootstrap::profile::ruby
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_gems
-  include userprefs::defaults
   include bootstrap::profile::yum
   include bootstrap::profile::network
   include bootstrap::profile::scripts

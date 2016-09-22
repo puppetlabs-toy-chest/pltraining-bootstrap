@@ -3,6 +3,7 @@ class bootstrap::role::ciab (
 ) inherits bootstrap::params {
   include localrepo
   include bootstrap
+  include userprefs::defaults
   include bootstrap::profile::virt
   include bootstrap::profile::splash
   class { 'bootstrap::public_key': 
