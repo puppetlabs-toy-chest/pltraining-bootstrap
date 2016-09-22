@@ -5,6 +5,7 @@ class bootstrap::profile::guacamole {
     image => 'glyptodon/guacd'
   }
   docker::run {'ciab-guacamole':
+    image            => 'glyptodon/guacamole',
     links            => ['ciab-guacd:guacd'],
     ports            => ['8080'],
     env              => [
