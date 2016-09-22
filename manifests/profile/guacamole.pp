@@ -27,7 +27,15 @@ class bootstrap::profile::guacamole {
     ensure => file,
     source  => 'puppet:///modules/bootstrap/initdb.sql',
   }
-  include ::mysql::server
+
+  $override_options = {
+    'mysqld' => {
+      'bind-address' => '0.0.0.0',
+    }
+  }
+  class {'::mysql::server':
+    override_options => $override_options,
+  }
   mysql::db {'guacamole_db':
     user     => 'guacamole_user',
     password => 'some_password',
