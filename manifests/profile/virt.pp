@@ -9,9 +9,11 @@ class bootstrap::profile::virt {
     require => Class['libvirt'],
   }
   class { 'libvirt':
-    defaultnetwork  => false,
-    auth_unix_rw    => 'none',
-    unix_sock_group => 'libvirt',
+    qemu_vnc_listen    => '0.0.0.0',
+    listen_tcp         => true,
+    defaultnetwork     => false,
+    auth_unix_rw       => 'none',
+    unix_sock_group    => 'libvirt',
     unix_sock_rw_perms => '0770',
   }
   libvirt::network { 'classroom':
