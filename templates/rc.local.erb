@@ -84,6 +84,6 @@ if ! [ -f "/root/.puppetlabs/token" ]
   # set up deploy user
   puppet plugin download
   puppet resource rbac_user deployer ensure=present display_name=deployer email=deployer@puppetlabs.vm password=puppetlabs roles=4
-  echo 'puppetlabs' | HOME=/root /opt/puppetlabs/bin/puppet-access login deployer --lifetime 5d
+  echo 'puppetlabs' | HOME=/root /opt/puppetlabs/bin/puppet-access login deployer --lifetime 14d
 fi
 <% end %>
