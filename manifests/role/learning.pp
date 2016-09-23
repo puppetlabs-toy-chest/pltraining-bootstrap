@@ -3,8 +3,11 @@ class bootstrap::role::learning {
   include bootstrap
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
-  include userprefs::bash
   include userprefs::profile
+  class { 'userprefs::bash':
+    password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
+    replace  => true,
+  }
   class {'userprefs::vim':
     line_number => 'false',
     require     => Class['userprefs::profile'],
