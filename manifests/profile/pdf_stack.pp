@@ -36,4 +36,12 @@ class bootstrap::profile::pdf_stack {
     ensure => present,
   }
 
+  # this puts in the default courseware so initial classification doesn't fail
+  file { "/home/${admin_user}/courseware":
+    ensure  => directory,
+    owner   => $admin_user,
+    group   => $admin_user,
+    recurse => true,
+    source  => 'puppet:///modules/bootstrap/default_courseware',
+  }
 }
