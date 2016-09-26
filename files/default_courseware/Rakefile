@@ -1,0 +1,3 @@
+task :watermark do
+  puts "This just exposes the watermark action so the initial classification doesn't fail."
+end
