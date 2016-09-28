@@ -9,6 +9,8 @@ This script simply helps restart the PE services in the right order.
 It will send a HUP signal to Puppetserver by default which is much
 faster than a full restart.
 
+You can also restart Docker containers in classes that use them.
+
 If you do need the full restart, please pass the -f option.
 
 Service names:
@@ -17,7 +19,8 @@ Service names:
     * puppetdb
     * orchestration
     * mcollective
-    * all (restart all services in the proper order)
+    * containers
+    * all (restart all PE services in the proper order)
 
 Examples:
     * restart_pe_services.rb puppetdb puppetserver
@@ -94,3 +97,10 @@ end
 if ARGV.include? 'puppet'
   restart('puppet.service')
 end
+
+if ARGV.include? 'containers'
+  `systemctl list-units`.each_line do |line|
+      restart($1) if line =~ /^(docker-\S+)/ 
+  end    
+end
+
