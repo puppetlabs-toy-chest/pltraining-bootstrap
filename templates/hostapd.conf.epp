@@ -1,17 +1,4 @@
-#
-# This will give you a minimal, insecure wireless network.
-#
-# DO NOT BE SATISFIED WITH THAT!!!
-#
-# A complete, well commented example configuration file is
-# available here:
-#
-#      	/usr/share/doc/hostapd/hostapd.conf
-#
-# For more information, look here:
-#
-#      	http://wireless.kernel.org/en/users/Documentation/hostapd
-#
+# Created by puppet at build time with random passphrase
 
 ctrl_interface=/var/run/hostapd
 ctrl_interface_group=wheel
