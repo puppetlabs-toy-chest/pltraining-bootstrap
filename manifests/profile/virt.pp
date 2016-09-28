@@ -52,7 +52,7 @@ class bootstrap::profile::virt {
       hw_mode    => 'g',
       channel    => '1',
       ssid       => 'classroom_in_a_box',
-      passphrase => fqdn_rand_string(10),
+      passphrase => fqdn_rand_string(10,'abcdefghijklmonpqrstuvwxyz0123456789.'),
       bridge     => 'virbr0',
       }),
     require => Package['hostapd'],
