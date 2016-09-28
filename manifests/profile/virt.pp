@@ -46,15 +46,16 @@ class bootstrap::profile::virt {
   }
 
   file { '/etc/hostapd/hostapd.conf':
-    ensure    => file,
-    content   => epp('bootstrap/hostapd.conf.epp',{
-      iface   => 'wlp3s0',
-      hw_mode => 'g',
-      channel => '1',
-      ssid    => 'classroom_in_a_box',
-      bridge  => 'virbr0',
+    ensure       => file,
+    content      => epp('bootstrap/hostapd.conf.epp',{
+      iface      => 'wlp3s0',
+      hw_mode    => 'g',
+      channel    => '1',
+      ssid       => 'classroom_in_a_box',
+      passphrase => fqdn_rand_string(10),
+      bridge     => 'virbr0',
       }),
-      require => Package['hostapd'],
+    require => Package['hostapd'],
   }
 
   package {['kvm','dnsmasq','hostapd','iw']:
