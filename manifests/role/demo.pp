@@ -1,4 +1,4 @@
-class bootstrap::role::learning {
+class bootstrap::role::demo {
   include localrepo
   include bootstrap
   include bootstrap::profile::network
