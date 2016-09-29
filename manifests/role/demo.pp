@@ -4,7 +4,6 @@ class bootstrap::role::demo {
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
   include userprefs::profile
-  include abalone
   class { 'userprefs::bash':
     password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
     replace  => true,
@@ -15,7 +14,8 @@ class bootstrap::role::demo {
   }
   class {'learning':
     git_branch        => 'master',
-    content_repo_name => 'puppetconf-edu-demo'
+    content_repo_name => 'puppetconf-edu-demo',
+    include_abalone   => true,
   }
   class {'bootstrap::profile::splash':
     # Note: the $IP_ADDRESS string is a variable determined at boot time by rc.local
