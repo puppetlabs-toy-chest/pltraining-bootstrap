@@ -45,6 +45,12 @@ class bootstrap::profile::virt {
     ip => $::ipaddress
   }
 
+  # Use local dns first
+  file { '/etc/resolv.conf.head':
+    ensure  => file,
+    content => 'nameserver 192.168.233.1',
+  }
+
   file { '/etc/hostapd/hostapd.conf':
     ensure       => file,
     content      => epp('bootstrap/hostapd.conf.epp',{

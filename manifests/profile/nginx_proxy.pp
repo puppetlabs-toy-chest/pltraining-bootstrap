@@ -14,8 +14,4 @@ class bootstrap::profile::nginx_proxy {
     ]
     vhost            => $::ipaddress,
   }
-  # Allow students to access vms
-  nginx::resource::location { '~ /proxy/(?<student_url>.*)':
-    proxy => 'http://$student_url;
-  }
 }
