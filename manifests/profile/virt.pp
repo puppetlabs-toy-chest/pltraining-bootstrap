@@ -79,7 +79,7 @@ class bootstrap::profile::virt {
   # Download VMs
   file { [$image_source,$image_location]:
     ensure  => directory,
-    owner   => 'libvirt',
+    owner   => 'training',
     group   => 'libvirt',
   }
   file { "${image_source}/windows.vhd":
@@ -96,13 +96,13 @@ class bootstrap::profile::virt {
   }
   file {"${image_location}/windows.img":
     ensure => file,
-    owner  => 'libvirt',
+    owner  => 'training',
     group  => 'libvirt',
   }
   
   file { "${image_location}/github.qcow2":
     ensure => file,
-    owner  => 'libvirt',
+    owner  => 'training',
     group  => 'libvirt',
     source => 'https://github-enterprise.s3.amazonaws.com/hyperv/releases/github-enterprise-2.7.4.vhd',
     notify => Exec['expand master image']
@@ -130,7 +130,7 @@ class bootstrap::profile::virt {
   }
   file {"${image_location}/master.img":
     ensure => file,
-    owner  => 'libvirt',
+    owner  => 'training',
     group  => 'libvirt',
   }
 
