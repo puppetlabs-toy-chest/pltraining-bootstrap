@@ -78,7 +78,9 @@ class bootstrap::profile::virt {
 
   # Download VMs
   file { [$image_source,$image_location]:
-    ensure => directory,
+    ensure  => directory,
+    owner   => 'libvirt',
+    group   => 'libvirt',
   }
   file { "${image_source}/windows.vhd":
     ensure => file,
@@ -90,6 +92,20 @@ class bootstrap::profile::virt {
     path    => '/bin',
     creates => "${image_location}/windows.img",
     require => File["${image_source}/windows.vhd"],
+    before  => File["${image_location}/windows.img"],
+  }
+  file {"${image_location}/windows.img":
+    ensure => file,
+    owner  => 'libvirt',
+    group  => 'libvirt',
+  }
+  
+  file { "${image_location}/github.qcow2":
+    ensure => file,
+    owner  => 'libvirt',
+    group  => 'libvirt',
+    source => 'https://github-enterprise.s3.amazonaws.com/hyperv/releases/github-enterprise-2.7.4.vhd',
+    notify => Exec['expand master image']
   }
 
   file { "${image_source}/puppet-master.ova":
@@ -109,7 +125,13 @@ class bootstrap::profile::virt {
     cwd     => $image_location,
     path    => '/bin',
     creates => "${image_location}/master.img",
-    require => Exec['expand master image']
+    require => Exec['expand master image'],
+    before  => File["${image_location}/master.img"],
+  }
+  file {"${image_location}/master.img":
+    ensure => file,
+    owner  => 'libvirt',
+    group  => 'libvirt',
   }
 
 }
