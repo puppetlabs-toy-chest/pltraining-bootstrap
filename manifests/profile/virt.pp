@@ -100,13 +100,27 @@ class bootstrap::profile::virt {
     group  => 'libvirt',
   }
   
-  file { "${image_location}/github.qcow2":
+  file { "${image_source}/github.qcow2":
     ensure => file,
     owner  => 'training',
     group  => 'libvirt',
-    source => 'https://github-enterprise.s3.amazonaws.com/hyperv/releases/github-enterprise-2.7.4.vhd',
-    notify => Exec['expand master image']
+    source => 'https://github-enterprise.s3.amazonaws.com/kvm/releases/github-enterprise-2.7.4.qcow2',
+    notify => Exec['convert github image']
   }
+  exec { 'convert github image':
+    command => "qemu-img convert -f qcow2 -O raw ${image_source}/github.qcow2 github.img",
+    cwd     => $image_location,
+    path    => '/bin',
+    creates => "${image_location}/github.img",
+    require => File["${image_source}/github.qcow2"],
+    before  => File["${image_location}/github.img"],
+  }
+  file {"${image_location}/github.img":
+    ensure => file,
+    owner  => 'training',
+    group  => 'libvirt',
+  }
+
 
   file { "${image_source}/puppet-master.ova":
     ensure => file,
