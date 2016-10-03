@@ -1,0 +1,32 @@
+fixtures:
+  sysmlinks:
+    bootstrap: "#{source_dir}"
+  repositories:
+    localrepo: "git@github.com:puppetlabs/pltraining-localrepo.git"
+    pe_staging: "git@github.com:puppetlabs/puppetlabs-pe_staging.git"
+    lms: "git@github.com:puppetlabs/pltraining-lms.git"
+  forge_modules:
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "4.12.0"
+    epel:
+      repo: "stahnma/epel"
+      ref: "1.2.2"
+    docker:
+      repo: "garethr/docker"
+    selinux:
+      repo: "jfryman/selinux"
+    dirtree:
+      repo: "pltraining/dirtree"
+    abalone:
+      repo: "binford2k/abalone"
+    userprefs:
+      repo: "pltraining/userprefs"
+    pe_gem:
+      repo: "puppetlabs/pe_gem"
+    libvirt:
+      repo: "thias/libvirt"
+    network:
+      repo: "razorsedge/network"
+    staging:
+      repo: "nanliu/staging"
