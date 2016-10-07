@@ -67,7 +67,7 @@ rmmod floppy
 # generate ssh key on student machines
 [[ -r /root/.ssh_keygen.sh ]] && /root/.ssh_keygen.sh &
 
-<% unless @hostname == "learning" %>
+<% if @hostname == "master.puppetlabs.vm" %>
 if ! [ -d "/etc/puppetlabs/code/modules/classroom" ]
 then
   # set up the puppet codebase
