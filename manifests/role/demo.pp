@@ -16,6 +16,7 @@ class bootstrap::role::demo {
     git_branch        => 'master',
     content_repo_name => 'puppetconf-edu-demo',
     include_abalone   => true,
+    autosign_value    => '*.puppet.vm',
   }
   class {'bootstrap::profile::splash':
     # Note: the $IP_ADDRESS string is a variable determined at boot time by rc.local
