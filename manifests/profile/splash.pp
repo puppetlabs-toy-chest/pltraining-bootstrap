@@ -1,4 +1,7 @@
-class bootstrap::profile::splash ($login_message = "") {
+class bootstrap::profile::splash (
+  $login_message = "",
+  $login_prompt = "Use SSH to log in with the randomly generated password below."
+) {
   file {'/var/local/places.txt':
     ensure => file,
     source => 'puppet:///modules/bootstrap/places.txt',
