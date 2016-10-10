@@ -31,7 +31,10 @@ class bootstrap::profile::base {
               'telnet',
               'tree', 
               'stunnel', 
-              'redhat-lsb' ] :
+              'redhat-lsb',
+              'zsh',
+              'tcsh',
+              'csh' ] :
     ensure  => present,
     require => Class['epel'],
   }
