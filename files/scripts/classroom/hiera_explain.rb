@@ -3,7 +3,7 @@ require 'hiera'
 
 # Use MCO's fact cache because all nodes will have them
 scope = YAML.load_file("/etc/puppetlabs/mcollective/facts.yaml")
-hiera = Hiera.new(:config => "/etc/puppetlabs/code/hiera.yaml")
+hiera = Hiera.new(:config => "/etc/puppetlabs/puppet/hiera.yaml")
 scope['environment'] ||= 'production'
 
 # data buckets
