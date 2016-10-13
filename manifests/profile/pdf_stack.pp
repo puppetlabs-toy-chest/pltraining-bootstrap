@@ -1,4 +1,6 @@
 class bootstrap::profile::pdf_stack {
+  $admin_user = $bootstrap::params::admin_user
+  
   yumrepo { 'robert-gcj':
     ensure              => 'present',
     baseurl             => 'https://copr-be.cloud.fedoraproject.org/results/robert/gcj/epel-7-$basearch/',
