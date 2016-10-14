@@ -1,7 +1,11 @@
 class bootstrap::profile::virt {
 
-  $image_location = '/var/lib/libvirt/images'
-  $image_source = '/usr/src/vms'
+  $image_location   = '/var/lib/libvirt/images'
+  $image_source     = '/usr/src/vms'
+  $libvirt_gateway  = '192.168.233.1'
+  $dhcp_range_start = '192.168.233.1'
+  $dhcp_range_end   = '192.168.233.254'
+  $wifi_iface       = 'wlp3s0'
 
   # Set up libvirt and network
   user {'training':
@@ -25,10 +29,10 @@ class bootstrap::profile::virt {
     domain_name  => 'puppetlabs.vm',
     autostart    => true,
     ip           => [{
-      address    => '192.168.233.1',
+      address    => $libvirt_gateway,
       dhcp       => {
-        start    => '192.168.233.1',
-        end      => '192.168.233.254',
+        start    => $dhcp_range_start,
+        end      => $dhcp_range_end,
       }
     }],
   }
@@ -54,7 +58,7 @@ class bootstrap::profile::virt {
   file { '/etc/hostapd/hostapd.conf':
     ensure       => file,
     content      => epp('bootstrap/hostapd.conf.epp',{
-      iface      => 'wlp3s0',
+      iface      => $wifi_iface,
       hw_mode    => 'g',
       channel    => '1',
       ssid       => 'classroom_in_a_box',
