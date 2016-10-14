@@ -1,10 +1,16 @@
-class bootstrap::profile::virt {
+class bootstrap::profile::virt (
+  $admin_user = $bootstrap::admin_user
+){
 
-  $image_location = '/var/lib/libvirt/images'
-  $image_source = '/usr/src/vms'
+  $image_location   = '/var/lib/libvirt/images'
+  $image_source     = '/usr/src/vms'
+  $libvirt_gateway  = '192.168.233.1'
+  $dhcp_range_start = '192.168.233.1'
+  $dhcp_range_end   = '192.168.233.254'
+  $wifi_iface       = 'wlp3s0'
 
   # Set up libvirt and network
-  user {'training':
+  user {$admin_user:
     groups  => ['libvirt'],
     require => Class['libvirt'],
   }
@@ -25,10 +31,10 @@ class bootstrap::profile::virt {
     domain_name  => 'puppetlabs.vm',
     autostart    => true,
     ip           => [{
-      address    => '192.168.233.1',
+      address    => $libvirt_gateway,
       dhcp       => {
-        start    => '192.168.233.1',
-        end      => '192.168.233.254',
+        start    => $dhcp_range_start,
+        end      => $dhcp_range_end,
       }
     }],
   }
@@ -45,33 +51,42 @@ class bootstrap::profile::virt {
     ip => $::ipaddress
   }
 
-  file { '/etc/hostapd/hostapd.conf':
-    ensure    => file,
-    content   => epp('bootstrap/hostapd.conf.epp',{
-      iface   => 'wlp3s0',
-      hw_mode => 'g',
-      channel => '1',
-      ssid    => 'classroom_in_a_box',
-      bridge  => 'virbr0',
-      }),
-      require => Package['hostapd'],
+  # Use local dns first
+  file { '/etc/resolv.conf.head':
+    ensure  => file,
+    content => "nameserver ${libvirt_gateway}",
   }
 
-  package {['kvm','dnsmasq','hostapd','iw']:
+  file { '/etc/hostapd/hostapd.conf':
+    ensure       => file,
+    content      => epp('bootstrap/hostapd.conf.epp',{
+      iface      => $wifi_iface,
+      hw_mode    => 'g',
+      channel    => '1',
+      ssid       => 'classroom_in_a_box',
+      passphrase => fqdn_rand_string(10,'abcdefghijklmonpqrstuvwxyz0123456789.'),
+      bridge     => 'virbr0',
+      }),
+    require => Package['hostapd'],
+  }
+
+  package {['kvm','hostapd','iw']:
     ensure  => present,
     require => Class['epel'],
   }
 
   # Set dnsmasq to use the libvirt default network
-  file { '/etc/dnsmasq.conf':
-    ensure   => file,
-    content  => 'interface=virbr0',
-    require  => Package['dnsmasq'],
-  }
-
+#  file { '/etc/dnsmasq.conf':
+#    ensure   => file,
+#    content  => 'interface=virbr0',
+#    require  => Package['dnsmasq'],
+#  }
+#
   # Download VMs
   file { [$image_source,$image_location]:
-    ensure => directory,
+    ensure  => directory,
+    owner   => $admin_user,
+    group   => 'libvirt',
   }
   file { "${image_source}/windows.vhd":
     ensure => file,
@@ -83,7 +98,36 @@ class bootstrap::profile::virt {
     path    => '/bin',
     creates => "${image_location}/windows.img",
     require => File["${image_source}/windows.vhd"],
+    before  => File["${image_location}/windows.img"],
   }
+  file {"${image_location}/windows.img":
+    ensure => file,
+    owner  => $admin_user,
+    group  => 'libvirt',
+  }
+  
+#  file { "${image_source}/github.qcow2":
+#    ensure => file,
+#    owner  => 'training',
+#    group  => 'libvirt',
+#    #    source => 'https://github-enterprise.s3.amazonaws.com/kvm/releases/github-enterprise-2.7.4.qcow2',
+#    source => 'http://int-resources.ops.puppetlabs.net/EducationBeta/Beta/github_base.qcow2',
+#    notify => Exec['convert github image']
+#  }
+#  exec { 'convert github image':
+#    command => "qemu-img convert -f qcow2 -O raw ${image_source}/github.qcow2 github.img",
+#    cwd     => $image_location,
+#    path    => '/bin',
+#    creates => "${image_location}/github.img",
+#    require => File["${image_source}/github.qcow2"],
+#    before  => File["${image_location}/github.img"],
+#  }
+#  file {"${image_location}/github.img":
+#    ensure => file,
+#    owner  => 'training',
+#    group  => 'libvirt',
+#  }
+#
 
   file { "${image_source}/puppet-master.ova":
     ensure => file,
@@ -102,7 +146,13 @@ class bootstrap::profile::virt {
     cwd     => $image_location,
     path    => '/bin',
     creates => "${image_location}/master.img",
-    require => Exec['expand master image']
+    require => Exec['expand master image'],
+    before  => File["${image_location}/master.img"],
+  }
+  file {"${image_location}/master.img":
+    ensure => file,
+    owner  => $admin_user,
+    group  => 'libvirt',
   }
 
 }

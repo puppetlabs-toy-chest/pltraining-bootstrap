@@ -7,6 +7,7 @@ class bootstrap::role::ciab (
   include bootstrap::profile::virt
   include bootstrap::profile::splash
   include bootstrap::profile::guacamole
+  include bootstrap::profile::nginx_proxy
   class { 'bootstrap::public_key': 
     ec2_lock_passwd => false,
   }
