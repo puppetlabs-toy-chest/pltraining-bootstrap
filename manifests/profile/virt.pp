@@ -64,18 +64,18 @@ class bootstrap::profile::virt {
     require => Package['hostapd'],
   }
 
-  package {['kvm','dnsmasq','hostapd','iw']:
+  package {['kvm','hostapd','iw']:
     ensure  => present,
     require => Class['epel'],
   }
 
   # Set dnsmasq to use the libvirt default network
-  file { '/etc/dnsmasq.conf':
-    ensure   => file,
-    content  => 'interface=virbr0',
-    require  => Package['dnsmasq'],
-  }
-
+#  file { '/etc/dnsmasq.conf':
+#    ensure   => file,
+#    content  => 'interface=virbr0',
+#    require  => Package['dnsmasq'],
+#  }
+#
   # Download VMs
   file { [$image_source,$image_location]:
     ensure  => directory,
