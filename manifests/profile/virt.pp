@@ -1,5 +1,5 @@
 class bootstrap::profile::virt (
-  $admin_user = $bootstrap::admin_user
+  $admin_user = $bootstrap::params::admin_user
 ){
 
   $image_location   = '/var/lib/libvirt/images'
