@@ -52,7 +52,7 @@ class bootstrap::profile::virt {
   # Use local dns first
   file { '/etc/resolv.conf.head':
     ensure  => file,
-    content => 'nameserver 192.168.233.1',
+    content => "nameserver ${libvirt_gateway}",
   }
 
   file { '/etc/hostapd/hostapd.conf':
