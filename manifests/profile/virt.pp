@@ -68,11 +68,17 @@ class bootstrap::profile::virt (
       bridge     => 'virbr0',
       }),
     require => Package['hostapd'],
+    before  => Service['hostapd'],
   }
 
   package {['kvm','hostapd','iw']:
     ensure  => present,
     require => Class['epel'],
+  }
+
+  service {'hostapd':
+    ensure => running,
+    enable => true,
   }
 
   # Set dnsmasq to use the libvirt default network
@@ -131,7 +137,7 @@ class bootstrap::profile::virt (
 
   file { "${image_source}/puppet-master.ova":
     ensure => file,
-    source => 'http://downloads.puppet.com/training/puppet-master.ova',
+    source => 'https://s3-us-west-2.amazonaws.com/puppetlabs-vms/puppet-2016.4.0-rc2-20-g910023a-master-5.6.ova',
     notify => Exec['expand master image']
   }
   exec { 'expand master image':
