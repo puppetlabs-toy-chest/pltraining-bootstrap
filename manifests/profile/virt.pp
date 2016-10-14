@@ -1,4 +1,6 @@
-class bootstrap::profile::virt {
+class bootstrap::profile::virt (
+  $admin_user = $bootstrap::admin_user
+){
 
   $image_location   = '/var/lib/libvirt/images'
   $image_source     = '/usr/src/vms'
@@ -8,7 +10,7 @@ class bootstrap::profile::virt {
   $wifi_iface       = 'wlp3s0'
 
   # Set up libvirt and network
-  user {'training':
+  user {$admin_user:
     groups  => ['libvirt'],
     require => Class['libvirt'],
   }
@@ -83,7 +85,7 @@ class bootstrap::profile::virt {
   # Download VMs
   file { [$image_source,$image_location]:
     ensure  => directory,
-    owner   => 'training',
+    owner   => $admin_user,
     group   => 'libvirt',
   }
   file { "${image_source}/windows.vhd":
@@ -100,7 +102,7 @@ class bootstrap::profile::virt {
   }
   file {"${image_location}/windows.img":
     ensure => file,
-    owner  => 'training',
+    owner  => $admin_user,
     group  => 'libvirt',
   }
   
@@ -149,7 +151,7 @@ class bootstrap::profile::virt {
   }
   file {"${image_location}/master.img":
     ensure => file,
-    owner  => 'training',
+    owner  => $admin_user,
     group  => 'libvirt',
   }
 
