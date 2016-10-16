@@ -72,9 +72,6 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'serverspec':                     version => '2.27.0' }
   bootstrap::gem { 'specinfra':                      version => '2.47.1' }
 
-  # carrier-pigeon, for jamtur01/irc report processor
-  bootstrap::gem { 'carrier-pigeon':                 version => '0.7.0'  }
-
   # formatr, for perlform mco reports
   bootstrap::gem { 'formatr':                        version => '1.10.1' }
 
@@ -100,11 +97,11 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'gli':                            version => '2.14.0' }
   bootstrap::gem { 'htmlentities':                   version => '4.3.4'  }
   bootstrap::gem { 'mini_portile2':                  version => '2.1.0'  }
-  bootstrap::gem { 'nokogiri':                       version => '1.6.8'  }
+  bootstrap::gem { 'nokogiri':                       version => '1.6.8.1' }
   bootstrap::gem { 'parslet':                        version => '1.7.1'  }
   bootstrap::gem { 'pkg-config':                     version => '1.1.7'  }
   bootstrap::gem { 'redcarpet':                      version => '3.3.4'  }
-  bootstrap::gem { 'showoff':                        version => '0.13.4' }
+  bootstrap::gem { 'showoff':                        version => '0.14.2' }
   bootstrap::gem { 'sinatra-websocket':              version => '0.3.1'  }
   bootstrap::gem { 'thin':                           version => '1.7.0'  }
 
@@ -123,8 +120,9 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'bundler':                        version => '1.10.6' }
 
   # Required for the aws module
-  bootstrap::gem { 'aws-sdk-core':                   version => '2.1.20' }
-  bootstrap::gem { 'jmespath':                       version => '1.1.3'  }
+  bootstrap::gem { 'aws-sdk':                        version => '2.6.9' }
+  bootstrap::gem { 'aws-sdk-core':                   version => '2.6.9' }
+  bootstrap::gem { 'jmespath':                       version => '1.3.1'  }
   bootstrap::gem { 'retries':                        version => '0.0.5'  }
 
   # Unidentified dependencies
