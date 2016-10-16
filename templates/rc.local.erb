@@ -72,6 +72,10 @@ if ! [ -d "/etc/puppetlabs/code/modules/classroom" ]
 then
   # set up the puppet codebase
   puppet module install pltraining/classroom --modulepath /etc/puppetlabs/code-staging/modules
+  if [ $? -ne 0 ]
+  then
+    cp -a /usr/src/forge/* /etc/puppetlabs/code-staging/modules/
+  fi
   cp -a /etc/puppetlabs/code-staging/modules/* /etc/puppetlabs/code/modules/
   chown -R pe-puppet:pe-puppet /etc/puppetlabs/code/modules
 fi
