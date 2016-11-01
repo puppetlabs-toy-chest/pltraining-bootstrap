@@ -44,6 +44,15 @@ class bootstrap::profile::cache_gems (
     source => 'puppet:///modules/bootstrap/gemrc',
   }
 
+  # this is for the vendored gem install.
+  file { '/opt/puppetlabs/puppet/etc':
+    ensure => directory,
+  }
+  file { '/opt/puppetlabs/puppet/etc/gemrc':
+    ensure => file,
+    source => 'puppet:///modules/bootstrap/gemrc',
+  }
+  
   # Please keep this list alphabetized and organized. It makes it much easier to update.
   # Puppet Enterprise
   bootstrap::gem { 'hocon':                          version => '0.9.3'  }
