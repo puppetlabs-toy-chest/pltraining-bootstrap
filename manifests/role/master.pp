@@ -16,4 +16,5 @@ class bootstrap::role::master {
   include bootstrap::profile::cache_docker
   include bootstrap::profile::pdf_stack
   include bootstrap::profile::rubygems
+  include bootstrap::profile::cache_gitea
 }
