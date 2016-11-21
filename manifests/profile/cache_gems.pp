@@ -52,7 +52,7 @@ class bootstrap::profile::cache_gems (
     ensure => file,
     source => 'puppet:///modules/bootstrap/gemrc',
   }
-  
+
   # Please keep this list alphabetized and organized. It makes it much easier to update.
   # Puppet Enterprise
   bootstrap::gem { 'hocon':                          version => '0.9.3'  }
@@ -129,8 +129,8 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'bundler':                        version => '1.10.6' }
 
   # Required for the aws module
-  bootstrap::gem { 'aws-sdk':                        version => '2.6.9' }
-  bootstrap::gem { 'aws-sdk-core':                   version => '2.6.9' }
+  bootstrap::gem { 'aws-sdk':                        version => '2.6.9'  }
+  bootstrap::gem { 'aws-sdk-core':                   version => '2.6.9'  }
   bootstrap::gem { 'jmespath':                       version => '1.3.1'  }
   bootstrap::gem { 'retries':                        version => '0.0.5'  }
 
@@ -143,6 +143,14 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'table_print':}
 
   # used by classroom scripts
+
+  # PDF printing stack
+  bootstrap::gem { 'kramdown':                       version => '1.13.0' }
+  bootstrap::gem { 'mdl':                            version => '0.4.0'  }
+  bootstrap::gem { 'mixlib-cli':                     version => '1.7.0'  }
+  bootstrap::gem { 'mixlib-config':                  version => '2.2.4'  }
+  bootstrap::gem { 'word_wrap':                      version => '1.0.0'  }
+  bootstrap::gem { 'courseware':  source => 'https://s3-us-west-2.amazonaws.com/education-packages/courseware-0.3.1.gem', }
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
