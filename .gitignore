@@ -1,1 +1,5 @@
 pkg/*
+.vagrant
+Gemfile.lock
+.bundle/
+spec/fixtures/
