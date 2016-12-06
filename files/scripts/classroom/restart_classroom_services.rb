@@ -23,9 +23,9 @@ Service names:
     * all (restart all PE services in the proper order)
 
 Examples:
-    * restart_pe_services.rb puppetdb puppetserver
-    * restart_pe_services.rb puppetserver console -f
-    * restart_pe_services.rb all -f
+    * restart_classroom_services.rb puppetdb puppetserver
+    * restart_classroom_services.rb puppetserver console -f
+    * restart_classroom_services.rb all -f
 
 "
 
