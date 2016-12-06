@@ -78,7 +78,7 @@ then
   fi
   
   # remove any .git directories that make jgit explode. See PE-17984 and PE-15241
-  find /etc/puppetlabs/code-staging/modules/ -name .git -type d -delete
+  find /etc/puppetlabs/code-staging/modules/ -name .git -type d -exec rm -rf {} \;
   
   cp -a /etc/puppetlabs/code-staging/modules/* /etc/puppetlabs/code/modules/
   chown -R pe-puppet:pe-puppet /etc/puppetlabs/code/modules
