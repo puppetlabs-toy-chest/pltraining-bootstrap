@@ -1,0 +1,137 @@
+#! /bin/sh
+#
+# runs through some simple troubleshooting and correction for Puppet
+# training classes. It's likely not directly useful for other purposes
+# as it makes several assumptions about the environment.
+#
+# Extraneous short sleeps have been inserted to help ensure that the
+# user sees any output or error messages that are generated
+source puppetlabs_functions.sh
+
+master=`hostname -f`
+codedir=`puppet master --configprint codedir`
+if [ -f '/etc/puppetlabs/puppetserver/conf.d/file-sync.conf' ]; then
+  # why isn't there a configprint setting for this?
+  staging=`hocon -f /etc/puppetlabs/puppetserver/conf.d/file-sync.conf get file-sync.repos.puppet-code.staging-dir`
+  staging=${staging//\"/}
+  echo "Running checks for CodeManager configurations:"
+else
+  staging=${codedir}
+  echo "Running checks for configurations without CodeManager:"
+fi
+
+echo "Cleaning any stray .git directories in: ${codedir}..."
+sleep 1
+find ${codedir} -name .git -type d -print -exec rm -rf {} \;
+check_success
+
+echo "Validating permissions on: ${codedir}..."
+sleep 1
+find ${codedir} '!' -user pe-puppet -print -exec chown pe-puppet:pe-puppet {} \;
+check_success
+
+if [ "$codedir" != "$staging" ]; then
+  echo "Validating permissions on: ${staging}..."
+  sleep 1
+  find ${staging} '!' -user pe-puppet -print -exec chown pe-puppet:pe-puppet {} \;
+  check_success
+fi
+
+if [ -d ~training/courseware ]; then
+  echo "Sanitizing uploaded courseware..."
+  sleep 1
+  rm -f ~training/courseware/stats/{viewstats,forms}.json
+  check_success
+else
+  fail "You don't seem to have uploaded the courseware from your host system"
+fi
+
+ping -c1 -W2 forge.puppet.com >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+  echo "Ensuring the latest version of pltraining/classroom in ${staging}..."
+  puppet module upgrade pltraining/classroom --modulepath ${staging}
+  check_success
+else
+  ntpservers=`awk '$1 == "server" {print $2}' /etc/ntp.conf`
+  if [ "$ntpservers" != "$master" ]; then
+    fail 'Could not reach the Forge. You should classify your master as $offline => true'
+  else
+    echo "You appear to be in offline mode."
+  fi
+fi
+
+if [ "$codedir" != "$staging" ]; then
+  echo "Ensuring you have a valid deploy token..."
+  if [ -f "/root/.puppetlabs/token" ]; then
+    TOKEN=`puppet access show`
+    STATUS=`curl -k --write-out "%{http_code}" --silent --output /dev/null https://${master}:4433/rbac-api/v1/users/current -H "X-Authentication:${TOKEN}"`
+    if [ "$STATUS" != "200" ]; then
+      echo 'Regenerating invalid token...'
+      rm -rf /root/.puppetlabs/token
+      check_success
+    fi
+  fi
+
+  if ! [ -f "/root/.puppetlabs/token" ]; then
+    puppet plugin download > /dev/null
+    puppet resource rbac_user deployer ensure=present display_name=deployer email=deployer@puppetlabs.vm password=puppetlabs roles=4 > /dev/null
+    echo 'puppetlabs' | HOME=/root /opt/puppetlabs/bin/puppet-access login deployer --lifetime 14d > /dev/null
+    check_success
+  else
+    success
+  fi
+
+  echo
+  echo "If you're having trouble with CodeManger or FileSync, deleting all deployed"
+  echo "code and destroying all caches can sometimes help you get going again."
+  echo
+  echo "       This should be a tool of LAST RESORT."
+  echo
+  if confirm "Would you like to nuke it all and start over?" false
+  then
+    systemctl stop pe-puppetserver
+
+    # filesync cache
+    rm -rf /opt/puppetlabs/server/data/puppetserver/filesync
+
+    # r10k cache
+    rm -rf /opt/puppetlabs/server/data/code-manager/git
+    # code manager worker thread caches
+    rm -rf /opt/puppetlabs/server/data/code-manager/worker-caches
+    rm -rf /opt/puppetlabs/server/data/code-manager/cache
+
+    # possibly stale environment codebases
+    rm -rf /etc/puppetlabs/code/*
+    rm -rf /etc/puppetlabs/code-staging/environments
+
+    systemctl start pe-puppetserver
+  fi
+
+  puppet code deploy --all --wait > /dev/null
+  check_success
+fi
+
+echo
+echo 'Done checking. Fix any errors noted above and try again.'
+echo 'If still having troubles, try some of the following steps.'
+echo 'Note that both tail and journalctl have a "-f" follow mode.'
+echo
+echo 'Log files:'
+echo '  * tail /var/log/puppetlabs/puppetserver/puppetserver.log'
+echo '  * tail /var/log/puppetlabs/console-services/console-services.log'
+echo '  * tail any other interesting log files in /var/log/puppetlabs'
+echo 'System logs:'
+echo '  * journalctl -eu pe-puppetserver'
+echo '  * journalctl -eu pe-console-services'
+echo '  * systemctl list-units | egrep "pe-|puppet"'
+echo 'Edu tools:'
+echo '  * tail /var/log/puppetfactory'
+echo '  * journalctl -eu abalone'
+echo '  * journalctl -eu puppetfactory'
+echo '  * journalctl -eu showoff-courseware'
+echo '  * reset_ssl_certificates.sh'
+echo '  * restart_classroom_services.rb'
+echo '  * dependency_nuke.rb'
+echo
+echo 'Have you searched the Troubleshooting Guide for your issue?'
+echo "If you're still stuck, page the on-call support with 'rake page'"
