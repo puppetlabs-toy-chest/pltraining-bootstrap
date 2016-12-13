@@ -6,6 +6,6 @@ class bootstrap::profile::deployer(
     display_name => 'deployer',
     email        => 'deployer@puppetlabs.vm',
     password     => $password,
-    roles        => '4',
+    roles        => 4,
   }
 }
