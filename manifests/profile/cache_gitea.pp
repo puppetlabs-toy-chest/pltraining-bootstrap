@@ -1,3 +1,7 @@
+# NOTE: The gitea RPM is built from the Vagrant environment in the
+#       pltraining-gitea-build repository. Please see
+#       https://github.com/puppetlabs/pltraining-gitea-build for detailed
+#       instructions to build an updated RPM.
 class bootstrap::profile::cache_gitea (
   $bucket_url   = 'https://s3-us-west-2.amazonaws.com/education-packages/',
   $package_name = 'gitea-1.0-1.x86_64.rpm',
