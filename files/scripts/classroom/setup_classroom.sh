@@ -71,9 +71,9 @@ while : ; do
 
   validate_name $username && break
 
-  echo "Node names in the classroom must be lowercase alphanumeric; with at least one"
-  echo "letter, no periods, and not a reserved name such as 'root' or 'master'."
-  echo "... please try again."
+  echo "Node names in the classroom must be at least three lowercase alphanumeric"
+  echo "characters; with at least one letter, no periods, and not a reserved name"
+  echo "such as 'root' or 'master'... please try again."
 done
 
 while : ; do
