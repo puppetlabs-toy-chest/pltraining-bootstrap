@@ -7,8 +7,6 @@ class bootstrap::role::training (
   include userprefs::defaults
   include bootstrap::profile::splash
   include bootstrap::profile::cache_wordpress
-  include bootstrap::profile::installer_staging
-  include bootstrap::profile::get_pe
   class { 'bootstrap::public_key': 
     ec2_lock_passwd => false,
   }
