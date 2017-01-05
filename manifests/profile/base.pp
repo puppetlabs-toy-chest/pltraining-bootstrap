@@ -39,6 +39,11 @@ class bootstrap::profile::base {
     require => Class['epel'],
   }
 
+  package { 'jgrep':
+    ensure   => present,
+    provider => gem,
+  }
+
   # /etc/puppet/ssl is confusing to have around. Sloppy. Kill.
   file {'/etc/puppet':
     ensure  => absent,
