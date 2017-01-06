@@ -37,6 +37,11 @@ class bootstrap::profile::pdf_stack {
   package { $fonts:
     ensure => present,
   }
+  
+  # This must be installed before the eventmachine gem so we get https support
+  package { 'openssl-devel':
+    ensure => present,
+  }
 
   # this puts in the default courseware so initial classification doesn't fail
   file { "/home/${admin_user}/courseware":
