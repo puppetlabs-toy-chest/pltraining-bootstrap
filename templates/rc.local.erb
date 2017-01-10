@@ -61,6 +61,15 @@ The password can be found in /var/local/password as well as this screen.
 To set a new password, run the command: reset_password.rb
 " > /etc/issue
 
+# Regenerate network script for legacy CLI commands
+rm /etc/sysconfig/network-scripts/ifcfg-enp*
+echo \
+"
+DEVICE=$PRIMARY_INTERFACE
+BOOTPROTO=dhcp
+ONBOOT=yes
+" > /etc/sysconfig/network-scripts/ifcfg-$PRIMARY_INTERFACE
+
 # Disable the floppy driver
 rmmod floppy
 
