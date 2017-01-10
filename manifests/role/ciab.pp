@@ -4,7 +4,7 @@ class bootstrap::role::ciab (
   include localrepo
   include bootstrap
   include userprefs::defaults
-  include bootstrap::profile::virt
+  # include bootstrap::profile::virt
   include bootstrap::profile::splash
   include bootstrap::profile::guacamole
   include bootstrap::profile::nginx_proxy
