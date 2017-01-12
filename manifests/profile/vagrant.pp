@@ -3,6 +3,6 @@ class bootstrap::profile::vagrant {
 
   class { 'vagrant':
     version => '1.9.1',
-    require => Class['::virtualbox],
+    require => Class['::virtualbox'],
   }
 }
