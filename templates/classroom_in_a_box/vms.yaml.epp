@@ -1,0 +1,12 @@
+---
+vms:
+- name: master.puppetlabs.vm
+  box: current-puppet-master-ova
+  roles:
+  - pe-puppet-master
+<% (1..$num_students).each do |n| -%>
+- name: student<%= n %>.puppetlabs.vm
+  box: current-puppet-student-ova
+  roles:
+  - pe-puppet-agent
+<% end -%>
