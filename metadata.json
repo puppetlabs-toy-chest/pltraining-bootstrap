@@ -29,5 +29,6 @@
     {"name":"garethr/docker"},
     {"name":"thias/libvirt"},
     {"name":"razorsedge/network"}
+    {"name":"puppetlabs/stdlib"}
   ]
 }
