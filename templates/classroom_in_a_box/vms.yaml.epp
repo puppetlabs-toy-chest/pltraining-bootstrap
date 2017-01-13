@@ -4,7 +4,7 @@ vms:
   box: current-puppet-master-ova
   roles:
   - pe-puppet-master
-<% (1..$num_students).each do |n| -%>
+<% $num_students.times do |n| -%>
 - name: student<%= n %>.puppetlabs.vm
   box: current-puppet-student-ova
   roles:
