@@ -6,6 +6,16 @@ class bootstrap::profile::vagrant {
     require => Class['virtualbox'],
   }
 
+  $vagrant_plugins = [
+    'oscar', 'vagrant-hosts', 'vagrant-auto_network', 'vagrant-pe_build',
+    'vagrant-vbguest', 'vagrant-vbox-snapshot', 'vagrant-reload'
+  ]
+
+  vagrant::plugin { $vagrant_plugins:
+    user => 'training',
+    require => Class['vagrant'],
+  }
+
   # Convert the latest Puppet master instructor OVA and install as a
   # Vagrant box
   vagrant::box { 'current-puppet-master-ova':
