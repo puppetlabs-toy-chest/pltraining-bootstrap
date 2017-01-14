@@ -24,8 +24,6 @@ fixtures:
       repo: "pltraining/userprefs"
     pe_gem:
       repo: "puppetlabs/pe_gem"
-    libvirt:
-      repo: "thias/libvirt"
     network:
       repo: "razorsedge/network"
     staging:
