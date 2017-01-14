@@ -28,6 +28,8 @@
     {"name":"binford2k/abalone"},
     {"name":"garethr/docker"},
     {"name":"razorsedge/network"},
-    {"name":"puppetlabs/stdlib"}
+    {"name":"puppetlabs/stdlib"},
+    {"name":"puppet/virtualbox"},
+    {"name":"unibet/vagrant"}
   ]
 }
