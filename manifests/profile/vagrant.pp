@@ -15,7 +15,7 @@ class bootstrap::profile::vagrant {
 
   $vagrant_plugins = [
     'oscar', 'vagrant-hosts', 'vagrant-auto_network', 'vagrant-pe_build',
-    'vagrant-vbox-snapshot', 'vagrant-reload'
+    'vagrant-vbguest', 'vagrant-vbox-snapshot', 'vagrant-reload'
   ]
 
   vagrant::plugin { $vagrant_plugins:
