@@ -9,13 +9,13 @@ class bootstrap::profile::vagrant {
   include virtualbox
 
   class { 'vagrant':
-    version => '1.9.1',
+    version => '1.8.7',
     require => Class['virtualbox'],
   }
 
   $vagrant_plugins = [
     'oscar', 'vagrant-hosts', 'vagrant-auto_network', 'vagrant-pe_build',
-    'vagrant-vbguest', 'vagrant-vbox-snapshot', 'vagrant-reload'
+    'vagrant-vbox-snapshot', 'vagrant-reload'
   ]
 
   vagrant::plugin { $vagrant_plugins:
