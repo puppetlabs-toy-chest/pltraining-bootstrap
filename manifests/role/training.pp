@@ -1,6 +1,4 @@
-class bootstrap::role::training (
-  $pe_version = $bootstrap::params::pe_version
-) inherits bootstrap::params {
+class bootstrap::role::training inherits bootstrap::params {
   include localrepo
   include bootstrap
   include bootstrap::profile::network

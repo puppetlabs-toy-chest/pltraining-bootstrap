@@ -3,14 +3,10 @@
 # -------
 #
 define bootstrap::cached_agent (
-  $pe_version    = $bootstrap::params::pe_version,
-  $agent_version = $bootstrap::params::agent_version,
   $platform      = $::osfamily,
   $release       = $::operatingsystemmajrelease,
   $architecture  = $::architecture,
 ) {
-  validate_string($pe_version)
-  validate_string($agent_version)
   validate_string($platform)
   validate_string($release)
   validate_string($architecture)
@@ -40,12 +36,12 @@ define bootstrap::cached_agent (
   case $platform {
     # platforms that download directly to the pe_repo directory instead of staging
     'Windows' : {
-      $staging_dir = "/opt/puppetlabs/server/data/packages/public/${pe_version}/windows-${architecture}"
-      $url         = "https://pm.puppet.com/puppet-agent/${pe_version}/${agent_version}/repos/windows/${buildname}"
+      $staging_dir = "/opt/puppetlabs/server/data/packages/public/${::pe_server_version}/windows-${architecture}"
+      $url         = "https://pm.puppet.com/puppet-agent/${::pe_server_version}/${::clientversion}/repos/windows/${buildname}"
     }
     default  : {
       $staging_dir = '/opt/puppetlabs/server/data/staging/pe_repo'
-      $url         = "https://pm.puppet.com/puppet-agent/${pe_version}/${agent_version}/repos/${buildname}"
+      $url         = "https://pm.puppet.com/puppet-agent/${::pe_server_version}/${::clientversion}/repos/${buildname}"
     }
   }
 

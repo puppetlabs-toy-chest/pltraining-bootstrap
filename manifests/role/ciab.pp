@@ -1,6 +1,4 @@
-class bootstrap::role::ciab (
-  $pe_version = $bootstrap::params::pe_version
-) inherits bootstrap::params {
+class bootstrap::role::ciab inherits bootstrap::params {
   include localrepo
   include bootstrap
   include userprefs::defaults
