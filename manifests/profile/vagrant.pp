@@ -8,6 +8,10 @@ class bootstrap::profile::vagrant {
 
   include virtualbox
 
+  # Note that the latest version of Vagrant at this time (1.9.1) does not
+  # seem to work correctly with the auto-network plugin, and the master
+  # Vagrant box does not receive an IP address successfully. Stick with
+  # 1.8.7 for now.
   class { 'vagrant':
     version => '1.8.7',
     require => Class['virtualbox'],
