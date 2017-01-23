@@ -23,3 +23,8 @@ roles:
     provisioners:
       - {type: hosts, sync_hosts: true}
       - {type: pe_agent, master: master}
+    forwarded_ports:
+      - id: ssh
+        guest: 22
+        host: 2222
+        auto_correct: true
