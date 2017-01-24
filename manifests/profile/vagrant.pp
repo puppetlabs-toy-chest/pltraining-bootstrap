@@ -68,4 +68,36 @@ class bootstrap::profile::vagrant {
                    { num_students => $::num_students }),
   }
 
+  # Create 16 student user accounts that will be used with forwarded
+  # ports to login to the student Vagrant boxes
+  $student_password_file = '/var/local/student_passwords.txt'
+
+  range('1', '16').each |$num| {
+    $username = "student${num}"
+    $clear_password = random_password(8)
+    $salt = random_password(4)
+
+    $crypted_password = pw_hash($clear_password, '6', $salt)
+
+    user { $username:
+      ensure     => present,
+      managehome => true,
+      password   => $crypted_password,
+    }
+
+    file { $student_password_file:
+      ensure => file,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0600',
+    }
+
+    file_line { "${username} password entry":
+      ensure  => present,
+      path    => $student_password_file,
+      line    => "${username}:${clear_password}",
+      require => File[$student_password_file],
+    }
+  }
+
 }
