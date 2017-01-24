@@ -72,6 +72,13 @@ class bootstrap::profile::vagrant {
   # ports to login to the student Vagrant boxes
   $student_password_file = '/var/local/student_passwords.txt'
 
+  file { $student_password_file:
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0600',
+  }
+
   range('1', '16').each |$num| {
     $username = "student${num}"
     $clear_password = random_password(8)
@@ -83,13 +90,6 @@ class bootstrap::profile::vagrant {
       ensure     => present,
       managehome => true,
       password   => $crypted_password,
-    }
-
-    file { $student_password_file:
-      ensure => file,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0600',
     }
 
     file_line { "${username} password entry":
