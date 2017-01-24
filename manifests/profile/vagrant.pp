@@ -68,7 +68,7 @@ class bootstrap::profile::vagrant {
                    { num_students => $::num_students }),
   }
 
-  # Create 16 student user accounts that will be used with forwarded
+  # Create enough student user accounts that will be used with forwarded
   # ports to login to the student Vagrant boxes
   $student_password_file = '/var/local/student_passwords.txt'
 
@@ -79,7 +79,7 @@ class bootstrap::profile::vagrant {
     mode   => '0600',
   }
 
-  range('1', '16').each |$num| {
+  range('1', $::num_students).each |$num| {
     $username = "student${num}"
     $clear_password = random_password(8)
     $salt = random_password(4)
