@@ -19,7 +19,7 @@ class bootstrap::profile::vagrant {
 
   $vagrant_plugins = [
     'oscar', 'vagrant-hosts', 'vagrant-auto_network', 'vagrant-pe_build',
-    'vagrant-vbguest', 'vagrant-vbox-snapshot', 'vagrant-reload'
+    'vagrant-vbox-snapshot', 'vagrant-reload'
   ]
 
   vagrant::plugin { $vagrant_plugins:
@@ -85,6 +85,7 @@ class bootstrap::profile::vagrant {
     $salt = random_password(4)
 
     $crypted_password = pw_hash($clear_password, 'sha-512', $salt)
+    notify { "Student ${username} password: ${crypted_password}": }
 
     user { $username:
       ensure     => present,
@@ -96,6 +97,7 @@ class bootstrap::profile::vagrant {
       ensure  => present,
       path    => $student_password_file,
       line    => "${username}:${clear_password}",
+      match   => "^${username}:",
       require => File[$student_password_file],
     }
   }
