@@ -77,7 +77,7 @@ class bootstrap::profile::vagrant {
     $clear_password = random_password(8)
     $salt = random_password(4)
 
-    $crypted_password = pw_hash($clear_password, '6', $salt)
+    $crypted_password = pw_hash($clear_password, 'sha-512', $salt)
 
     user { $username:
       ensure     => present,
