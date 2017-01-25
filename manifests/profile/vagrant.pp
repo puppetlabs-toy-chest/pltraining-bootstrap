@@ -87,12 +87,6 @@ class bootstrap::profile::vagrant {
     $crypted_password = pw_hash($clear_password, 'sha-512', $salt)
     notify { "Student ${username} password: ${crypted_password}": }
 
-    user { $username:
-      ensure     => present,
-      managehome => true,
-      password   => $crypted_password,
-    }
-
     file_line { "${username} password entry":
       ensure  => present,
       path    => $student_password_file,
