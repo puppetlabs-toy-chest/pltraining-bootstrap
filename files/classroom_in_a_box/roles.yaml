@@ -10,7 +10,6 @@ roles:
           - [modifyvm, !ruby/sym id, '--memory', 8192]
     provisioners:
       - {type: hosts, sync_hosts: true}
-      - {type: pe_bootstrap, role: !ruby/sym master}
 
   pe-puppet-agent:
     public_networks:
