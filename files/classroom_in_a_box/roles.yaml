@@ -1,8 +1,8 @@
 ---
 roles:
   pe-puppet-master:
-    private_networks:
-      - {ip: '0.0.0.0', auto_network: true}
+    public_networks:
+      - {bridge: 'eth0'}
     providers:
       - type: virtualbox
         linked_clone: true
@@ -13,8 +13,8 @@ roles:
       - {type: pe_bootstrap, role: !ruby/sym master}
 
   pe-puppet-agent:
-    private_networks:
-      - {ip: '0.0.0.0', auto_network: true}
+    public_networks:
+      - {bridge: 'eth0'}
     providers:
       - type: virtualbox
         linked_clone: true
@@ -22,9 +22,3 @@ roles:
           - [modifyvm, !ruby/sym id, '--memory', 1024]
     provisioners:
       - {type: hosts, sync_hosts: true}
-      - {type: pe_agent, master: master}
-    forwarded_ports:
-      - id: ssh
-        guest: 22
-        host: 2222
-        auto_correct: true
