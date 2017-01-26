@@ -152,6 +152,10 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'word_wrap':                      version => '1.0.0'  }
   bootstrap::gem { 'puppet-courseware-manager':      version => '0.5.0'  }
 
+  # for the Architect AWS demo
+  bootstrap::gem { 'aws-sdk-core':}
+  bootstrap::gem { 'retries':}
+
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
 }
