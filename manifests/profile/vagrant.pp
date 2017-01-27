@@ -65,7 +65,8 @@ class bootstrap::profile::vagrant {
 
   file { "$ciab_vagrant_root/config/vms.yaml":
     content => epp('bootstrap/classroom_in_a_box/vms.yaml.epp',
-                   { num_students => $::num_students }),
+                   { num_students     => $::num_students,
+                     num_win_students => $::num_win_students }),
   }
 
   # Create enough student user accounts that will be used with forwarded
