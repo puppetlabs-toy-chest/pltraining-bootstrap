@@ -2,7 +2,7 @@ class bootstrap::role::ciab inherits bootstrap::params {
   include localrepo
   include bootstrap
   include userprefs::defaults
-  include bootstrap::profile::virt
+  include bootstrap::profile::vagrant
   include bootstrap::profile::splash
   include bootstrap::profile::guacamole
   include bootstrap::profile::nginx_proxy

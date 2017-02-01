@@ -1,0 +1,23 @@
+---
+roles:
+  pe-puppet-master:
+    public_networks:
+      - {bridge: 'eth0'}
+    providers:
+      - type: virtualbox
+        linked_clone: true
+        customize:
+          - [modifyvm, !ruby/sym id, '--memory', 8192]
+    provisioners:
+      - {type: hosts, sync_hosts: true}
+
+  pe-puppet-agent:
+    public_networks:
+      - {bridge: 'eth0'}
+    providers:
+      - type: virtualbox
+        linked_clone: true
+        customize:
+          - [modifyvm, !ruby/sym id, '--memory', 1024]
+    provisioners:
+      - {type: hosts, sync_hosts: true}

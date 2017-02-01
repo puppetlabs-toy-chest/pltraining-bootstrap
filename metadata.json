@@ -27,7 +27,9 @@
     {"name":"jfryman/selinux"},
     {"name":"binford2k/abalone"},
     {"name":"garethr/docker"},
-    {"name":"thias/libvirt"},
-    {"name":"razorsedge/network"}
+    {"name":"razorsedge/network"},
+    {"name":"puppetlabs/stdlib"},
+    {"name":"puppet/virtualbox"},
+    {"name":"unibet/vagrant"}
   ]
 }

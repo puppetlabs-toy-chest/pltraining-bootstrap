@@ -131,6 +131,7 @@ class bootstrap::profile::cache_gems (
   # Required for the aws module
   bootstrap::gem { 'aws-sdk':                        version => '2.6.9'  }
   bootstrap::gem { 'aws-sdk-core':                   version => '2.6.9'  }
+  bootstrap::gem { 'aws-sdk-resources':              version => '2.6.9'  }
   bootstrap::gem { 'jmespath':                       version => '1.3.1'  }
   bootstrap::gem { 'retries':                        version => '0.0.5'  }
 
