@@ -10,7 +10,7 @@
     }
   ],
   "name": "pltraining-bootstrap",
-  "version": "0.0.12",
+  "version": "0.5.12",
   "author": "pltraining",
   "summary": "Bootstrap scripts for Puppet Education VMs",
   "license": "Apache 2.0",

@@ -1,3 +1,9 @@
+## 5.12
+
+* Matching release versions to education-builds
+* Cache agent packages in a better way
+* Cache maci0/systemd and centos:7 docker images
+
 ### v0.0.12
 
 * PE 2016.2 support
