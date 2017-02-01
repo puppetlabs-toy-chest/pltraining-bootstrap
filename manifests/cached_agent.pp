@@ -2,7 +2,7 @@
 # Cache agent installers where the pe_repo class expects them to be.
 # -------
 #
-# This the parameters allow setting a different version then what is
+# These parameters allow setting a different version then what is
 # installed, which matters for pre-release VMs
 #
 define bootstrap::cached_agent (
