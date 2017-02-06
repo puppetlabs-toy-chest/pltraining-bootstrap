@@ -58,4 +58,9 @@ class bootstrap::profile::base {
     changes => 'set PrintMotd yes',
     require => Package['ruby_augeas_lib'],
   }
+  augeas { "UsePAM_enable":
+    context => '/files/etc/ssh/sshd_config',
+    changes => 'set UsePAM yes',
+    require => Package['ruby_augeas_lib'],
+  }
 }
