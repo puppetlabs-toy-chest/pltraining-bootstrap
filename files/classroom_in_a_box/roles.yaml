@@ -11,7 +11,7 @@ roles:
     provisioners:
       - {type: hosts, sync_hosts: true}
 
-  pe-puppet-agent:
+  pe-puppet-agent-linux:
     public_networks:
       - {bridge: 'eth0'}
     providers:
@@ -21,3 +21,16 @@ roles:
           - [modifyvm, !ruby/sym id, '--memory', 1024]
     provisioners:
       - {type: hosts, sync_hosts: true}
+
+  pe-puppet-agent-windows:
+    public_networks:
+      - {bridge: 'eth0'}
+    providers:
+      - type: virtualbox
+        linked_clone: true
+        customize:
+          - [modifyvm, !ruby/sym id, '--memory', 1024]
+    provisioners:
+      - {type: hosts, sync_hosts: true}
+    forwarded_ports:
+      - {id: 'rdp', guest: 3389, host: 3389, protocol: 'tcp', auto_correct: true}
