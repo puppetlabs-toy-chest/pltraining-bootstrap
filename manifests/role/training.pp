@@ -10,6 +10,7 @@ class bootstrap::role::training inherits bootstrap::params {
   }
   include bootstrap::profile::disable_selinux 
   class { 'abalone':
-    port => '9091'
+    port     => '9091',
+    watchdog => true,
   }
 }
