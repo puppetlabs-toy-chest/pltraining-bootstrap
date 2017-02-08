@@ -69,4 +69,30 @@ class bootstrap::profile::vagrant {
                      num_win_students => $::num_win_students }),
   }
 
+  $vagrant_deps = [
+    File["$ciab_vagrant_root/Vagrantfile"],
+    File["$ciab_vagrant_root/config/roles.yaml"],
+    File["$ciab_vagrant_root/config/pe_build.yaml"],
+    File["$ciab_vagrant_root/config/vms.yaml"],
+    Vagrant::Box['current-puppet-master-ova'],
+    Vagrant::Box['current-puppet-master-ova']
+  ]
+
+  # Start up the instructor's Vagrant box
+  exec { 'start the master vagrant box':
+    user    => 'training',
+    command => 'cd /home/training/classroom_in_box && vagrant up master.puppetlabs.vm',
+    unless  => "cd /home/training/classroom_in_a_box && vagrant status master.puppetlabs.vm | grep ^master.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+    require => $vagrant_deps,
+  }
+
+  # Start all of the student Vagrant boxes so the port mappings are set up
+  range(1, $::num_students + $::num_win_students).each |$n| {
+    exec { "start the student${n}.puppetlabs.vm vagrant box":
+      user    => 'training',
+      command => "cd /home/training/classroom_in_box && vagrant up student${n}.puppetlabs.vm",
+      unless  => "cd /home/training/classroom_in_a_box && vagrant up student${n}.puppetlabs.vm | grep ^student${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+      require => $vagrant_deps,
+    }
+  }
 }
