@@ -97,7 +97,7 @@ class bootstrap::profile::vagrant {
       path        => '/bin:/usr/bin',
       environment => [ "HOME=${training_home_path}" ],
       command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up linux${n}.puppetlabs.vm",
-      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant up linux${n}.puppetlabs.vm | grep ^linux${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status linux${n}.puppetlabs.vm | grep ^linux${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
       require     => $vagrant_deps,
     }
   }
@@ -108,7 +108,7 @@ class bootstrap::profile::vagrant {
       path        => '/bin:/usr/bin',
       environment => [ "HOME=${training_home_path}" ],
       command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up windows${n}.puppetlabs.vm",
-      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant up windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
       require     => $vagrant_deps,
     }
   }
