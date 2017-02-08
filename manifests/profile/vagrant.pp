@@ -81,6 +81,7 @@ class bootstrap::profile::vagrant {
   # Start up the instructor's Vagrant box
   exec { 'start the master vagrant box':
     user    => 'training',
+    path    => '/bin:/usr/bin',
     command => 'cd /home/training/classroom_in_box && vagrant up master.puppetlabs.vm',
     unless  => "cd /home/training/classroom_in_a_box && vagrant status master.puppetlabs.vm | grep ^master.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
     require => $vagrant_deps,
@@ -90,9 +91,11 @@ class bootstrap::profile::vagrant {
   range(1, $::num_students + $::num_win_students).each |$n| {
     exec { "start the student${n}.puppetlabs.vm vagrant box":
       user    => 'training',
+      path    => '/bin:/usr/bin',
       command => "cd /home/training/classroom_in_box && vagrant up student${n}.puppetlabs.vm",
       unless  => "cd /home/training/classroom_in_a_box && vagrant up student${n}.puppetlabs.vm | grep ^student${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
       require => $vagrant_deps,
     }
   }
+
 }
