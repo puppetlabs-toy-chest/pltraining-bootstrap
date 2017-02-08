@@ -70,9 +70,7 @@ class bootstrap::profile::vagrant {
   }
 
   $vagrant_deps = [
-    File[$ciab_vagrant_root],
     File["$ciab_vagrant_root/Vagrantfile"],
-    File["$ciab_vagrant_root/config"],
     File["$ciab_vagrant_root/config/pe_build.yaml"],
     File["$ciab_vagrant_root/config/roles.yaml"],
     File["$ciab_vagrant_root/config/vms.yaml"],
@@ -84,7 +82,7 @@ class bootstrap::profile::vagrant {
   exec { 'start the master vagrant box':
     user    => 'training',
     path    => '/bin:/usr/bin',
-    command => 'cd /home/training/classroom_in_box && vagrant up master.puppetlabs.vm',
+    command => 'cd /home/training/classroom_in_a_box && vagrant up master.puppetlabs.vm',
     unless  => "cd /home/training/classroom_in_a_box && vagrant status master.puppetlabs.vm | grep ^master.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
     require => $vagrant_deps,
   }
@@ -94,7 +92,7 @@ class bootstrap::profile::vagrant {
     exec { "start the student${n}.puppetlabs.vm vagrant box":
       user    => 'training',
       path    => '/bin:/usr/bin',
-      command => "cd /home/training/classroom_in_box && vagrant up student${n}.puppetlabs.vm",
+      command => "cd /home/training/classroom_in_a_box && vagrant up student${n}.puppetlabs.vm",
       unless  => "cd /home/training/classroom_in_a_box && vagrant up student${n}.puppetlabs.vm | grep ^student${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
       require => $vagrant_deps,
     }
