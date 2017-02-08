@@ -70,9 +70,11 @@ class bootstrap::profile::vagrant {
   }
 
   $vagrant_deps = [
+    File[$ciab_vagrant_root],
     File["$ciab_vagrant_root/Vagrantfile"],
-    File["$ciab_vagrant_root/config/roles.yaml"],
+    File["$ciab_vagrant_root/config"],
     File["$ciab_vagrant_root/config/pe_build.yaml"],
+    File["$ciab_vagrant_root/config/roles.yaml"],
     File["$ciab_vagrant_root/config/vms.yaml"],
     Vagrant::Box['current-puppet-master-ova'],
     Vagrant::Box['current-puppet-master-ova']
