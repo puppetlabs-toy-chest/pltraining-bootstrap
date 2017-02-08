@@ -91,13 +91,24 @@ class bootstrap::profile::vagrant {
   }
 
   # Start all of the student Vagrant boxes so the port mappings are set up
-  range(1, $::num_students).each |$n| {
-    exec { "start the student${n}.puppetlabs.vm vagrant box":
+  range(1, $::num_students - $::num_win_students).each |$n| {
+    exec { "start the linux${n}.puppetlabs.vm vagrant box":
       user        => 'training',
       path        => '/bin:/usr/bin',
       environment => [ "HOME=${training_home_path}" ],
-      command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up student${n}.puppetlabs.vm",
-      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant up student${n}.puppetlabs.vm | grep ^student${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+      command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up linux${n}.puppetlabs.vm",
+      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant up linux${n}.puppetlabs.vm | grep ^linux${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+      require     => $vagrant_deps,
+    }
+  }
+
+  range($::num_students - $::num_win_students + 1, $::num_students).each |$n| {
+    exec { "start the windows${n}.puppetlabs.vm vagrant box":
+      user        => 'training',
+      path        => '/bin:/usr/bin',
+      environment => [ "HOME=${training_home_path}" ],
+      command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up windows${n}.puppetlabs.vm",
+      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant up windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
       require     => $vagrant_deps,
     }
   }
