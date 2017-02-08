@@ -8,11 +8,11 @@ vms:
 - name: linux<%= $n %>.puppetlabs.vm
   box: current-puppet-student-ova
   roles:
-  - pe-puppet-agent
+  - pe-puppet-agent-linux
 <% } -%>
 <% range($num_students - $num_win_students + 1, $num_students).each |$n| { -%>
 - name: windows<%= $n %>.puppetlabs.vm
   box: opentable/win-2012r2-standard-amd64-nocm
   roles:
-  - pe-puppet-agent
+  - pe-puppet-agent-windows
 <% } -%>
