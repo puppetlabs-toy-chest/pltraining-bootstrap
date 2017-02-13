@@ -4,6 +4,7 @@ class bootstrap::role::master {
   }
   include bootstrap
   include bootstrap::profile::network
+  include bootstrap::profile::cache_modules
   include userprefs::defaults
   include pe_repo::platform::el_6_i386
   include pe_repo::platform::el_7_x86_64
