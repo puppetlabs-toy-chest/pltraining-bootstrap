@@ -1,7 +1,6 @@
 class bootstrap::profile::ruby {
   # need rubygems to cache rubygems
   package { 'rubygems' :
-    ensure  => '~> 2.2',
     require => Class['localrepo'],
     before  => Class['bootstrap::profile::cache_gems'],
   }
