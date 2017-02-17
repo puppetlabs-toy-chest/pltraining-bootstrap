@@ -1,6 +1,7 @@
 class bootstrap::role::learning {
   include localrepo
   include bootstrap
+  include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
   include userprefs::profile
@@ -13,7 +14,9 @@ class bootstrap::role::learning {
     require     => Class['userprefs::profile'],
   }
   class {'learning':
-    git_branch => 'master',
+    git_branch         => 'hello_puppet',
+    content_repo_owner => 'kjhenner',
+    require            => Class['bootstrap::profile::rubygems'],
   }
   class {'bootstrap::profile::splash':
     # Note: the $IP_ADDRESS string is a variable determined at boot time by rc.local
