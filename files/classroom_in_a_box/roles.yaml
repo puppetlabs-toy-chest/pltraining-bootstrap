@@ -34,3 +34,4 @@ roles:
       - {type: hosts, sync_hosts: true}
     forwarded_ports:
       - {id: 'rdp', guest: 3389, host: 3389, protocol: 'tcp', auto_correct: true}
+      - {id: 'ssh', guest: 22, host: 2200, protocol: 'tcp', auto_correct: true}
