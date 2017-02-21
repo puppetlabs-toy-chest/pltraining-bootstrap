@@ -13,8 +13,9 @@ class bootstrap::role::learning {
     require     => Class['userprefs::profile'],
   }
   class {'learning':
-    git_branch => 'hello_puppet',
+    git_branch         => 'hello_puppet',
     content_repo_owner => 'kjhenner',
+    require            => Class['bootstrap'],
   }
   class {'bootstrap::profile::splash':
     # Note: the $IP_ADDRESS string is a variable determined at boot time by rc.local
