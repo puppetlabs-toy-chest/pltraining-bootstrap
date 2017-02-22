@@ -1,0 +1,8 @@
+<%- | $gem_dir = '/var/opt/stickler' | -%>
+# This file is managed by Puppet.
+[Unit]
+Description=Run the stickler gem server
+[Service]
+ExecStart=/usr/local/bin/stickler-server start <%= $gem_dir %>
+[Install]
+WantedBy=multi-user.target
