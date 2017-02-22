@@ -86,9 +86,24 @@ class bootstrap::profile::vagrant {
     path        => '/bin:/usr/bin',
     environment => [ "HOME=${training_home_path}" ],
     command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up master.puppetlabs.vm",
-    unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status master.puppetlabs.vm | grep ^master.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+    unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status master.puppetlabs.vm | grep ^master.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
     require     => $vagrant_deps,
   }
+
+  # Set up the structured fact that will store the Vagrant box port
+  # forwards for guacamole configuration
+  file { [ '/etc/puppetlabs/facter', '/etc/puppetlabs/facter/facts.d' ]:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+  }
+
+  $guacamole_ports_fact = '/etc/puppetlabs/facter/facts.d/guacamole_ports.json'
+
+  # concat { $guacamole_ports_fact:
+  #   owner => 'root',
+  #   group => 'root',
+  # }
 
   # Start all of the student Vagrant boxes so the port mappings are set up
   range(1, $::num_students - $::num_win_students).each |$n| {
@@ -97,7 +112,7 @@ class bootstrap::profile::vagrant {
       path        => '/bin:/usr/bin',
       environment => [ "HOME=${training_home_path}" ],
       command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up linux${n}.puppetlabs.vm",
-      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status linux${n}.puppetlabs.vm | grep ^linux${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status linux${n}.puppetlabs.vm | grep ^linux${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
       require     => $vagrant_deps,
     }
   }
@@ -108,7 +123,7 @@ class bootstrap::profile::vagrant {
       path        => '/bin:/usr/bin',
       environment => [ "HOME=${training_home_path}" ],
       command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up windows${n}.puppetlabs.vm",
-      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep ^running",
+      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
       require     => $vagrant_deps,
     }
   }
