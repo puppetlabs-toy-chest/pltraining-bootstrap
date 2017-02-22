@@ -132,7 +132,7 @@ class bootstrap::profile::vagrant {
   range($::num_students - $::num_win_students + 1, $::num_students).each |$n| {
     exec { "start the windows${n}.puppetlabs.vm vagrant box":
       user        => 'training',
-      path        => "/bin:/usr/bin:${ciab_vagrant_box}/bin",
+      path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
       environment => [ "HOME=${training_home_path}" ],
       command     => "start_vagrant_box.sh windows${n}.puppetlabs.vm",
       unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
