@@ -78,6 +78,12 @@ class bootstrap::profile::vagrant {
                    { training_home_path => $training_home_path }),
   }
 
+  file { "${ciab_vagrant_root}/bin/check_vagrant_box_running.sh":
+    mode    => '0755',
+    content => epp('bootstrap/classroom_in_a_box/check_vagrant_box_running.sh.epp',
+                   { training_home_path => $training_home_path }),
+  }
+
   # All of these resources need to be enforced before we start
   # bringing up vagrant boxes
   $vagrant_deps = [
@@ -86,6 +92,7 @@ class bootstrap::profile::vagrant {
     File["${ciab_vagrant_root}/config/roles.yaml"],
     File["${ciab_vagrant_root}/config/vms.yaml"],
     File["${ciab_vagrant_root}/bin/start_vagrant_box.sh"],
+    File["${ciab_vagrant_root}/bin/check_vagrant_box_running.sh"],
     Vagrant::Box['current-puppet-master-ova'],
     Vagrant::Box['current-puppet-master-ova']
   ]
@@ -96,9 +103,8 @@ class bootstrap::profile::vagrant {
     path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
     environment => [ "HOME=${training_home_path}" ],
     command     => "start_vagrant_box.sh master.puppetlabs.vm",
-    unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status master.puppetlabs.vm | grep ^master.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
+    unless      => "check_vagrant_box_running.sh master.puppetlabs.vm",
     require     => $vagrant_deps,
-    logoutput   => true,
   }
 
   # Set up the structured fact that will store the Vagrant box port
@@ -123,9 +129,8 @@ class bootstrap::profile::vagrant {
       path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
       environment => [ "HOME=${training_home_path}" ],
       command     => "start_vagrant_box.sh linux${n}.puppetlabs.vm",
-      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status linux${n}.puppetlabs.vm | grep ^linux${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
+      unless      => "check_vagrant_box_running.sh linux${n}.puppetlabs.vm",
       require     => $vagrant_deps,
-      logoutput   => true,
     }
   }
 
@@ -135,9 +140,8 @@ class bootstrap::profile::vagrant {
       path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
       environment => [ "HOME=${training_home_path}" ],
       command     => "start_vagrant_box.sh windows${n}.puppetlabs.vm",
-      unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
+      unless      => "check_vagrant_box_running.sh windows${n}.puppetlabs.vm",
       require     => $vagrant_deps,
-      logoutput   => true,
     }
   }
 
