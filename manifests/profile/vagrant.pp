@@ -88,6 +88,7 @@ class bootstrap::profile::vagrant {
     command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up master.puppetlabs.vm",
     unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status master.puppetlabs.vm | grep ^master.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
     require     => $vagrant_deps,
+    logoutput   => true,
   }
 
   # Set up the structured fact that will store the Vagrant box port
@@ -114,6 +115,7 @@ class bootstrap::profile::vagrant {
       command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up linux${n}.puppetlabs.vm",
       unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status linux${n}.puppetlabs.vm | grep ^linux${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
       require     => $vagrant_deps,
+      logoutput   => true,
     }
   }
 
@@ -125,6 +127,7 @@ class bootstrap::profile::vagrant {
       command     => "cd ${training_home_path}/classroom_in_a_box && vagrant up windows${n}.puppetlabs.vm",
       unless      => "cd ${training_home_path}/classroom_in_a_box && vagrant status windows${n}.puppetlabs.vm | grep ^windows${n}.puppetlabs.vm 2>/dev/null | awk '{ print $2 }' | grep -q ^running",
       require     => $vagrant_deps,
+      logoutput   => true,
     }
   }
 
