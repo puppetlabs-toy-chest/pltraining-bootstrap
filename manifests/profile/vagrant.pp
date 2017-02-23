@@ -105,7 +105,7 @@ class bootstrap::profile::vagrant {
   file { "${ciab_vagrant_root}/bin/create_guacamole_ports_fact.sh":
     mode    => '0755',
     content => epp('bootstrap/classroom_in_a_box/create_guacamole_ports_fact.sh.epp',
-                   { training_home_path        => $training_home_path,
+                   { ciab_vagrant_root         => $ciab_vagrant_root,
                      guacamole_ports_fact_file => $guacamole_ports_fact_file,
                      }),
   }
