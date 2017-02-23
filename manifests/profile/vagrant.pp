@@ -159,7 +159,7 @@ class bootstrap::profile::vagrant {
   }
 
   exec { 'generate guacamole ports custom fact':
-    user        => 'training',
+    user        => 'root',
     path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
     environment => [ "HOME=${training_home_path}" ],
     command     => 'create_guacamole_ports_fact.sh',
