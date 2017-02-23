@@ -27,9 +27,12 @@ VBOXES=`vagrant status | egrep '^(linux|windows)' | awk '{ print $1 }'`
 #   ]
 # }
 
+# Clear the file
+: > ${FACT_FILE}
+
 # Emit the header
-echo "{"
-echo "  \"guacamole_ports\": ["
+echo "{" >> ${FACT_FILE}
+echo "  \"guacamole_ports\": [" >> ${FACT_FILE}
 
 for VBOX in ${VBOXES}; do
   if [ "${VBOX:0:5}" = "linux" ]; then
@@ -44,18 +47,18 @@ for VBOX in ${VBOXES}; do
   USERNAME=${VBOX//\.puppetlabs\.vm}
 
   # Emit a forwarded port
-  echo "    {"
-  echo "      \"username\": \"${USERNAME}\"",
-  echo "      \"port\": ${HOST_PORT}",
-  echo "      \"type\": \"${SERVICE}\""
-  echo "    },"
+  echo "    {" >> ${FACT_FILE}
+  echo "      \"username\": \"${USERNAME}\"," >> ${FACT_FILE}
+  echo "      \"port\": ${HOST_PORT}," >> ${FACT_FILE}
+  echo "      \"type\": \"${SERVICE}\"" >> ${FACT_FILE}
+  echo "    }," >> ${FACT_FILE}
 done
 
 # Emit the footer. The last structured fact will be empty so we don't have
 # do any special handling to omit a comma on the last structure in the array.
-echo "    {"
-echo "    }"
-echo "  ]"
-echo "}"
+echo "    {" >> ${FACT_FILE}
+echo "    }" >> ${FACT_FILE}
+echo "  ]" >> ${FACT_FILE}
+echo "}" >> ${FACT_FILE}
 
 exit 0
