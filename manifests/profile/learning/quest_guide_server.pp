@@ -12,7 +12,7 @@ class bootstrap::profile::learning::quest_guide_server {
     require => Class['nginx'],
   }
 
-  nginx::resource::vhost { "_":
+  nginx::resource::server { "_":
     ensure         => present,
     listen_port    => "${proxy_port}",
     listen_options => 'default',
@@ -24,7 +24,7 @@ class bootstrap::profile::learning::quest_guide_server {
 
   nginx::resource::location { '~ ^/~(.+?)(/.*)?$':
     ensure         => present,
-    vhost          => '_',
+    server         => '_',
     location_alias => '/home/$1/public_html$2',
     autoindex      => 'on',
   }

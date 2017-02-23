@@ -34,4 +34,19 @@ class bootstrap::profile::learning::install {
     ensure => directory,
   }
 
+  file { '/usr/local/bin/reset_demo':
+    ensure => 'file',
+    owner  => 'root',
+    mode   => '0500',
+    source => 'puppet:///modules/bootstrap/learning/reset_demo',
+  }
+
+  #enable GSSAPIAuthentication so we can disable it in the quest
+  file_line { 'sshd_config':
+    ensure => present,
+    path   => '/etc/ssh/sshd_config',
+    line   => 'GSSAPIAuthentication yes',
+    match  => '^GSSAPIAuthentication',
+  }
+
 }
