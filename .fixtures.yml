@@ -2,9 +2,8 @@ fixtures:
   sysmlinks:
     bootstrap: "#{source_dir}"
   repositories:
-    localrepo: "git@github.com:puppetlabs/pltraining-localrepo.git"
-    pe_staging: "git@github.com:puppetlabs/puppetlabs-pe_staging.git"
-    lms: "git@github.com:puppetlabs/pltraining-lms.git"
+    localrepo: "https://github.com/puppetlabs/pltraining-localrepo.git"
+    pe_staging: "https://github.com/puppetlabs/puppetlabs-pe_staging.git"
   forge_modules:
     stdlib:
       repo: "puppetlabs/stdlib"

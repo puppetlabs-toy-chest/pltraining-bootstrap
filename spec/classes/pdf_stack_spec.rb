@@ -14,6 +14,7 @@ describe "bootstrap::profile::pdf_stack" do
   let(:pre_condition) do
     [ 'include epel',
       'include localrepo',
+      'include bootstrap::params',
       'include bootstrap::profile::cache_gems',
       'include bootstrap::profile::ruby',
       'include bootstrap::profile::yum', ]
