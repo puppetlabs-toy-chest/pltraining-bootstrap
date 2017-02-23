@@ -7,6 +7,8 @@ class bootstrap::profile::guacamole {
       "--add-host ${::fqdn}:${::networking['ip']}",
     ],
   }
+
+  if defined('$::guacamole_ports') {
   docker::run {'ciab-guacamole':
     image            => 'glyptodon/guacamole',
     links            => ['ciab-guacd:guacd'],
@@ -51,6 +53,7 @@ class bootstrap::profile::guacamole {
     proto  => 'tcp',
     action => 'accept',
     dport   => '3306',
+  }
   }
     
 }
