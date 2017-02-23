@@ -82,7 +82,7 @@ echo "    {" >> ${FACT_FILE}
 echo "      \"username\": \"${USERNAME}\"," >> ${FACT_FILE}
 echo "      \"port\": ${HOST_PORT}," >> ${FACT_FILE}
 echo "      \"type\": \"${SERVICE}\"" >> ${FACT_FILE}
-echo "    }," >> ${FACT_FILE}
+echo "    }" >> ${FACT_FILE}
 
 # Emit the footer
 echo "  ]" >> ${FACT_FILE}
