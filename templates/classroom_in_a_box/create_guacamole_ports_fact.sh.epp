@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Check that the script is operating in the correct directory
+[ "`pwd`" != "<%= $ciab_vagrant_root %>" ] && exit 1
+
+FACT_FILE=<%= $guacamole_ports_fact_file %>
+
+VBOXES=`vagrant status | egrep '^(linux|windows)' | awk '{ print $1 }'`
+
+# Sample output. The ports are listeners on the CIAB host machine that
+# connect to the respective service on a provisioned vagrant box.
+#
+# {
+#   "guacamole_ports": [
+#     {
+#       "username": "windows2",
+#       "port": 3389,
+#       "type": "rdp"
+#     },
+#     {
+#       "username": "linux1",
+#       "port": 2201,
+#       "type": "ssh"
+#     },
+#     {
+#     }
+#   ]
+# }
+
+# Emit the header
+echo "{"
+echo "  \"guacamole_ports\": ["
+
+for VBOX in ${VBOXES}; do
+  if [ "${VBOX:0:5}" = "linux" ]; then
+    PORT=22
+    SERVICE=ssh
+  else
+    PORT=3389
+    SERVICE=rdp
+  fi
+
+  HOST_PORT=`vagrant port ${VBOX} 2>/dev/null | grep -w ${PORT} | awk '{ print $4 }'`
+  USERNAME=${VBOX//\.puppetlabs\.vm}
+
+  # Emit a forwarded port
+  echo "    {"
+  echo "      \"username\": \"${USERNAME}\"",
+  echo "      \"port\": ${HOST_PORT}",
+  echo "      \"type\": \"${SERVICE}\""
+  echo "    },"
+done
+
+# Emit the footer. The last structured fact will be empty so we don't have
+# do any special handling to omit a comma on the last structure in the array.
+echo "    {"
+echo "    }"
+echo "  ]"
+echo "}"
+
+exit 0

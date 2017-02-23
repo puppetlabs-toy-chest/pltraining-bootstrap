@@ -6,6 +6,15 @@ class bootstrap::profile::vagrant {
     mode   => '0644',
   }
 
+  # Ensure the external facts directory is present for when we need it
+  # later
+  file { [ '/etc/puppetlabs/facter', '/etc/puppetlabs/facter/facts.d' ]:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+  }
+
+  # vagrant will run as the "training" user from this home directory
   $training_home_path = '/home/training'
 
   include virtualbox
@@ -84,6 +93,23 @@ class bootstrap::profile::vagrant {
                    { training_home_path => $training_home_path }),
   }
 
+  # The external fact that our script will write to
+  $guacamole_ports_fact_file = '/etc/puppetlabs/facter/facts.d/guacamole_ports.json'
+
+  # Ensure proper ownership on the external fact output file
+  file { $guacamole_ports_fact_file:
+    owner => 'root',
+    group => 'root',
+  }
+
+  file { "${ciab_vagrant_root}/bin/create_guacamole_ports_fact.sh":
+    mode    => '0755',
+    content => epp('bootstrap/classroom_in_a_box/create_guacamole_ports_fact.sh.epp',
+                   { training_home_path        => $training_home_path,
+                     guacamole_ports_fact_file => $guacamole_ports_fact_file,
+                     }),
+  }
+
   # All of these resources need to be enforced before we start
   # bringing up vagrant boxes
   $vagrant_deps = [
@@ -107,21 +133,6 @@ class bootstrap::profile::vagrant {
     require     => $vagrant_deps,
   }
 
-  # Set up the structured fact that will store the Vagrant box port
-  # forwards for guacamole configuration
-  file { [ '/etc/puppetlabs/facter', '/etc/puppetlabs/facter/facts.d' ]:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-  }
-
-  $guacamole_ports_fact = '/etc/puppetlabs/facter/facts.d/guacamole_ports.json'
-
-  # concat { $guacamole_ports_fact:
-  #   owner => 'root',
-  #   group => 'root',
-  # }
-
   # Start all of the student Vagrant boxes so the port mappings are set up
   range(1, $::num_students - $::num_win_students).each |$n| {
     exec { "start the linux${n}.puppetlabs.vm vagrant box":
@@ -131,6 +142,7 @@ class bootstrap::profile::vagrant {
       command     => "start_vagrant_box.sh linux${n}.puppetlabs.vm",
       unless      => "check_vagrant_box_running.sh linux${n}.puppetlabs.vm",
       require     => $vagrant_deps,
+      before      => Exec['generate guacamole ports custom fact'],
     }
   }
 
@@ -142,7 +154,15 @@ class bootstrap::profile::vagrant {
       command     => "start_vagrant_box.sh windows${n}.puppetlabs.vm",
       unless      => "check_vagrant_box_running.sh windows${n}.puppetlabs.vm",
       require     => $vagrant_deps,
+      before      => Exec['generate guacamole ports custom fact'],
     }
+  }
+
+  exec { 'generate guacamole ports custom fact':
+    user        => 'training',
+    path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
+    environment => [ "HOME=${training_home_path}" ],
+    command     => 'create_guacamole_ports_fact.sh',
   }
 
 }
