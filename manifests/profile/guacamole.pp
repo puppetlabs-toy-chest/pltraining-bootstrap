@@ -1,6 +1,8 @@
 class bootstrap::profile::guacamole {
 
-  include docker
+  # Contain this class because the containing class has an ordering
+  # dependency applied to it
+  contain docker
 
   docker::run {'ciab-guacd':
     image => 'glyptodon/guacd',

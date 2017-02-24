@@ -17,7 +17,9 @@ class bootstrap::profile::vagrant {
   # vagrant will run as the "training" user from this home directory
   $training_home_path = '/home/training'
 
-  include virtualbox
+  # Contain this class because the containing class has an ordering
+  # dependency applied to it
+  contain virtualbox
 
   # Note that the latest version of Vagrant at this time (1.9.1) does not
   # seem to work correctly with the auto-network plugin, and the master
