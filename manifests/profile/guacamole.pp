@@ -46,6 +46,7 @@ class bootstrap::profile::guacamole {
     class {'::mysql::server':
       override_options => $override_options,
     }
+    contain ::mysql::server
 
     mysql::db {'guacamole_db':
       user     => 'guacamole_user',

@@ -29,6 +29,7 @@ class bootstrap::profile::vagrant {
     version => '1.8.7',
     require => Class['virtualbox'],
   }
+  contain vagrant
 
   $vagrant_plugins = [
     'oscar', 'vagrant-hosts', 'vagrant-auto_network', 'vagrant-pe_build',
