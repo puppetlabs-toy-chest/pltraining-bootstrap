@@ -103,6 +103,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'daemons':                        version => '1.2.4'  }
   bootstrap::gem { 'em-websocket':                   version => '0.3.8'  }
   bootstrap::gem { 'eventmachine':                   version => '1.2.0.1' }
+  bootstrap::gem { 'fidget':                         version => '0.0.4'  }
   bootstrap::gem { 'gli':                            version => '2.14.0' }
   bootstrap::gem { 'htmlentities':                   version => '4.3.4'  }
   bootstrap::gem { 'mini_portile2':                  version => '2.1.0'  }
@@ -151,7 +152,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'mixlib-cli':                     version => '1.7.0'  }
   bootstrap::gem { 'mixlib-config':                  version => '2.2.4'  }
   bootstrap::gem { 'word_wrap':                      version => '1.0.0'  }
-  bootstrap::gem { 'puppet-courseware-manager':      version => '0.5.0'  }
+  bootstrap::gem { 'puppet-courseware-manager':      version => '0.5.1'  }
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
