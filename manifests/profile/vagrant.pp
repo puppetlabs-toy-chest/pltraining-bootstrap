@@ -166,6 +166,7 @@ class bootstrap::profile::vagrant {
     path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
     environment => [ "HOME=${training_home_path}" ],
     command     => 'create_guacamole_ports_fact.sh',
+    creates     => $guacamole_ports_fact_file,
   }
 
 }
