@@ -124,7 +124,7 @@ class bootstrap::profile::vagrant {
     File["${ciab_vagrant_root}/bin/start_vagrant_box.sh"],
     File["${ciab_vagrant_root}/bin/check_vagrant_box_running.sh"],
     Vagrant::Box['current-puppet-master-ova'],
-    Vagrant::Box['current-puppet-master-ova']
+    Vagrant::Box['current-puppet-student-ova']
   ]
 
   # Start up the instructor's Vagrant box
