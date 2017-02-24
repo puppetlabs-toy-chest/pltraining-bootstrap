@@ -8,10 +8,17 @@ class bootstrap::profile::vagrant {
 
   # Ensure the external facts directory is present for when we need it
   # later
-  file { [ '/etc/puppetlabs/facter', '/etc/puppetlabs/facter/facts.d' ]:
+  file { '/etc/puppetlabs/facter':
     ensure => directory,
     owner  => 'root',
     group  => 'root',
+  }
+
+  file { '/etc/puppetlabs/facter/facts.d':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'training',
+    mode   => '0775',
   }
 
   # vagrant will run as the "training" user from this home directory
@@ -98,14 +105,6 @@ class bootstrap::profile::vagrant {
 
   # The external fact that our script will write to
   $guacamole_ports_fact_file = '/etc/puppetlabs/facter/facts.d/guacamole_ports.json'
-
-  # Ensure proper ownership on the external fact output file. The
-  # fact generation script has to run as the training user in order to
-  # retrieve information from vagrant.
-  file { $guacamole_ports_fact_file:
-    owner => 'training',
-    group => 'training',
-  }
 
   file { "${ciab_vagrant_root}/bin/create_guacamole_ports_fact.sh":
     mode    => '0755',
