@@ -32,7 +32,7 @@ class bootstrap::profile::guacamole {
 
     file { '/usr/src/guacamole/initdb.sql':
       ensure  => file,
-      content => epp('bootstrap/guacamole_db.sql.epp'),
+      content => epp('bootstrap/classroom_in_a_box/guacamole_db.sql.epp'),
     }
 
     $override_options = {
