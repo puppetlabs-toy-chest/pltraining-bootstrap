@@ -11,9 +11,10 @@ class bootstrap::profile::learning::pypi_server ( $pypi_dir = '/opt/pypiserver',
     before => Supervisord::Program['pypi-server'],
   }
 
+  
+
   class { 'supervisord':
     install_pip => true,
-    setuptools_url => 'https://bootstrap.pypa.io/ez_setup.py',
   }
 
   supervisord::program { 'pypi-server':
