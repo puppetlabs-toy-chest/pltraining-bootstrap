@@ -6,4 +6,5 @@ class bootstrap::role::student {
   include bootstrap::profile::splash
   include bootstrap::profile::classroom_ssh
   include bootstrap::public_key
+  include bootstrap::profile::cache_modules
 }

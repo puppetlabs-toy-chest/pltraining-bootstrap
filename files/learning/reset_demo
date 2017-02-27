@@ -1,0 +1,6 @@
+#!/bin/bash
+function reset_demo() {
+  echo "Please wait a moment while the demo is reset..."
+  cd /root && quest begin puppetconf_demo
+  clear
+}

@@ -1,0 +1,23 @@
+
+This is the Puppet Learning VM.
+
+This CentOS-based VM comes with Puppet Enterprise pre-installed.
+The Learning VM includes an interactive Quest Guide that will walk
+you through the essentials of Puppet and the Puppet language. This Quest Guide
+is hosted on a server running on this VM. To get started, navigate to
+http://<VM's IPADDRESS> on your host machine.
+
+To view the Learning VM's current IP address, enter the command
+`facter ipaddress`.
+
+If you have any issues, please refer to the troubleshooting guide
+included in the readme.rtf file that accompanied your Learning VM download.
+
+We're glad to receive questions and comments at learningvm@puppet.com. If you
+have an issue, please include the version of the Learning VM you are using
+(this is included in the filename of the OVA) the details of your host OS,
+the virtualization software and version you are using, and any details of the
+site network where you're running the VM (for example, whether there is a proxy
+or firewall present).
+
+Copyright Puppet 2016

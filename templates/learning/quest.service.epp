@@ -1,0 +1,9 @@
+[Unit]
+Description=Run the quest tool service
+
+[Service]
+Environment=RACK_ENV=production
+ExecStart=/usr/local/bin/questctl start -q <%= $test_dir %>
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+---
+:backends:
+  - yaml
+:hierarchy:
+  - defaults
+  - "%{clientcert}"
+  - "%{environment}"
+  - common
+  - global
+
+:yaml:
+  :datadir: /etc/puppetlabs/code/hieradata
+
