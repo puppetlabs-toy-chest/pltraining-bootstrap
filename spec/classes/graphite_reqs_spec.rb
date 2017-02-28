@@ -110,23 +110,23 @@ describe "bootstrap::profile::learning::graphite_reqs" do
   }
 
   it {
-    is_expected.to contain_exec("install requests[security]")
+    is_expected.to contain_exec("install requests")
       .with({
-        "command" => "/bin/pip install requests[security] --index \"https://pypi.python.org/simple/\"",
+        "command" => "/bin/pip install requests --index \"https://pypi.python.org/simple/\"",
       }).that_requires("Package[libffi-devel]")
   }
 
   it {
-    is_expected.to contain_exec("install requests[security]")
+    is_expected.to contain_exec("install requests")
       .with({
-        "command" => "/bin/pip install requests[security] --index \"https://pypi.python.org/simple/\"",
+        "command" => "/bin/pip install requests --index \"https://pypi.python.org/simple/\"",
       }).that_requires("Package[openssl-devel]")
   }
 
   it {
-    is_expected.to contain_exec("install requests[security]")
+    is_expected.to contain_exec("install requests")
       .with({
-        "command" => "/bin/pip install requests[security] --index \"https://pypi.python.org/simple/\"",
+        "command" => "/bin/pip install requests --index \"https://pypi.python.org/simple/\"",
       }).that_requires("Package[python-devel]")
   }
 
@@ -134,7 +134,7 @@ describe "bootstrap::profile::learning::graphite_reqs" do
     is_expected.to contain_package("python-sqlite3dbm")
       .with({
         'ensure' => '0.1.4-6.el7',
-        'require' => 'Exec[install requests[security]]',
+        'require' => 'Exec[install requests]',
       })
   }
 
