@@ -35,16 +35,16 @@ class bootstrap::profile::learning::graphite_reqs ($pypi_dir = '/opt/pypiserver'
     ensure => present,
   }
 
-  # Install requests[security]
+  # Install requests
   # The pip provider doesn't support this syntax, so use an exec
-  exec { 'install requests[security]':
-    command => '/bin/pip install requests[security] --index "https://pypi.python.org/simple/"',
+  exec { 'install requests':
+    command => '/bin/pip install requests --index "https://pypi.python.org/simple/"',
     require => Package['libffi-devel','openssl-devel', 'python-devel'],
   }
 
   # Now that we've installed the requests[security] stuff we can get python-sqlite3dbm
   package { 'python-sqlite3dbm':
     ensure => '0.1.4-6.el7',
-    require => Exec['install requests[security]'],
+    require => Exec['install requests'],
   }
 }
