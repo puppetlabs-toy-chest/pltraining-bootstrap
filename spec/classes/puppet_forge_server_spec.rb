@@ -13,7 +13,7 @@ describe "bootstrap::profile::puppet_forge_server" do
   it { is_expected.to compile.with_all_deps }
 
   it {
-    is_expected.to contain_file("/var/opt/forge")
+    is_expected.to contain_file("/var/opt/forge/")
       .with({
         'ensure' => 'directory',
       }).that_comes_before('service[forge]')

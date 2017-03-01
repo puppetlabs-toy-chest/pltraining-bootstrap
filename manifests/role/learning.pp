@@ -20,6 +20,7 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::graphite_reqs
   include bootstrap::profile::learning::graphite_server
   include bootstrap::profile::learning::pypi_server
+  include bootstrap::profile::learning::local_modules
   class { 'userprefs::bash':
     password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
     replace  => true,
