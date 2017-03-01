@@ -45,6 +45,7 @@ class bootstrap::profile::learning::graphite_reqs ($pypi_dir = '/opt/pypiserver'
   # Now that we've installed the requests[security] stuff we can get python-sqlite3dbm
   package { 'python-sqlite3dbm':
     ensure => '0.1.4-6.el7',
+    provider => 'yum',
     require => Exec['install requests'],
   }
 }
