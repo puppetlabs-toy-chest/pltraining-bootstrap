@@ -12,6 +12,12 @@ describe "bootstrap::profile::puppet_forge_server" do
 
   it { is_expected.to compile.with_all_deps }
 
+  let(:pre_condition) {
+    <<-EOF
+      include bootstrap::profile::puppet_forge_server
+    EOF
+  }
+
   it {
     is_expected.to contain_file("/var/opt/forge/")
       .with({

@@ -6,6 +6,8 @@
 
 [Unit]
 Description=Run the puppte-forge-server service
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 ExecStart=/usr/local/bin/puppet-forge-server --port <%= $port %> -m <%= $module_source_dir %>
