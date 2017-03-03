@@ -1,6 +1,6 @@
 class bootstrap::role::learning {
   include localrepo
-  include dockeragent
+  #include dockeragent
   include userprefs::profile
   include bootstrap
   include bootstrap::profile::rubygems
@@ -20,9 +20,9 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::graphite_server
   include bootstrap::profile::learning::pypi_server
   include bootstrap::profile::learning::local_modules
-  class { 'docker':
-    repo_opt => '--setopt=docker.skip_if_unavailable=true'
-  }
+  #class { 'docker':
+  #  repo_opt => '--setopt=docker.skip_if_unavailable=true'
+  #}
   class { 'userprefs::bash':
     password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
     replace  => true,
