@@ -30,12 +30,12 @@ declare -a VBOXES_ARRAY=(${VBOXES})
 #   ]
 # }
 
+# If there are no vagrant boxes provisioned, then remove the file (if any)
+# and exit
+[ -z "${VBOXES}" ] && rm -f ${FACT_FILE} && exit 0
+
 # Clear the file
 : > ${FACT_FILE}
-
-# If there are no vagrant boxes provisioned, then just exit with an
-# empty file
-[ -z "${VBOXES}" ] && exit 0
 
 # Emit the header
 echo "{" >> ${FACT_FILE}
