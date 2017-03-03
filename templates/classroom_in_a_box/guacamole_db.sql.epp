@@ -48,8 +48,6 @@ CREATE TABLE `guacamole_connection` (
 
 LOCK TABLES `guacamole_connection` WRITE;
 /*!40000 ALTER TABLE `guacamole_connection` DISABLE KEYS */;
---- INSERT INTO `guacamole_connection` VALUES (4,'windows2',NULL,'rdp',NULL,NULL);
---- INSERT INTO `guacamole_connection` VALUES (5,'linux1',NULL,'ssh',NULL,NULL);
 <% 
    $facts['guacamole_ports'].each |$index, $data| {
      $username = $data['username']
@@ -178,8 +176,6 @@ CREATE TABLE `guacamole_connection_parameter` (
 
 LOCK TABLES `guacamole_connection_parameter` WRITE;
 /*!40000 ALTER TABLE `guacamole_connection_parameter` DISABLE KEYS */;
---- INSERT INTO `guacamole_connection_parameter` VALUES (4,'hostname','ciab.puppetlabs.vm'),(4,'ignore-cert','true'),(4,'password','vagrant'),(4,'port','3389'),(4,'security','any'),(4,'username','vagrant');
---- INSERT INTO `guacamole_connection_parameter` VALUES (5,'hostname','ciab.puppetlabs.vm'),(5,'password','training'),(5,'port','2200'),(5,'username','training');
 <%
    $facts['guacamole_ports'].each |$index, $data| {
      $username = $data['username']
@@ -194,6 +190,8 @@ INSERT INTO `guacamole_connection_parameter` VALUES (<%= $connection_id_start + 
 -%>
 INSERT INTO `guacamole_connection_parameter` VALUES (<%= $connection_id_start + $index %>,'hostname','ciab.puppetlabs.vm'),(<%= $connection_id_start + $index %>,'password','training'),(<%= $connection_id_start + $index %>,'port','<%= $port %>'),(<%= $connection_id_start + $index %>,'username','training');
 <%
+     } else {
+       fail("Unhandled connection type \"${type}\" while configuring Guacamole")
      }
    }
 -%>
@@ -224,9 +222,6 @@ CREATE TABLE `guacamole_connection_permission` (
 
 LOCK TABLES `guacamole_connection_permission` WRITE;
 /*!40000 ALTER TABLE `guacamole_connection_permission` DISABLE KEYS */;
---- INSERT INTO `guacamole_connection_permission` VALUES (1,4,'READ'),(1,4,'UPDATE'),(1,4,'DELETE'),(1,4,'ADMINISTER');
---- INSERT INTO `guacamole_connection_permission` VALUES (1,5,'READ'),(1,5,'UPDATE'),(1,5,'DELETE'),(1,5,'ADMINISTER');
---- INSERT INTO `guacamole_connection_permission` VALUES (4,5,'READ');
 <%
    $facts['guacamole_ports'].each |$index, $data| {
 -%>
@@ -371,7 +366,6 @@ CREATE TABLE `guacamole_user` (
 LOCK TABLES `guacamole_user` WRITE;
 /*!40000 ALTER TABLE `guacamole_user` DISABLE KEYS */;
 INSERT INTO `guacamole_user` VALUES (1,'guacadmin',0xCA458A7D494E3BE824F5E1E175A1556C0F8EEF2C2D7DF3633BEC4A29C4411960,0xFE24ADC5E11E2B25288D1704ABE67A79E342ECC26064CE69C5B3177795A82264,0,0,NULL,NULL,NULL,NULL,NULL);
---- INSERT INTO `guacamole_user` VALUES (4,'linux1',0x2455DA46EE7951F70B8A0EDCBBD3D48475FF590B8C3FC7091170C122C8258B7C,0xBBA63BE5E02AA3830AB6DC327975AAD8F35B4C277D01AFE1E0FA609E088240F4,0,1,NULL,NULL,NULL,NULL,NULL);
 <%
    $facts['guacamole_ports'].each |$index, $data| {
      $username = $data['username']
@@ -408,8 +402,6 @@ CREATE TABLE `guacamole_user_permission` (
 LOCK TABLES `guacamole_user_permission` WRITE;
 /*!40000 ALTER TABLE `guacamole_user_permission` DISABLE KEYS */;
 INSERT INTO `guacamole_user_permission` VALUES (1,1,'READ'),(1,1,'UPDATE'),(1,1,'ADMINISTER');
---- INSERT INTO `guacamole_user_permission` VALUES (1,4,'READ'),(1,4,'UPDATE'),(1,4,'DELETE'),(1,4,'ADMINISTER');
---- INSERT INTO `guacamole_user_permission` VALUES (4,4,'READ'),(4,4,'UPDATE');
 <%
    $facts['guacamole_ports'].each |$index, $data| {
 -%>
