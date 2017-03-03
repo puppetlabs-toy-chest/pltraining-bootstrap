@@ -1,5 +1,7 @@
 [Unit]
 Description=Run the quest tool service
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Environment=RACK_ENV=production

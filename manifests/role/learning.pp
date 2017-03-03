@@ -9,6 +9,7 @@ class bootstrap::role::learning {
   include bootstrap::profile::pe_tweaks
   include bootstrap::profile::stickler
   include bootstrap::profile::abalone
+  include bootstrap::profile::puppet_forge_server
   include bootstrap::profile::learning::quest_guide
   include bootstrap::profile::learning::pe_tuning
   include bootstrap::profile::learning::install
@@ -19,6 +20,7 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::graphite_reqs
   include bootstrap::profile::learning::graphite_server
   include bootstrap::profile::learning::pypi_server
+  include bootstrap::profile::learning::local_modules
   class { 'userprefs::bash':
     password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
     replace  => true,

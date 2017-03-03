@@ -7,6 +7,9 @@ fixtures:
     pe_repo: "https://github.com/puppetlabs/puppetlabs-pe_repo.git"
     dockeragent: "https://github.com/puppetlabs/pltraining-dockeragent.git"
   forge_modules:
+    inifile:
+      repo: "puppetlabs/inifile"
+      ref:  "1.6.0"
     stdlib:
       repo: "puppetlabs/stdlib"
       ref: "4.12.0"
