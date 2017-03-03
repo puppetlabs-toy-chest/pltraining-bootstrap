@@ -32,9 +32,26 @@ class bootstrap::profile::guacamole {
       ensure => directory,
     }
 
-    file { '/usr/src/guacamole/initdb.sql':
-      ensure  => file,
+    $guacamole_initdb_file = '/usr/src/guacamole/initdb.sql'
+
+    concat { $guacamole_initdb_file:
+      ensure  => present,
+    }
+
+    # Start with the dynamic template that generates the Guacamole 0.9.10
+    # database schema, then concat database upgrade scripts as additional
+    # fragments as new versions of the application are released with
+    # database schema changes.
+    concat::fragment { 'guacamole 0.9.10 init script':
+      target  => $guacamole_initdb_file,
       content => epp('bootstrap/classroom_in_a_box/guacamole_db.sql.epp'),
+      order   => '10',
+    }
+
+    concat::fragment { 'guacamole 0.9.11 upgrade script':
+      target => $guacamole_initdb_file,
+      source => 'puppet:///modules/profile/classroom_in_a_box/upgrade-pre-0.9.11.sql',
+      order  => '20',
     }
 
     $override_options = {
@@ -53,8 +70,8 @@ class bootstrap::profile::guacamole {
       password => 'some_password',
       host     => '%',
       grant    => ['SELECT','INSERT','UPDATE','DELETE'],
-      sql      => '/usr/src/guacamole/initdb.sql',
-      require  => File['/usr/src/guacamole/initdb.sql'],
+      sql      => $guacamole_initdb_file,
+      require  => File[$guacamole_initdb_file],
     }
 
     firewall { '010 allow mysql':
