@@ -50,7 +50,7 @@ class bootstrap::profile::guacamole {
 
     concat::fragment { 'guacamole 0.9.11 upgrade script':
       target => $guacamole_initdb_file,
-      source => 'puppet:///modules/profile/classroom_in_a_box/upgrade-pre-0.9.11.sql',
+      source => 'puppet:///modules/bootstrap/classroom_in_a_box/upgrade-pre-0.9.11.sql',
       order  => '20',
     }
 
