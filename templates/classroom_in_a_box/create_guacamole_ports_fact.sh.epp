@@ -33,6 +33,10 @@ declare -a VBOXES_ARRAY=(${VBOXES})
 # Clear the file
 : > ${FACT_FILE}
 
+# If there are no vagrant boxes provisioned, then just exit with an
+# empty file
+[ -z "${VBOXES}" ] && exit 0
+
 # Emit the header
 echo "{" >> ${FACT_FILE}
 echo "  \"guacamole_ports\": [" >> ${FACT_FILE}
