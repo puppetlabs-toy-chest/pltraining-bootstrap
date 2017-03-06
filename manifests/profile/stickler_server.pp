@@ -1,4 +1,4 @@
-class bootstrap::profile::stickler(
+class bootstrap::profile::stickler_server(
   $gem_dir = '/var/opt/stickler'
 ){
   file { $gem_dir:
