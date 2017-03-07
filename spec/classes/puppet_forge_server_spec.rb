@@ -8,13 +8,19 @@ describe "bootstrap::profile::puppet_forge_server" do
     :operatingsystem           => 'CentOS',
     :operatingsystemrelease    => '7.2.1511',
     :operatingsystemmajrelease => '7',
+    :architecture              => 'x86_64',
   } }
 
   it { is_expected.to compile.with_all_deps }
 
   let(:pre_condition) {
     <<-EOF
-      include bootstrap::profile::puppet_forge_server
+      include localrepo
+      include epel
+      include bootstrap::profile::cache_gems
+      class { 'bootstrap::profile::ruby':
+        install_bundler => true,
+      }
     EOF
   }
 
@@ -35,22 +41,6 @@ describe "bootstrap::profile::puppet_forge_server" do
         'ensure' => 'running',
         'enable' => 'true',
       })
-  }
-
-  it {
-    is_expected.to contain_package("puppet-forge-server")
-      .with({
-        'ensure'   => 'present',
-        'provider' => 'gem',
-      }).that_comes_before('service[forge]')
-  }
-
-  it {
-    is_expected.to contain_package("multi_json")
-      .with({
-      'ensure'   => '1.7.8',
-        'provider' => 'gem',
-      }).that_comes_before('service[forge]')
   }
 
 end
