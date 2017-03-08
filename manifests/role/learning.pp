@@ -20,6 +20,10 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::graphite_server
   include bootstrap::profile::learning::pypi_server
   include bootstrap::profile::learning::local_modules
+  include bootstrap::profile::learning::learning_stickler_gems
+  class { 'bootstrap::profile::cache_gems':
+    use_stickler => true,
+  }
   #class { 'docker':
   #  repo_opt => '--setopt=docker.skip_if_unavailable=true'
   #}

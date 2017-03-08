@@ -7,6 +7,7 @@ class bootstrap::role::training inherits bootstrap::params {
   include userprefs::defaults
   include bootstrap::profile::splash
   include bootstrap::profile::cache_wordpress
+  include bootstrap::profile::cache_gems
   class { 'bootstrap::public_key': 
     ec2_lock_passwd => false,
   }

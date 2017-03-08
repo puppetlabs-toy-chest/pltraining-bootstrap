@@ -20,4 +20,5 @@ class bootstrap::role::master {
   include bootstrap::profile::rubygems
   include bootstrap::profile::cache_gitea
   include bootstrap::profile::deployer
+  include bootstrap::profile::cache_gems
 }
