@@ -10,7 +10,9 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/puppet-forge-server --port <%= $port %> -m <%= $module_source_dir %>
+ExecStart=/usr/local/bin/bundle exec puppet-forge-server --port <%= $port %> -m <%= $module_source_dir %>
+WorkingDirectory=/usr/src/puppet-forge-server
+User=puppet-forge-server
 
 [Install]
 WantedBy=multi-user.target

@@ -3,6 +3,7 @@ class bootstrap::role::master {
     build_name => 'master',
   }
   include bootstrap
+  include bootstrap::profile::ruby
   include bootstrap::profile::network
   include bootstrap::profile::cache_modules
   include userprefs::defaults

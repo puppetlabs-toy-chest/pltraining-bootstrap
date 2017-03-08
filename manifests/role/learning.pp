@@ -6,7 +6,7 @@ class bootstrap::role::learning {
   include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
-  include bootstrap::profile::stickler
+  include bootstrap::profile::stickler_server
   include bootstrap::profile::abalone
   include bootstrap::profile::puppet_forge_server
   include bootstrap::profile::learning::quest_guide
@@ -23,6 +23,9 @@ class bootstrap::role::learning {
   #class { 'docker':
   #  repo_opt => '--setopt=docker.skip_if_unavailable=true'
   #}
+  class { 'bootstrap::profile::ruby':
+    install_bundler => true,
+  }
   class { 'userprefs::bash':
     password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
     replace  => true,

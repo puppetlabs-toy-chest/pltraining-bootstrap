@@ -2,6 +2,31 @@ class bootstrap::profile::puppet_forge_server(
   $module_source_dir = '/var/opt/forge/',
   $port              = '8085'
 ){
+  user { 'puppet-forge-server':
+    ensure     => present,
+    gid        => 'puppet-forge-server',
+    managehome => true,
+  }
+  group { 'puppet-forge-server':
+    ensure => present,
+  }
+  vcsrepo { '/usr/src/puppet-forge-server':
+    ensure   => present,
+    provider => git,
+    owner    => 'puppet-forge-server',
+    group    => 'puppet-forge-server',
+    source   => 'https://github.com/unibet/puppet-forge-server.git',
+    revision => '1.9.0',
+    require  => User['puppet-forge-server'],
+  }
+  exec { '/usr/local/bin/bundle install':
+    cwd         => '/usr/src/puppet-forge-server',
+    unless      => '/usr/local/bin/bundle check',
+    user        => 'puppet-forge-server',
+    environment => ['HOME=/home/puppet-forge-server'],
+    logoutput   => on_failure,
+    require     => [Vcsrepo['/usr/src/puppet-forge-server'], Package['bundler'], User['puppet-forge-server']],
+  }
   file { $module_source_dir:
     ensure => directory,
     before => Service['forge'],
@@ -15,23 +40,9 @@ class bootstrap::profile::puppet_forge_server(
     notify  => Service['forge'],
   }
   service { 'forge':
-    ensure => running,
-    enable => true,
-  }
-  package { 'puppet-forge-server':
-    ensure   => present,
-    provider => 'gem',
-    before   => Service['forge'],
-  }
-  package { 'multi_json':
-    ensure   => '1.7.8',
-    provider => 'gem',
-    before   => Service['forge'],
-  }
-  exec { 'gem uninstall multi_json -v=1.12.1 -I':
-    unless  => 'test `gem list --local | grep -q 1.12.1; echo $?` -ne 0',
-    path    => '/bin',
-    before  => Service['forge'],
+    ensure  => running,
+    enable  => true,
+    require => Exec['/usr/local/bin/bundle install']
   }
   ini_setting { 'module_repository':
     ensure  => present,

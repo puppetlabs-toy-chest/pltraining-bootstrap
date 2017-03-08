@@ -20,11 +20,18 @@ describe "bootstrap::profile::learning::local_modules" do
     :kernelversion             => '3.10.0',
     :aio_agent_version         => '4.5.3',
     :pe_build                  => '2016.2',
+    :architecture              => 'x86_64',
   } }
 
   let(:pre_condition) {
     <<-EOF
       include bootstrap::profile::puppet_forge_server
+      include bootstrap::profile::cache_gems
+      include localrepo
+      include epel
+      class { 'bootstrap::profile::ruby':
+        install_bundler => true,
+      }
     EOF
   }
 

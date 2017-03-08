@@ -1,6 +1,7 @@
 class bootstrap::role::student {
   include localrepo
   include bootstrap
+  include bootstrap::profile::ruby
   include bootstrap::profile::network
   include userprefs::defaults
   include bootstrap::profile::splash
