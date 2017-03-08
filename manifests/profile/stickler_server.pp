@@ -1,6 +1,7 @@
-class bootstrap::profile::stickler_server(
-  $gem_dir = '/var/opt/stickler'
-){
+class bootstrap::profile::stickler_server (
+  $gem_dir = '/var/opt/stickler',
+  $set_as_gemrc_default = true
+) {
   file { $gem_dir:
     ensure => directory,
     before => Service['stickler'],
@@ -29,5 +30,11 @@ class bootstrap::profile::stickler_server(
     content => epp('bootstrap/learning/stickler.epp', $stickler_server_hash),
     notify  => Service['stickler'],
     require => Package['stickler']
+  }
+  if $set_as_gemrc_default {
+    file { '/opt/puppetlabs/puppet/etc/gemrc':
+      ensure => file,
+      source => 'puppet:///modules/bootstrap/stickler_gemrc',
+    }
   }
 }
