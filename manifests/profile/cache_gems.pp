@@ -45,6 +45,13 @@ class bootstrap::profile::cache_gems (
     content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
   }
 
+  # Let's just put .gemrc everywhere!
+  # Need to look into why the gem provider is looking for configuration in / !
+  file { '/.gemrc':
+    ensure => file,
+    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
+  }
+
   # this is for the vendored gem install.
   file { '/opt/puppetlabs/puppet/etc':
     ensure => directory,
