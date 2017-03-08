@@ -12,4 +12,5 @@ class bootstrap::role::lms_vm {
   include bootstrap::profile::classroom_ssh
   include bootstrap::profile::cache_modules
   include bootstrap::profile::installer_staging
+  include bootstrap::profile::cache_gems
 }

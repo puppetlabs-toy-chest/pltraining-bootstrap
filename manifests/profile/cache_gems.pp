@@ -1,6 +1,7 @@
 class bootstrap::profile::cache_gems (
   $cache_dir = '/var/cache/rubygems',
-  $file_cache = '/training/file_cache'
+  $file_cache = '/training/file_cache',
+  $use_stickler = false
 ) {
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
@@ -41,16 +42,21 @@ class bootstrap::profile::cache_gems (
 
   file { '/root/.gemrc':
     ensure => file,
-    source => 'puppet:///modules/bootstrap/gemrc',
+    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
   }
 
   # this is for the vendored gem install.
   file { '/opt/puppetlabs/puppet/etc':
     ensure => directory,
   }
+
+  unless defined('bootstrap::profile::stickler_server') {
+    warning("You have configured Puppet's gemrc to prefer stickler without installing the stickler server!")
+  }
+
   file { '/opt/puppetlabs/puppet/etc/gemrc':
-    ensure => file,
-    source => 'puppet:///modules/bootstrap/gemrc',
+    ensure  => file,
+    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
   }
 
   # Please keep this list alphabetized and organized. It makes it much easier to update.
