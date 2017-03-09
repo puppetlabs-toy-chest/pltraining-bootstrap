@@ -87,8 +87,7 @@ class bootstrap::profile::vagrant {
 
   file { "${ciab_vagrant_root}/config/vms.yaml":
     content => epp('bootstrap/classroom_in_a_box/vms.yaml.epp',
-                   { num_students     => $::num_students,
-                     num_win_students => $::num_win_students }),
+                   { num_win_vms => $::num_win_vms }),
   }
 
   file { "${ciab_vagrant_root}/bin/start_vagrant_box.sh":
@@ -137,20 +136,7 @@ class bootstrap::profile::vagrant {
     require     => $vagrant_deps,
   }
 
-  # Start all of the student Vagrant boxes so the port mappings are set up
-  range(1, $::num_students - $::num_win_students).each |$n| {
-    exec { "start the linux${n}.puppetlabs.vm vagrant box":
-      user        => 'training',
-      path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
-      environment => [ "HOME=${training_home_path}" ],
-      command     => "start_vagrant_box.sh linux${n}.puppetlabs.vm",
-      unless      => "check_vagrant_box_running.sh linux${n}.puppetlabs.vm",
-      require     => $vagrant_deps,
-      before      => Exec['generate guacamole ports custom fact'],
-    }
-  }
-
-  range($::num_students - $::num_win_students + 1, $::num_students).each |$n| {
+  range(1, $::num_win_vms).each |$n| {
     exec { "start the windows${n}.puppetlabs.vm vagrant box":
       user        => 'training',
       path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
