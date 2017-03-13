@@ -40,31 +40,22 @@ class bootstrap::profile::cache_gems (
     require     => Package['builder'],
   }
 
-  file { '/root/.gemrc':
-    ensure => file,
-    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
-  }
-
-  # Let's just put .gemrc everywhere!
-  # Need to look into why the gem provider is looking for configuration in / !
-  file { '/.gemrc':
-    ensure => file,
-    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
-  }
-
   # this is for the vendored gem install.
   file { '/opt/puppetlabs/puppet/etc':
     ensure => directory,
   }
 
+  # Let's just put .gemrc everywhere!
+  file { ['/root/.gemrc', '/.gemrc', '/etc/gemrc', '/opt/puppetlabs/puppet/etc/gemrc']:
+    ensure => file,
+    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
+  }
+
+
   unless defined('bootstrap::profile::stickler_server') {
     warning("You have configured Puppet's gemrc to prefer stickler without installing the stickler server!")
   }
 
-  file { '/opt/puppetlabs/puppet/etc/gemrc':
-    ensure  => file,
-    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
-  }
 
   # Please keep this list alphabetized and organized. It makes it much easier to update.
   # Puppet Enterprise
@@ -123,7 +114,9 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'nokogiri':                       version => '1.6.8.1' }
   bootstrap::gem { 'parslet':                        version => '1.7.1'  }
   bootstrap::gem { 'pkg-config':                     version => '1.1.7'  }
+  bootstrap::gem { 'public_suffix':                  version => '2.0.5'  }
   bootstrap::gem { 'redcarpet':                      version => '3.3.4'  }
+  bootstrap::gem { 'ruby-dbus':                      version => '0.13.0' }
   bootstrap::gem { 'showoff':                        version => '0.14.2' }
   bootstrap::gem { 'sinatra-websocket':              version => '0.3.1'  }
   bootstrap::gem { 'thin':                           version => '1.7.0'  }
