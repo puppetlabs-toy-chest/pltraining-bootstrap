@@ -133,6 +133,7 @@ class bootstrap::profile::vagrant {
     environment => [ "HOME=${training_home_path}" ],
     command     => "start_vagrant_box.sh master.puppetlabs.vm",
     unless      => "check_vagrant_box_running.sh master.puppetlabs.vm",
+    timeout     => 600,
     require     => $vagrant_deps,
   }
 
@@ -143,6 +144,7 @@ class bootstrap::profile::vagrant {
       environment => [ "HOME=${training_home_path}" ],
       command     => "start_vagrant_box.sh windows${n}.puppetlabs.vm",
       unless      => "check_vagrant_box_running.sh windows${n}.puppetlabs.vm",
+      timeout     => 600,
       require     => $vagrant_deps,
       before      => Exec['generate guacamole ports custom fact'],
     }
