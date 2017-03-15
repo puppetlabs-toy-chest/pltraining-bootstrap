@@ -56,14 +56,6 @@ class bootstrap::profile::vagrant {
     require => Class['vagrant'],
   }
 
-  # Convert the latest Puppet master instructor OVA and install as a
-  # Vagrant box
-  vagrant::box { 'current-puppet-student-ova':
-    user    => 'training',
-    source  => 'http://downloads.puppetlabs.com/training/puppet-student.ova',
-    require => Class['vagrant'],
-  }
-
   # Configure the Oscar environment with the proper files to provision
   # a master Vagrant box and the required number of student Vagrant boxes
   $ciab_vagrant_root = "${training_home_path}/classroom_in_a_box"
@@ -122,8 +114,7 @@ class bootstrap::profile::vagrant {
     File["${ciab_vagrant_root}/config/vms.yaml"],
     File["${ciab_vagrant_root}/bin/start_vagrant_box.sh"],
     File["${ciab_vagrant_root}/bin/check_vagrant_box_running.sh"],
-    Vagrant::Box['current-puppet-master-ova'],
-    Vagrant::Box['current-puppet-student-ova']
+    Vagrant::Box['current-puppet-master-ova']
   ]
 
   # Start up the instructor's Vagrant box
