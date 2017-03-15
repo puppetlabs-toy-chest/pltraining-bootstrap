@@ -184,7 +184,7 @@ LOCK TABLES `guacamole_connection_parameter` WRITE;
 
      if ($type == 'rdp') {
 -%>
-INSERT INTO `guacamole_connection_parameter` VALUES (<%= $connection_id_start + $index %>,'hostname','ciab.puppetlabs.vm'),(<%= $connection_id_start + $index %>,'ignore-cert','true'),(<%= $connection_id_start + $index %>,'password','vagrant'),(<%= $connection_id_start + $index %>,'port','<%= $port %>'),(<%= $connection_id_start + $index %>,'security','any'),(<%= $connection_id_start + $index %>,'username','vagrant');
+INSERT INTO `guacamole_connection_parameter` VALUES (<%= $connection_id_start + $index %>,'hostname','ciab.puppetlabs.vm'),(<%= $connection_id_start + $index %>,'ignore-cert','true'),(<%= $connection_id_start + $index %>,'password','vagrant'),(<%= $connection_id_start + $index %>,'port','<%= $port %>'),(<%= $connection_id_start + $index %>,'security','any'),(<%= $connection_id_start + $index %>,'username','Administrator');
 <%
      } elsif ($type == 'ssh') {
 -%>
