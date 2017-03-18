@@ -1,6 +1,6 @@
 class bootstrap::role::learning {
   include localrepo
-  #include dockeragent
+  include dockeragent
   include userprefs::profile
   include bootstrap
   include bootstrap::profile::rubygems
@@ -24,9 +24,6 @@ class bootstrap::role::learning {
   class { 'bootstrap::profile::cache_gems':
     use_stickler => true,
   }
-  #class { 'docker':
-  #  repo_opt => '--setopt=docker.skip_if_unavailable=true'
-  #}
   class { 'bootstrap::profile::ruby':
     install_bundler => true,
   }
