@@ -1,6 +1,5 @@
 class bootstrap::role::learning {
   include localrepo
-  include dockeragent
   include userprefs::profile
   include bootstrap
   include bootstrap::profile::rubygems
@@ -18,6 +17,10 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::multi_node
   include bootstrap::profile::learning::local_modules
   include bootstrap::profile::learning::learning_stickler_gems
+  class { 'dockeragent':
+    create_no_agent_image => true,
+    lvm_bashrc            => true,
+  }
   class { 'bootstrap::profile::cache_gems':
     use_stickler => true,
   }
