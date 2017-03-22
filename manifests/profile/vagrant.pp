@@ -69,8 +69,18 @@ class bootstrap::profile::vagrant {
     source => 'puppet:///modules/bootstrap/classroom_in_a_box/Vagrantfile',
   }
 
+  # The interface that the Vagrant boxes bridge to changes depending on if
+  # the CIAB is operating in online or offline ("hotspot") mode. Update it
+  # here so the Oscar plugin configuration is set correctly.
+  if str2bool($::offline) {
+    $vagrant_interface = 'ap0'
+  } else {
+    $vagrant_interface = 'eth0'
+  }
+
   file { "${ciab_vagrant_root}/config/roles.yaml":
-    source => 'puppet:///modules/bootstrap/classroom_in_a_box/roles.yaml',
+    content => epp('bootstrap/classroom_in_a_box/roles.yaml.epp',
+                   { vagrant_interface => $vagrant_interface }),
   }
 
   file { "${ciab_vagrant_root}/config/pe_build.yaml":

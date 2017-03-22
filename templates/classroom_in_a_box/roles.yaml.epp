@@ -2,7 +2,7 @@
 roles:
   pe-puppet-master:
     public_networks:
-      - {bridge: 'eth0'}
+      - {bridge: '<%= $vagrant_interface %>'}
     providers:
       - type: virtualbox
         linked_clone: true
@@ -13,7 +13,7 @@ roles:
 
   pe-puppet-agent-linux:
     public_networks:
-      - {bridge: 'eth0'}
+      - {bridge: '<%= $vagrant_interface %>'}
     providers:
       - type: virtualbox
         linked_clone: true
@@ -26,7 +26,7 @@ roles:
 
   pe-puppet-agent-windows:
     public_networks:
-      - {bridge: 'eth0'}
+      - {bridge: '<%= $vagrant_interface %>'}
     providers:
       - type: virtualbox
         linked_clone: true
