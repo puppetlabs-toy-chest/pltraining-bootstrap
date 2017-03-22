@@ -94,6 +94,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'trollop':                        version => '2.0'    }
 
   # Sinatra and Puppetfactory gems
+  bootstrap::gem { 'abalone':                        }
   bootstrap::gem { 'rack':                           version => '1.6.4'  }
   bootstrap::gem { 'rack-protection':                version => '1.5.3'  }
   bootstrap::gem { 'rest-client':                    version => '1.8.0'  }
@@ -151,6 +152,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'table_print':}
 
   # used by classroom scripts
+  bootstrap::gem { 'puppet':}
 
   # PDF printing stack
   bootstrap::gem { 'kramdown':                       version => '1.13.0' }
