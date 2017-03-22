@@ -4,10 +4,18 @@ class bootstrap::profile::guacamole {
   # dependency applied to it
   contain docker
 
+  # Retrieve the IP address from the proper interface, depending on whether
+  # the CIAB is configured for online or offline ("hotspot") mode.
+  if str2bool($::offline) {
+    $ciab_ip = $::networking['interfaces']['ap0']['bindings'][0]['address']
+  } else {
+    $ciab_ip = $::networking['interfaces']['eth0']['bindings'][0]['address']
+  }
+
   docker::run {'ciab-guacd':
     image => 'glyptodon/guacd',
     extra_parameters => [
-      "--add-host ${::fqdn}:${::networking['ip']}",
+      "--add-host ${::fqdn}:${ciab_ip}",
     ],
   }
 
@@ -23,7 +31,7 @@ class bootstrap::profile::guacamole {
         'MYSQL_PASSWORD=some_password',
       ],
       extra_parameters => [
-        "--add-host ${::fqdn}:${::networking['ip']}",
+        "--add-host ${::fqdn}:${ciab_ip}",
       ],
       require => [Mysql::Db['guacamole_db'],Docker::Run['ciab-guacd']],
     }
