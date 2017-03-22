@@ -9,7 +9,7 @@ class bootstrap::profile::guacamole {
   if str2bool($::offline) {
     $ciab_ip = $::networking['interfaces']['ap0']['bindings'][0]['address']
   } else {
-    $ciab_ip = $::networking['interfaces']['eth0']['bindings'][0]['address']
+    $ciab_ip = $::networking['ip']
   }
 
   docker::run {'ciab-guacd':
