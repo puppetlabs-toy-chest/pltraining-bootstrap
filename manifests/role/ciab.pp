@@ -14,10 +14,6 @@ class bootstrap::role::ciab inherits bootstrap::params {
     port => '9091'
   }
 
-  if str2bool($::offline) {
-    include bootstrap::profile::create_ap
-  }
-
   # Get all of the vagrant boxes in place before configuring guacamole to
   # connect to them
   Class['bootstrap::profile::vagrant'] -> Class['bootstrap::profile::guacamole']
