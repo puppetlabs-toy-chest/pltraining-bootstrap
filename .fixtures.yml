@@ -51,3 +51,7 @@ fixtures:
       repo: "puppet/nodejs"
     vcsrepo:
       repo: "puppetlabs/vcsrepo"
+    virtualbox:
+      repo: "puppet/virtualbox"
+    vagrant:
+      repo: "unibet/vagrant"
