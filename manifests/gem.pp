@@ -13,7 +13,7 @@ define bootstrap::gem(
   }
   else {
     $gem     = $name
-    $pattern = "${name}-[0-9]*\\.[0-9]*\\.[0-9]*"
+    $pattern = "${name}-[0-9]*\\(\\.[0-9]*\\)*"
   }
 
   if $source {
@@ -25,9 +25,9 @@ define bootstrap::gem(
 
   # use unless instead of creates because without a version number, we need a regex
   exec { $command:
-    path    => '/opt/puppet/bin:/usr/local/bin:/usr/bin:/bin',
+    path    => '/opt/puppetlabs/puppet/bin:/usr/local/bin:/usr/bin:/bin',
     cwd     => $cache_dir,
-    unless  => "find ${cache_dir} -type f -name '${pattern}.gem' | grep '.*'",
+    unless  => "find ${cache_dir} -type f -regex '.*${pattern}\\.gem' | grep '.*'",
     require => File[$cache_dir],
     notify  => Exec['rebuild_gem_cache'],
   }

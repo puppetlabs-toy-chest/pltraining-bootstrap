@@ -1,0 +1,18 @@
+<%- |
+  $module_source_dir = '/var/opt/stickler',
+  $port              = '8085'
+| -%>
+# This file is managed by Puppet
+
+[Unit]
+Description=Run the puppte-forge-server service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/bundle exec puppet-forge-server --port <%= $port %> -m <%= $module_source_dir %>
+WorkingDirectory=/usr/src/puppet-forge-server
+User=puppet-forge-server
+
+[Install]
+WantedBy=multi-user.target

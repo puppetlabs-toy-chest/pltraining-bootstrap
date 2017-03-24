@@ -1,6 +1,7 @@
 class bootstrap::profile::cache_gems (
   $cache_dir = '/var/cache/rubygems',
-  $file_cache = '/training/file_cache'
+  $file_cache = '/training/file_cache',
+  $use_stickler = false
 ) {
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
@@ -39,19 +40,22 @@ class bootstrap::profile::cache_gems (
     require     => Package['builder'],
   }
 
-  file { '/root/.gemrc':
-    ensure => file,
-    source => 'puppet:///modules/bootstrap/gemrc',
-  }
-
   # this is for the vendored gem install.
   file { '/opt/puppetlabs/puppet/etc':
     ensure => directory,
   }
-  file { '/opt/puppetlabs/puppet/etc/gemrc':
+
+  # Let's just put .gemrc everywhere!
+  file { ['/root/.gemrc', '/.gemrc', '/etc/gemrc', '/opt/puppetlabs/puppet/etc/gemrc']:
     ensure => file,
-    source => 'puppet:///modules/bootstrap/gemrc',
+    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
   }
+
+
+  unless defined('bootstrap::profile::stickler_server') {
+    warning("You have configured Puppet's gemrc to prefer stickler without installing the stickler server!")
+  }
+
 
   # Please keep this list alphabetized and organized. It makes it much easier to update.
   # Puppet Enterprise
@@ -90,6 +94,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'trollop':                        version => '2.0'    }
 
   # Sinatra and Puppetfactory gems
+  bootstrap::gem { 'abalone':                        }
   bootstrap::gem { 'rack':                           version => '1.6.4'  }
   bootstrap::gem { 'rack-protection':                version => '1.5.3'  }
   bootstrap::gem { 'rest-client':                    version => '1.8.0'  }
@@ -110,7 +115,9 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'nokogiri':                       version => '1.6.8.1' }
   bootstrap::gem { 'parslet':                        version => '1.7.1'  }
   bootstrap::gem { 'pkg-config':                     version => '1.1.7'  }
+  bootstrap::gem { 'public_suffix':                  version => '2.0.5'  }
   bootstrap::gem { 'redcarpet':                      version => '3.3.4'  }
+  bootstrap::gem { 'ruby-dbus':                      version => '0.13.0' }
   bootstrap::gem { 'showoff':                        version => '0.14.2' }
   bootstrap::gem { 'sinatra-websocket':              version => '0.3.1'  }
   bootstrap::gem { 'thin':                           version => '1.7.0'  }
@@ -145,6 +152,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'table_print':}
 
   # used by classroom scripts
+  bootstrap::gem { 'puppet':}
 
   # PDF printing stack
   bootstrap::gem { 'kramdown':                       version => '1.13.0' }

@@ -3,7 +3,9 @@ class bootstrap::role::master {
     build_name => 'master',
   }
   include bootstrap
+  include bootstrap::profile::ruby
   include bootstrap::profile::network
+  include bootstrap::profile::cache_modules
   include userprefs::defaults
   include pe_repo::platform::el_6_i386
   include pe_repo::platform::el_7_x86_64
@@ -18,4 +20,5 @@ class bootstrap::role::master {
   include bootstrap::profile::rubygems
   include bootstrap::profile::cache_gitea
   include bootstrap::profile::deployer
+  include bootstrap::profile::cache_gems
 }

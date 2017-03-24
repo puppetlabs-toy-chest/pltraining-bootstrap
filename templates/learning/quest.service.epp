@@ -1,0 +1,11 @@
+[Unit]
+Description=Run the quest tool service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=RACK_ENV=production
+ExecStart=/usr/local/bin/questctl start -q <%= $test_dir %>
+
+[Install]
+WantedBy=multi-user.target

@@ -1,8 +1,5 @@
 class bootstrap {
   include bootstrap::profile::base
-  include bootstrap::profile::ruby
-  include bootstrap::profile::cache_modules
-  include bootstrap::profile::cache_gems
   include bootstrap::profile::yum
   include bootstrap::profile::scripts
   include bootstrap::profile::replace_factor

@@ -1,9 +1,18 @@
-class bootstrap::profile::ruby {
+class bootstrap::profile::ruby (
+  $install_bundler = false,
+) {
   # need rubygems to cache rubygems
   package { 'rubygems' :
     ensure  => present,
     require => Class['localrepo'],
     before  => Class['bootstrap::profile::cache_gems'],
+  }
+
+  if $install_bundler {
+    package { 'bundler':
+      ensure   => present,
+      provider => gem,
+    }
   }
 
   $ruby_aug_package = $::osfamily ? {

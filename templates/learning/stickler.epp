@@ -1,0 +1,7 @@
+<%- | String $upstream = 'http://rubygems.org',
+      String $server   = 'http://localhost:6789'
+| -%>
+# This file is managed by Puppet.
+---
+:upstream: <%= $upstream %>
+:server: <%= $server  %>

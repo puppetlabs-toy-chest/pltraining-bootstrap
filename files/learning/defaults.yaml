@@ -1,0 +1,25 @@
+---
+puppet_enterprise::profile::puppetdb::listen_address: '0.0.0.0'
+puppet_enterprise::profile::amq::broker::heap_mb: '96'
+puppet_enterprise::profile::master::file_sync_enabled: false
+puppet_enterprise::profile::master::java_args:
+  Xmx: '512m'
+  Xms: '256m'
+  'XX:+UseG1GC': ''
+puppet_enterprise::profile::puppetdb::java_args:
+  Xmx: '512m'
+  Xms: '256m'
+  'XX:+UseG1GC': ''
+puppet_enterprise::profile::console::java_args:
+  Xmx: '512m'
+  Xms: '128m'
+  'XX:+UseG1GC': ''
+puppet_enterprise::master::puppetserver::jruby_max_active_instances: 1
+puppet_enterprise::profile::console::delayed_job_workers: 1
+#shared_buffers takes affect during install but is not managed after
+puppet_enterprise::profile::database::shared_buffers: '4MB' 
+puppet_enterprise::profile::orchestrator::pcp_timeout: 10 
+puppet_enterprise::profile::orchestrator::java_args:
+  Xmx: '64m'
+  Xms: '64m'
+
