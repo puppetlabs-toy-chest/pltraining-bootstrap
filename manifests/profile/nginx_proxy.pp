@@ -1,7 +1,7 @@
 class bootstrap::profile::nginx_proxy {
   include nginx
 
-  nginx::resource::vhost { $::ipaddress:
+  nginx::resource::server { $::ipaddress:
     listen_port => '80',
     proxy            => 'http://localhost:8080/guacamole/',
     proxy_set_header => [

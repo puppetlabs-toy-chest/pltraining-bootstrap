@@ -1,0 +1,95 @@
+#!/bin/sh
+
+# Check that the script is operating in the correct directory
+[ "`pwd`" != "<%= $ciab_vagrant_root %>" ] && exit 1
+
+FACT_FILE=<%= $guacamole_ports_fact_file %>
+
+VBOXES=`vagrant status | egrep '^(linux|windows)' | awk '{ print $1 }'`
+
+# Convert the list to array for easier iterating below
+declare -a VBOXES_ARRAY=(${VBOXES})
+
+# Sample output. The ports are listeners on the CIAB host machine that
+# connect to the respective service on a provisioned vagrant box.
+#
+# {
+#   "guacamole_ports": [
+#     {
+#       "username": "windows2",
+#       "port": 3389,
+#       "type": "rdp"
+#     },
+#     {
+#       "username": "linux1",
+#       "port": 2201,
+#       "type": "ssh"
+#     },
+#     {
+#     }
+#   ]
+# }
+
+# If there are no vagrant boxes provisioned, then remove the file (if any)
+# and exit
+[ -z "${VBOXES}" ] && rm -f ${FACT_FILE} && exit 0
+
+# Clear the file
+: > ${FACT_FILE}
+
+# Emit the header
+echo "{" >> ${FACT_FILE}
+echo "  \"guacamole_ports\": [" >> ${FACT_FILE}
+
+# Iterate up to, but not including, the last element of the array
+# so it can be emitted without a trailing comma to maintain proper
+# JSON syntax
+LIMIT=`expr ${#VBOXES_ARRAY[@]} - 1`
+
+for (( i=0; i<${LIMIT}; i++ )); do
+  VBOX=${VBOXES_ARRAY[$i]}
+
+  if [ "${VBOX:0:5}" = "linux" ]; then
+    PORT=22
+    SERVICE=ssh
+  else
+    PORT=3389
+    SERVICE=rdp
+  fi
+
+  HOST_PORT=`vagrant port ${VBOX} 2>/dev/null | grep -w ${PORT} | awk '{ print $4 }'`
+  USERNAME=${VBOX//\.puppetlabs\.vm}
+
+  # Emit a forwarded port
+  echo "    {" >> ${FACT_FILE}
+  echo "      \"username\": \"${USERNAME}\"," >> ${FACT_FILE}
+  echo "      \"port\": ${HOST_PORT}," >> ${FACT_FILE}
+  echo "      \"type\": \"${SERVICE}\"" >> ${FACT_FILE}
+  echo "    }," >> ${FACT_FILE}
+done
+
+# Emit the final element of the array
+VBOX=${VBOXES_ARRAY[$LIMIT]}
+
+if [ "${VBOX:0:5}" = "linux" ]; then
+  PORT=22
+  SERVICE=ssh
+else
+  PORT=3389
+  SERVICE=rdp
+fi
+
+HOST_PORT=`vagrant port ${VBOX} 2>/dev/null | grep -w ${PORT} | awk '{ print $4 }'`
+USERNAME=${VBOX//\.puppetlabs\.vm}
+
+echo "    {" >> ${FACT_FILE}
+echo "      \"username\": \"${USERNAME}\"," >> ${FACT_FILE}
+echo "      \"port\": ${HOST_PORT}," >> ${FACT_FILE}
+echo "      \"type\": \"${SERVICE}\"" >> ${FACT_FILE}
+echo "    }" >> ${FACT_FILE}
+
+# Emit the footer
+echo "  ]" >> ${FACT_FILE}
+echo "}" >> ${FACT_FILE}
+
+exit 0

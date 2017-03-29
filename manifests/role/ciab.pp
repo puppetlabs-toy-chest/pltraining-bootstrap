@@ -16,4 +16,8 @@ class bootstrap::role::ciab inherits bootstrap::params {
   class { 'abalone':
     port => '9091'
   }
+
+  # Get all of the vagrant boxes in place before configuring guacamole to
+  # connect to them
+  Class['bootstrap::profile::vagrant'] -> Class['bootstrap::profile::guacamole']
 }
