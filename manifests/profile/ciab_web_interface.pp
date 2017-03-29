@@ -6,6 +6,10 @@ class bootstrap::profile::ciab_web_interface {
     mode   => '0644',
   }
 
+  # Contain here because ordering dependencies are set on the
+  # ciab_web_interface class
+  contain nginx
+
   $docroot = '/usr/share/nginx/html'
 
   file { "${docroot}/index.html":
