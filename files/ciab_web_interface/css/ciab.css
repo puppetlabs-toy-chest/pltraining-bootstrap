@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  line-height: 2em;
+}
+
+header,
+footer {
+  position: fixed;
+  background-color: #222222;
+  color: #ffffff;
+  width: 100%;
+}
+
+header {
+  height: 4em;
+  top: 0;
+}
+
+header img {
+  height: 2em;
+  margin: 1em;
+}
+
+footer {
+  height: 2em;
+  bottom: 0;
+}
+
+footer small {
+  margin: 1em;
+}
+
+article {
+  max-width: 960px;
+  margin: 5em auto 2em auto;
+  font-size: 1.1em;
+}
+
+a {
+  color: #ffae1a;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

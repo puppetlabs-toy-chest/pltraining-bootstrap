@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Puppet Education Classroom</title>
+    <link rel="stylesheet" href="css/ciab.css">
+  </head>
+  <body>
+    <header>
+      <img src="Puppet-Logo-Amber-White-sm.png" alt="logo">
+    </header>
+
+    <article>
+      <p><strong>Master IP:</strong> 127.0.0.1  (You will need this to install the Puppet agent on your container.)</p>
+      <p><a href="#">PE Console</a></p>
+      <p><a href="#">Puppetfactory</a></p>
+      <p><a href="http://<%= $ipaddress -%>:8080/guacamole/">Guacamole (Windows remote desktop access)</a></p>
+    </article>
+
+    <footer>
+      <small>&copy; Puppet, Inc 2017</small>
+    </footer>
+  </body>
+</html>
