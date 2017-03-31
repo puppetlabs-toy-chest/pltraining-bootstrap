@@ -1,6 +1,7 @@
 class bootstrap::profile::rubygems {
   assert_private('This class should not be called directly')
 
+  include epel
   # These are required by rubygems compiling native code
   package { ['cmake3', 'gcc', 'zlib', 'zlib-devel']:
     ensure => present,
