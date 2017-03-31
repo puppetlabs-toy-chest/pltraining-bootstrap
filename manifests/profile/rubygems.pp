@@ -4,7 +4,7 @@ class bootstrap::profile::rubygems {
   # These are required by rubygems compiling native code
   package { ['cmake3', 'gcc', 'zlib', 'zlib-devel']:
     ensure => present,
-    require => Yumrepo['epel'],
+    require => Class['epel'],
   }
 
   # these are used for various scripts
