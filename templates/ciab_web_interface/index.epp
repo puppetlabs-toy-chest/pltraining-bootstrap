@@ -11,9 +11,9 @@
     </header>
 
     <article>
-      <p><strong>Master IP:</strong> 127.0.0.1  (You will need this to install the Puppet agent on your container.)</p>
-      <p><a href="#">PE Console</a></p>
-      <p><a href="#">Puppetfactory</a></p>
+      <p><strong>Master IP:</strong> <%= $master_ip %>  (You will need this to install the Puppet agent on your container.)</p>
+      <p><a href="https://<%= $master_ip %>">PE Console</a></p>
+      <p><a href="http://<%= $master_ip %>">Puppetfactory</a></p>
       <p><a href="http://<%= $ipaddress -%>:8080/guacamole/">Guacamole (Windows remote desktop access)</a></p>
     </article>
 
