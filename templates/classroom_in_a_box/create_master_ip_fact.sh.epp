@@ -5,4 +5,4 @@
 
 FACT_FILE=<%= $master_ip_fact_file %>
 
-vagrant ssh master.puppetlabs.vm -c 'ip addr show enp0s8' 2>/dev/null | grep -w inet | awk '{ print \$2 }' | cut -f1 -d/" > ${FACT_FILE}
+vagrant ssh master.puppetlabs.vm -c 'ip addr show enp0s8' 2>/dev/null | grep -w inet | awk '{ print $2 }' | cut -f1 -d/ > ${FACT_FILE}
