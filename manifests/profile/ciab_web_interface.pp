@@ -14,6 +14,8 @@ class bootstrap::profile::ciab_web_interface {
 
   file { "${docroot}/index.html":
     content => epp('bootstrap/ciab_web_interface/index.epp'),
+    # This exec is in bootstrap::profile::vagrant
+    require => Exec['generate master IP address fact'],
   }
 
   file { "${docroot}/Puppet-Logo-Amber-White-sm.png":
