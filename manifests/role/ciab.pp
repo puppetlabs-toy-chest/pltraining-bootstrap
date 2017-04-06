@@ -8,7 +8,7 @@ class bootstrap::role::ciab inherits bootstrap::params {
   include bootstrap::profile::vagrant
   include bootstrap::profile::splash
   include bootstrap::profile::guacamole
-  include bootstrap::profile::nginx_proxy
+  include bootstrap::profile::ciab_web_interface
   class { 'bootstrap::public_key': 
     ec2_lock_passwd => false,
   }
@@ -19,5 +19,11 @@ class bootstrap::role::ciab inherits bootstrap::params {
 
   # Get all of the vagrant boxes in place before configuring guacamole to
   # connect to them
-  Class['bootstrap::profile::vagrant'] -> Class['bootstrap::profile::guacamole']
+  Class['bootstrap::profile::vagrant'] ->
+    Class['bootstrap::profile::guacamole']
+
+  # Get all of the vagrant boxes in place before creating the CIAB web
+  # interface page
+  Class['bootstrap::profile::vagrant'] ->
+    Class['bootstrap::profile::ciab_web_interface']
 }
