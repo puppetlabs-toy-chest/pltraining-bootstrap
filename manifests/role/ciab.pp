@@ -17,6 +17,15 @@ class bootstrap::role::ciab inherits bootstrap::params {
     port => '9091'
   }
 
+  # If we are not in offline mode, make sure to stop the create_ap
+  # service so the CIAB is not acting as a hotspot
+  if !str2bool($::offline) {
+    service { 'create_ap':
+      ensure => stopped,
+      enable => false,
+    }
+  }
+
   # Get all of the vagrant boxes in place before configuring guacamole to
   # connect to them
   Class['bootstrap::profile::vagrant'] ->
