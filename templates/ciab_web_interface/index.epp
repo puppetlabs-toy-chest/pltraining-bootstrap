@@ -14,7 +14,7 @@
       <p><strong>Master IP:</strong> <%= $master_ip %></p>
       <p><a href="https://<%= $master_ip %>">PE Console</a></p>
       <p><a href="http://<%= $master_ip %>">Puppetfactory</a></p>
-<% if $::guacamole_ports { -%>
+<% if defined('$::guacamole_ports') { -%>
       <p><a href="http://<%= $ciab_ip -%>:8080/guacamole/">Guacamole (Windows remote desktop access)</a></p>
 <% } -%>
     </article>
