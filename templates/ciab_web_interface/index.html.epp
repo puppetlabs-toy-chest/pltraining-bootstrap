@@ -14,8 +14,11 @@
       <p><strong>Master IP:</strong> <%= $master_ip %></p>
       <p><a href="https://<%= $master_ip %>">PE Console</a></p>
       <p><a href="http://<%= $master_ip %>">Puppetfactory</a></p>
+<% if str2bool($::offline) { -%>
+      <p><a href="http://<%= $master_ip %>:3000">Gitea (Local Git hosting service)</a></p>
+<% } -%>
 <% if $::guacamole_ports { -%>
-      <p><a href="http://<%= $ciab_ip -%>:8080/guacamole/">Guacamole (Windows remote desktop access)</a></p>
+      <p><a href="http://<%= $ciab_ip %>:8080/guacamole/">Guacamole (Windows remote desktop access)</a></p>
 <% } -%>
     </article>
 
