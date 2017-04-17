@@ -10,6 +10,12 @@ roles:
           - [modifyvm, !ruby/sym id, '--memory', 8192]
     provisioners:
       - {type: hosts, sync_hosts: true}
+    forwarded_ports:
+      - {id: 'ssh', guest: 22, host: 2200, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
+      - {id: 'http', guest: 80, host: 8800, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
+      - {id: 'https', guest: 443, host: 4430, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
+      - {id: 'showoff', guest: 9090, host: 9090, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
+      - {id: 'showoffs', guest: 9091, host: 9091, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
 
   pe-puppet-agent-linux:
     public_networks:
