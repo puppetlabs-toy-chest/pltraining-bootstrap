@@ -21,7 +21,7 @@ class bootstrap::profile::ciab_web_interface {
   $docroot = '/usr/share/nginx/html'
 
   file { "${docroot}/index.html":
-    content => epp('bootstrap/ciab_web_interface/index.epp',
+    content => epp('bootstrap/ciab_web_interface/index.html.epp',
                     { ciab_ip => $ciab_ip } ),
     # This exec is in bootstrap::profile::vagrant
     require => Exec['generate master IP address fact'],
