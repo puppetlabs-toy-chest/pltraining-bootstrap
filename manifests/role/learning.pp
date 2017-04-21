@@ -20,6 +20,7 @@ class bootstrap::role::learning {
   class { 'dockeragent':
     create_no_agent_image => true,
     lvm_bashrc            => true,
+    learning_user         => true,
   }
   class { 'bootstrap::profile::cache_gems':
     use_stickler => true,
