@@ -22,6 +22,7 @@ class bootstrap::role::learning {
     lvm_bashrc            => true,
     learning_user         => true,
     yum_cache             => true,
+    install_dev_tools     => true,
   }
   class { 'bootstrap::profile::cache_gems':
     use_stickler => true,
