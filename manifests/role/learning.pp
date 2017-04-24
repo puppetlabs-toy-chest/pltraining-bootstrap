@@ -21,6 +21,7 @@ class bootstrap::role::learning {
     create_no_agent_image => true,
     lvm_bashrc            => true,
     learning_user         => true,
+    yum_cache             => true,
   }
   class { 'bootstrap::profile::cache_gems':
     use_stickler => true,
