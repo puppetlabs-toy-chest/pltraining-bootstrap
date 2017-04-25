@@ -58,7 +58,7 @@ for (( i=0; i<${LIMIT}; i++ )); do
     PORTNAME=${PORTNAMES[$PORTNUM]}
 
     # Emit a forwarded port
-    echo "    \"${PORTNAME}": ${HOST_PORT}," >> ${FACT_FILE}
+    echo "    \"${PORTNAME}\": ${HOST_PORT}," >> ${FACT_FILE}
   fi
 done
 
@@ -69,7 +69,7 @@ HOST_PORT=`vagrant port master.puppetlabs.vm 2>/dev/null | grep "${PORTNUM} (gue
 if [ ! -z ${HOST_PORT} ]; then
   PORTNAME=${PORTNAMES[$PORTNUM]}
 
-  echo "    \"${PORTNAME}": ${HOST_PORT}" >> ${FACT_FILE}
+  echo "    \"${PORTNAME}\": ${HOST_PORT}" >> ${FACT_FILE}
 fi
 
 # Emit the footer
