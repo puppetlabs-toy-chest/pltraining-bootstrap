@@ -14,6 +14,7 @@ roles:
       - {id: 'ssh', guest: 22, host: 2200, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
       - {id: 'http', guest: 80, host: 8800, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
       - {id: 'https', guest: 443, host: 4430, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
+      - {id: 'gitea', guest: 3000, host: 3000, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
       - {id: 'showoff', guest: 9090, host: 9090, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
       - {id: 'showoffs', guest: 9091, host: 9091, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
 
