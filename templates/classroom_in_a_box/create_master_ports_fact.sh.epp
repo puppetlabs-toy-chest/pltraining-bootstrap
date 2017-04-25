@@ -12,11 +12,11 @@ FACT_FILE=<%= $master_ports_fact_file %>
 #   "master_ports": [
 #     {
 #       "type": "gitea",
-#       "port": 3000,
+#       "port": 3000
 #     },
 #     {
 #       "type": "puppetfactory"
-#       "port": 8800,
+#       "port": 8800
 #     },
 #     {
 #       ...
@@ -67,8 +67,8 @@ for (( i=0; i<${LIMIT}; i++ )); do
 
     # Emit a forwarded port
     echo "    {" >> ${FACT_FILE}
-    echo "      \"type\": \"${PORTNAME}\"" >> ${FACT_FILE}
-    echo "      \"port\": ${HOST_PORT}," >> ${FACT_FILE}
+    echo "      \"type\": \"${PORTNAME}\"," >> ${FACT_FILE}
+    echo "      \"port\": ${HOST_PORT}" >> ${FACT_FILE}
     echo "    }," >> ${FACT_FILE}
   fi
 done
@@ -81,8 +81,8 @@ if [ ! -z ${HOST_PORT} ]; then
   PORTNAME=${PORTNAMES[$PORTNUM]}
 
   echo "    {" >> ${FACT_FILE}
-  echo "      \"type\": \"${PORTNAME}\"" >> ${FACT_FILE}
-  echo "      \"port\": ${HOST_PORT}," >> ${FACT_FILE}
+  echo "      \"type\": \"${PORTNAME}\"," >> ${FACT_FILE}
+  echo "      \"port\": ${HOST_PORT}" >> ${FACT_FILE}
   echo "    }" >> ${FACT_FILE}
 fi
 
