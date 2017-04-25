@@ -106,6 +106,17 @@ class bootstrap::profile::vagrant {
   }
 
   # The external fact that our script will write to
+  $master_ports_fact_file = '/etc/puppetlabs/facter/facts.d/master_ports.json'
+
+  file { "${ciab_vagrant_root}/bin/create_master_ports_fact.sh":
+    mode    => '0755',
+    content => epp('bootstrap/classroom_in_a_box/create_master_ports_fact.sh.epp',
+                   { ciab_vagrant_root      => $ciab_vagrant_root,
+                     master_ports_fact_file => $master_ports_fact_file,
+                     }),
+  }
+
+  # The external fact that our script will write to
   $master_ip_fact_file = '/etc/puppetlabs/facter/facts.d/master_ip.txt'
 
   file { "${ciab_vagrant_root}/bin/create_master_ip_fact.sh":
@@ -137,7 +148,8 @@ class bootstrap::profile::vagrant {
     unless      => "check_vagrant_box_running.sh master.puppetlabs.vm",
     timeout     => 600,
     require     => $vagrant_deps,
-    before      => Exec['generate master IP address fact'],
+    before      => [ Exec['generate master IP address fact'],
+                     Exec['generate master ports custom fact'] ],
   }
 
   range(1, $::num_win_vms).each |$n| {
@@ -161,6 +173,16 @@ class bootstrap::profile::vagrant {
     command     => 'create_guacamole_ports_fact.sh',
     creates     => $guacamole_ports_fact_file,
     require     => File["${ciab_vagrant_root}/bin/create_guacamole_ports_fact.sh"],
+  }
+
+  exec { 'generate master ports custom fact':
+    user        => 'training',
+    cwd         => $ciab_vagrant_root,
+    path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
+    environment => [ "HOME=${training_home_path}" ],
+    command     => 'create_master_ports_fact.sh',
+    creates     => $master_ports_fact_file,
+    require     => File["${ciab_vagrant_root}/bin/create_master_ports_fact.sh"],
   }
 
   exec { 'generate master IP address fact':
