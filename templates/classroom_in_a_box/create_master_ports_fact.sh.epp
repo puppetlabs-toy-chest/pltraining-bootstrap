@@ -9,20 +9,12 @@ FACT_FILE=<%= $master_ports_fact_file %>
 # connect to the respective service on the PE master vagrant box.
 #
 # {
-#   "master_ports": [
-#     {
-#       "type": "gitea",
-#       "port": 3000
-#     },
-#     {
-#       "type": "puppetfactory"
-#       "port": 8800
-#     },
-#     {
-#       ...
-#       ...
-#     }
-#   ]
+#   "master_ports": {
+#     "gitea": 3000,
+#     "puppetfactory": 8800,
+#     ...
+#     ...
+#   }
 # }
 
 declare -a PORTNUMS PORTNAMES
@@ -54,7 +46,7 @@ PORTNAMES[22]=ssh
 
 # Emit the header
 echo "{" >> ${FACT_FILE}
-echo "  \"master_ports\": [" >> ${FACT_FILE}
+echo "  \"master_ports\": {" >> ${FACT_FILE}
 
 LIMIT=`expr ${#PORTNUMS[@]} - 1`
 
@@ -66,10 +58,7 @@ for (( i=0; i<${LIMIT}; i++ )); do
     PORTNAME=${PORTNAMES[$PORTNUM]}
 
     # Emit a forwarded port
-    echo "    {" >> ${FACT_FILE}
-    echo "      \"type\": \"${PORTNAME}\"," >> ${FACT_FILE}
-    echo "      \"port\": ${HOST_PORT}" >> ${FACT_FILE}
-    echo "    }," >> ${FACT_FILE}
+    echo "    \"${PORTNAME}": ${HOST_PORT}," >> ${FACT_FILE}
   fi
 done
 
@@ -80,14 +69,11 @@ HOST_PORT=`vagrant port master.puppetlabs.vm 2>/dev/null | grep "${PORTNUM} (gue
 if [ ! -z ${HOST_PORT} ]; then
   PORTNAME=${PORTNAMES[$PORTNUM]}
 
-  echo "    {" >> ${FACT_FILE}
-  echo "      \"type\": \"${PORTNAME}\"," >> ${FACT_FILE}
-  echo "      \"port\": ${HOST_PORT}" >> ${FACT_FILE}
-  echo "    }" >> ${FACT_FILE}
+  echo "    \"${PORTNAME}": ${HOST_PORT}" >> ${FACT_FILE}
 fi
 
 # Emit the footer
-echo "  ]" >> ${FACT_FILE}
+echo "  }" >> ${FACT_FILE}
 echo "}" >> ${FACT_FILE}
 
 exit 0
