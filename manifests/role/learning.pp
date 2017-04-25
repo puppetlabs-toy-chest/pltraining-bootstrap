@@ -22,6 +22,7 @@ class bootstrap::role::learning {
     lvm_bashrc            => true,
     learning_user         => true,
     yum_cache             => true,
+    yum_server            => $::fqdn,
     install_dev_tools     => true,
   }
   class { 'bootstrap::profile::cache_gems':
