@@ -1,8 +1,8 @@
 ---
 roles:
   pe-puppet-master:
-    public_networks:
-      - {bridge: '<%= $vagrant_interface %>'}
+    private_networks:
+      - {auto_network: true}
     providers:
       - type: virtualbox
         linked_clone: true
@@ -12,8 +12,8 @@ roles:
       - {type: hosts, sync_hosts: true}
 
   pe-puppet-agent-linux:
-    public_networks:
-      - {bridge: '<%= $vagrant_interface %>'}
+    private_networks:
+      - {auto_network: true}
     providers:
       - type: virtualbox
         linked_clone: true
@@ -25,8 +25,8 @@ roles:
       - {id: 'ssh', guest: 22, host: 2200, host_ip: '0.0.0.0', protocol: 'tcp', auto_correct: true}
 
   pe-puppet-agent-windows:
-    public_networks:
-      - {bridge: '<%= $vagrant_interface %>'}
+    private_networks:
+      - {auto_network: true}
     providers:
       - type: virtualbox
         linked_clone: true
