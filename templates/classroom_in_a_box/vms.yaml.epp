@@ -4,6 +4,10 @@ vms:
   box: current-puppet-master-ova
   roles:
   - pe-puppet-master
+- name: proxy.puppetlabs.vm
+  box: current-puppet-student-ova
+  roles:
+  - pe-puppet-agent-linux
 <% range(1, $num_win_vms).each |$n| { -%>
 - name: windows<%= $n %>.puppetlabs.vm
   box: opentable/win-2012r2-standard-amd64-nocm
