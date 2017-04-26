@@ -15,7 +15,8 @@ class bootstrap::profile::ciab_web_interface {
   }
 
   # Contain here because ordering dependencies are set on the
-  # ciab_web_interface class
+  # ciab_web_interface class so these resources are applied after
+  # the bootstrap::profile::vagrant class
   contain nginx
 
   $docroot = '/usr/share/nginx/html'
@@ -23,8 +24,6 @@ class bootstrap::profile::ciab_web_interface {
   file { "${docroot}/index.html":
     content => epp('bootstrap/ciab_web_interface/index.html.epp',
                     { ciab_ip => $ciab_ip } ),
-    # This exec is in bootstrap::profile::vagrant
-    require => Exec['generate master IP address fact'],
   }
 
   file { "${docroot}/Puppet-Logo-Amber-White-sm.png":
