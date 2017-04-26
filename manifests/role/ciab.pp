@@ -5,6 +5,7 @@ class bootstrap::role::ciab inherits bootstrap::params {
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_gems
   include userprefs::defaults
+  include bootstrap::profile::create_ap
   include bootstrap::profile::vagrant
   include bootstrap::profile::splash
   include bootstrap::profile::guacamole
@@ -17,14 +18,9 @@ class bootstrap::role::ciab inherits bootstrap::params {
     port => '9091'
   }
 
-  # If we are not in offline mode, make sure to stop the create_ap
-  # service so the CIAB is not acting as a hotspot
-  if !str2bool($::offline) {
-    service { 'create_ap':
-      ensure => stopped,
-      enable => false,
-    }
-  }
+  # Start the wifi access point before the vagrant boxes are provisioned
+  Class['bootstrap::profile::create_ap'] ->
+    Class['bootstrap::profile::vagrant']
 
   # Get all of the vagrant boxes in place before configuring guacamole to
   # connect to them

@@ -6,13 +6,9 @@ class bootstrap::profile::ciab_web_interface {
     mode   => '0644',
   }
 
-  # Retrieve the IP address from the proper interface, depending on whether
-  # the CIAB is configured for online or offline ("hotspot") mode.
-  if str2bool($::offline) {
-    $ciab_ip = $::networking['interfaces']['ap0']['bindings'][0]['address']
-  } else {
-    $ciab_ip = $::networking['ip']
-  }
+  # The CIAB will always have a known address (10.0.0.1) based on the
+  # access point
+  $ciab_ip = $::networking['interfaces']['ap0']['bindings'][0]['address']
 
   # Contain here because ordering dependencies are set on the
   # ciab_web_interface class so these resources are applied after
