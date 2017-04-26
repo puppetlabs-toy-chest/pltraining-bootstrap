@@ -21,6 +21,7 @@
   "dependencies": [
     {"name":"stahnma/epel"},
     {"name":"pltraining/userprefs"},
+    {"name":"pltraining/puppetfactory"},
     {"name":"puppetlabs/pe_gem"},
     {"name":"puppetlabs/mysql"},
     {"name":"pltraining/dirtree"},
