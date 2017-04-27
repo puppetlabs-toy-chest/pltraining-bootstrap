@@ -12,6 +12,7 @@
 
     <article>
       <p><strong>Master IP:</strong> <%= $master_ip %></p>
+      <p><strong>SSH connection to Master:</strong> <%= $ciab_ip %>:<%= $facts['master_ports']['ssh'] %>
       <p><a href="https://<%= $ciab_ip %>:<%= $facts['master_ports']['console'] %>">PE Console</a></p>
       <p><a href="http://<%= $ciab_ip %>:<%= $facts['master_ports']['puppetfactory'] %>">Puppetfactory</a></p>
       <p><a href="http://<%= $ciab_ip %>:<%= $facts['master_ports']['gitea'] %>">Gitea (Local Git hosting service)</a></p>
