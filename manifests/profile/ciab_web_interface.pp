@@ -10,7 +10,7 @@ class bootstrap::profile::ciab_web_interface {
   # access point
   $ciab_ip = $::networking.dig('interfaces', 'ap0', 'bindings', 0, 'address')
 
-  if $ciab_ip {
+  if $ciab_ip and $facts['master_ports'] {
     # Contain here because ordering dependencies are set on the
     # ciab_web_interface class so these resources are applied after
     # the bootstrap::profile::vagrant class
