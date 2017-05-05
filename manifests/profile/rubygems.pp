@@ -13,5 +13,9 @@ class bootstrap::profile::rubygems {
     ensure   => present,
     provider => puppet_gem,
   }
+  package { 'nokogiri':
+    ensure   => '1.6.8.1',
+    provider => gem,
+  }
 }
 
