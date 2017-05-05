@@ -5,6 +5,8 @@ class bootstrap::profile::cache_docker {
   }
   
   # Build the centos docker container so it is cached
-  include puppetfactory::centosimage
+  class { 'puppetfactory::centosimage':
+    master_address => 'master.puppetlabs.vm'
+  }
 }
 
