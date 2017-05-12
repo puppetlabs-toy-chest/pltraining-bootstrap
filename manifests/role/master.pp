@@ -21,4 +21,12 @@ class bootstrap::role::master {
   include bootstrap::profile::cache_gitea
   include bootstrap::profile::deployer
   include bootstrap::profile::cache_gems
+
+  # Ensure that the Ruby gems are cached on the master before
+  # caching the Docker image. A null mount needs to be in place
+  # so the /var/cache/rubygems directory appears inside the Docker
+  # image to facilitate offline gem installation for rspec-puppet
+  # and serverspec exercises in the Practitioner course
+  Class['bootstrap::profile::cache_gems'] ->
+    Class['bootstrap::profile::cache_docker']
 }
