@@ -9,10 +9,17 @@ class bootstrap::role::ciab inherits bootstrap::params {
   include bootstrap::profile::splash
   include bootstrap::profile::guacamole
   include bootstrap::profile::ciab_web_interface
+
+  class { 'bootstrap::profile::cache_wordpress':
+    cache_dir => '/usr/share/nginx/html',
+  }
+
   class { 'bootstrap::public_key': 
     ec2_lock_passwd => false,
   }
+
   include bootstrap::profile::disable_selinux 
+
   class { 'abalone':
     port => '9091'
   }
@@ -28,11 +35,13 @@ class bootstrap::role::ciab inherits bootstrap::params {
 
   # Get all of the vagrant boxes in place before configuring guacamole to
   # connect to them
-  Class['bootstrap::profile::vagrant'] ->
-    Class['bootstrap::profile::guacamole']
+  Class['bootstrap::profile::vagrant']
+  -> Class['bootstrap::profile::guacamole']
 
   # Get all of the vagrant boxes in place before creating the CIAB web
-  # interface page
-  Class['bootstrap::profile::vagrant'] ->
-    Class['bootstrap::profile::ciab_web_interface']
+  # interface page, and get the nginx installation in place before caching
+  # the wordpress tarball in the nginx docroot
+  Class['bootstrap::profile::vagrant']
+  -> Class['bootstrap::profile::ciab_web_interface']
+  -> Class['bootstrap::profile::cache_wordpress']
 }
