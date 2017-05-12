@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# Check that the script is operating in the correct directory
+[ "`pwd`" != "<%= $ciab_vagrant_root %>" ] && exit 1
+
+FACT_FILE=<%= $master_ports_fact_file %>
+
+# Sample output. The ports are listeners on the CIAB host machine that
+# connect to the respective service on the PE master vagrant box.
+#
+# {
+#   "master_ports": {
+#     "gitea": 3000,
+#     "puppetfactory": 8800,
+#     ...
+#     ...
+#   }
+# }
+
+declare -a PORTNUMS PORTNAMES
+
+# Populate a list of PORTNUMS to search for host/guest mappings. The
+# PORTNAMES associative array contains the service type listening on
+# the forwarded port
+
+PORTNUMS[0]=3000
+PORTNAMES[3000]=gitea
+
+PORTNUMS[1]=80
+PORTNAMES[80]=puppetfactory
+
+PORTNUMS[2]=443
+PORTNAMES[443]=console
+
+PORTNUMS[3]=9090
+PORTNAMES[9090]=showoff
+
+PORTNUMS[4]=9091
+PORTNAMES[9091]=showoffs
+
+PORTNUMS[5]=22
+PORTNAMES[22]=ssh
+
+# Clear the file
+: > ${FACT_FILE}
+
+# Emit the header
+echo "{" >> ${FACT_FILE}
+echo "  \"master_ports\": {" >> ${FACT_FILE}
+
+LIMIT=`expr ${#PORTNUMS[@]} - 1`
+
+for (( i=0; i<${LIMIT}; i++ )); do
+  PORTNUM=${PORTNUMS[$i]}
+
+  HOST_PORT=`vagrant port master.puppetlabs.vm 2>/dev/null | grep "${PORTNUM} (guest)" | awk '{ print $4 }'`
+  if [ ! -z ${HOST_PORT} ]; then
+    PORTNAME=${PORTNAMES[$PORTNUM]}
+
+    # Emit a forwarded port
+    echo "    \"${PORTNAME}\": ${HOST_PORT}," >> ${FACT_FILE}
+  fi
+done
+
+# Emit the final element of the array
+PORTNUM=${PORTNUMS[$LIMIT]}
+
+HOST_PORT=`vagrant port master.puppetlabs.vm 2>/dev/null | grep "${PORTNUM} (guest)" | awk '{ print $4 }'`
+if [ ! -z ${HOST_PORT} ]; then
+  PORTNAME=${PORTNAMES[$PORTNUM]}
+
+  echo "    \"${PORTNAME}\": ${HOST_PORT}" >> ${FACT_FILE}
+fi
+
+# Emit the footer
+echo "  }" >> ${FACT_FILE}
+echo "}" >> ${FACT_FILE}
+
+exit 0

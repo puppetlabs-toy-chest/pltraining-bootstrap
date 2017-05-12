@@ -12,11 +12,10 @@
 
     <article>
       <p><strong>Master IP:</strong> <%= $master_ip %></p>
-      <p><a href="https://<%= $master_ip %>">PE Console</a></p>
-      <p><a href="http://<%= $master_ip %>">Puppetfactory</a></p>
-<% if str2bool($::offline) { -%>
-      <p><a href="http://<%= $master_ip %>:3000">Gitea (Local Git hosting service)</a></p>
-<% } -%>
+      <p><strong>SSH connection to Master:</strong> <%= $ciab_ip %>:<%= $facts['master_ports']['ssh'] %>
+      <p><a href="https://<%= $ciab_ip %>:<%= $facts['master_ports']['console'] %>">PE Console</a></p>
+      <p><a href="http://<%= $ciab_ip %>:<%= $facts['master_ports']['puppetfactory'] %>">Puppetfactory</a></p>
+      <p><a href="http://<%= $ciab_ip %>:<%= $facts['master_ports']['gitea'] %>">Gitea (Local Git hosting service)</a></p>
 <% if defined('$::guacamole_ports') { -%>
       <p><a href="http://<%= $ciab_ip -%>:8080/guacamole/">Guacamole (Windows remote desktop access)</a></p>
 <% } -%>

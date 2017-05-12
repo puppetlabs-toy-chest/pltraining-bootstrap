@@ -77,18 +77,8 @@ class bootstrap::profile::vagrant {
     source => 'puppet:///modules/bootstrap/classroom_in_a_box/Vagrantfile',
   }
 
-  # The interface that the Vagrant boxes bridge to changes depending on if
-  # the CIAB is operating in online or offline ("hotspot") mode. Update it
-  # here so the Oscar plugin configuration is set correctly.
-  if str2bool($::offline) {
-    $vagrant_interface = 'ap0'
-  } else {
-    $vagrant_interface = 'eth0'
-  }
-
   file { "${ciab_vagrant_root}/config/roles.yaml":
-    content => epp('bootstrap/classroom_in_a_box/roles.yaml.epp',
-                   { vagrant_interface => $vagrant_interface }),
+    source => 'puppet:///modules/bootstrap/classroom_in_a_box/roles.yaml',
   }
 
   file { "${ciab_vagrant_root}/config/pe_build.yaml":
@@ -120,6 +110,17 @@ class bootstrap::profile::vagrant {
     content => epp('bootstrap/classroom_in_a_box/create_guacamole_ports_fact.sh.epp',
                    { ciab_vagrant_root         => $ciab_vagrant_root,
                      guacamole_ports_fact_file => $guacamole_ports_fact_file,
+                     }),
+  }
+
+  # The external fact that our script will write to
+  $master_ports_fact_file = '/etc/puppetlabs/facter/facts.d/master_ports.json'
+
+  file { "${ciab_vagrant_root}/bin/create_master_ports_fact.sh":
+    mode    => '0755',
+    content => epp('bootstrap/classroom_in_a_box/create_master_ports_fact.sh.epp',
+                   { ciab_vagrant_root      => $ciab_vagrant_root,
+                     master_ports_fact_file => $master_ports_fact_file,
                      }),
   }
 
@@ -156,7 +157,8 @@ class bootstrap::profile::vagrant {
     unless      => "check_vagrant_box_running.sh master.puppetlabs.vm",
     timeout     => 600,
     require     => $vagrant_deps,
-    before      => Exec['generate master IP address fact'],
+    before      => [ Exec['generate master IP address fact'],
+                     Exec['generate master ports custom fact'] ],
   }
 
   range(1, $::num_win_vms).each |$n| {
@@ -180,6 +182,16 @@ class bootstrap::profile::vagrant {
     command     => 'create_guacamole_ports_fact.sh',
     creates     => $guacamole_ports_fact_file,
     require     => File["${ciab_vagrant_root}/bin/create_guacamole_ports_fact.sh"],
+  }
+
+  exec { 'generate master ports custom fact':
+    user        => 'training',
+    cwd         => $ciab_vagrant_root,
+    path        => "/bin:/usr/bin:${ciab_vagrant_root}/bin",
+    environment => [ "HOME=${training_home_path}" ],
+    command     => 'create_master_ports_fact.sh',
+    creates     => $master_ports_fact_file,
+    require     => File["${ciab_vagrant_root}/bin/create_master_ports_fact.sh"],
   }
 
   exec { 'generate master IP address fact':
