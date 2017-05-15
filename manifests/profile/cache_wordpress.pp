@@ -7,6 +7,10 @@ class bootstrap::profile::cache_wordpress (
     file { $cache_dir:
       ensure => directory,
     }
+
+    $exec_dep = File[$cache_dir]
+  } else {
+    $exec_dep = undef
   }
 
   exec { 'Cache WordPress':
@@ -16,7 +20,7 @@ class bootstrap::profile::cache_wordpress (
     logoutput => 'on_failure',
     user      => 'root',
     group     => 'root',
-    require   => File[$cache_dir],
+    require   => $exec_dep,
   }
 }
 
