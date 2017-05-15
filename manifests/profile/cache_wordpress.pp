@@ -1,9 +1,12 @@
 class bootstrap::profile::cache_wordpress (
-  $cache_dir = '/usr/src/wordpress',
+  $cache_dir        = '/usr/src/wordpress',
+  $manage_cache_dir = true,
 ) {
 
-  file { $cache_dir:
-    ensure => directory,
+  if $manage_cache_dir {
+    file { $cache_dir:
+      ensure => directory,
+    }
   }
 
   exec { 'Cache WordPress':

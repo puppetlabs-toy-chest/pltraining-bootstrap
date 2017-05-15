@@ -12,7 +12,8 @@ class bootstrap::role::ciab inherits bootstrap::params {
   include bootstrap::profile::ciab_web_interface
 
   class { 'bootstrap::profile::cache_wordpress':
-    cache_dir => '/usr/share/nginx/html',
+    cache_dir        => '/usr/share/nginx/html',
+    manage_cache_dir => false,
   }
 
   class { 'bootstrap::public_key': 
