@@ -41,4 +41,9 @@ class bootstrap::profile::pe_tweaks {
     provider => 'puppet_gem',
   }
 
+  file {'/etc/puppetlabs/puppet/hieradata/tuning.yaml':
+    ensure => file,
+    source => 'puppet:///modules/bootstrap/tuning.yaml',
+  }
+
 }
