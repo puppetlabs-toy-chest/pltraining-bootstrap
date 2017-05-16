@@ -10,7 +10,10 @@ class bootstrap::profile::learning::learning_stickler_gems {
     { 'gem' => 'sinatra', 'version' => '1.4.7' },
     { 'gem' => 'rack', 'version' => '1.6.4' },
     { 'gem' => 'rack-protection', 'version' => '1.5.3' },
-    { 'gem' => 'tilt', 'version' => '2.0.5' }
+    { 'gem' => 'tilt', 'version' => '2.0.5' },
+    { 'gem' => 'thin', 'version' => '1.7.0' },
+    { 'gem' => 'eventmachine', 'version' => '1.0.4' },
+    { 'gem' => 'daemons', 'version' => '1.0.9' },
   ]
 
   $gems.each | Hash $gem | {
