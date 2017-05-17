@@ -1,9 +1,16 @@
 class bootstrap::profile::cache_wordpress (
-  $cache_dir = '/usr/src/wordpress',
+  $cache_dir        = '/usr/src/wordpress',
+  $manage_cache_dir = true,
 ) {
 
-  file { $cache_dir:
-    ensure => directory,
+  if $manage_cache_dir {
+    file { $cache_dir:
+      ensure => directory,
+    }
+
+    $exec_dep = File[$cache_dir]
+  } else {
+    $exec_dep = undef
   }
 
   exec { 'Cache WordPress':
@@ -13,7 +20,7 @@ class bootstrap::profile::cache_wordpress (
     logoutput => 'on_failure',
     user      => 'root',
     group     => 'root',
-    require   => File[$cache_dir],
+    require   => $exec_dep,
   }
 }
 
