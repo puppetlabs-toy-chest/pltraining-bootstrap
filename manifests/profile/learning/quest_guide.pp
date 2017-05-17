@@ -1,5 +1,5 @@
 class bootstrap::profile::learning::quest_guide (
-  $git_branch = 'master',
+  $git_branch = 'hello_puppet',
   $content_repo_owner = 'puppetlabs',
   $content_repo_name  = 'puppet-quest-guide',
 ) {

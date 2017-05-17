@@ -5,6 +5,7 @@ class bootstrap::profile::dockeragent {
   class { 'dockeragent':
     create_no_agent_image => true,
     lvm_bashrc            => true,
+    install_dev_tools     => true,
   }
 
 }

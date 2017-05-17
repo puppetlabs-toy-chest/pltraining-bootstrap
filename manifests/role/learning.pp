@@ -1,6 +1,5 @@
 class bootstrap::role::learning {
   include localrepo
-  #include dockeragent
   include userprefs::profile
   include bootstrap
   include bootstrap::profile::rubygems
@@ -16,17 +15,18 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::ssh
   include bootstrap::profile::learning::quest_tool
   include bootstrap::profile::learning::multi_node
-  include bootstrap::profile::learning::graphite_reqs
-  include bootstrap::profile::learning::graphite_server
-  include bootstrap::profile::learning::pypi_server
   include bootstrap::profile::learning::local_modules
   include bootstrap::profile::learning::learning_stickler_gems
+  class { 'dockeragent':
+    create_no_agent_image => true,
+    lvm_bashrc            => true,
+    learning_user         => true,
+    yum_cache             => true,
+    install_dev_tools     => true,
+  }
   class { 'bootstrap::profile::cache_gems':
     use_stickler => true,
   }
-  #class { 'docker':
-  #  repo_opt => '--setopt=docker.skip_if_unavailable=true'
-  #}
   class { 'bootstrap::profile::ruby':
     install_bundler => true,
   }
