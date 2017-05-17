@@ -5,8 +5,8 @@ puppet_enterprise::profile::puppetdb::listen_address: '0.0.0.0'
 puppet_enterprise::profile::amq::broker::heap_mb: '96'
 puppet_enterprise::profile::master::file_sync_enabled: false
 puppet_enterprise::profile::master::java_args:
-  Xmx: '224m'
-  Xms: '224m'
+  Xmx: '512m'
+  Xms: '512m'
   'XX:MaxPermSize': '=96m'
   'XX:PermSize': '=96m'
   'XX:+UseG1GC': ''
