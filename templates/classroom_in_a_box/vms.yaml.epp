@@ -2,15 +2,18 @@
 vms:
 - name: master.puppetlabs.vm
   box: current-puppet-master-ova
+  usable_port_range: 2200..2299
   roles:
   - pe-puppet-master
 - name: proxy.puppetlabs.vm
   box: current-puppet-student-ova
+  usable_port_range: 2200..2299
   roles:
   - pe-puppet-agent-linux
 <% range(1, $num_win_vms).each |$n| { -%>
 - name: windows<%= $n %>.puppetlabs.vm
   box: opentable/win-2012r2-standard-amd64-nocm
+  usable_port_range: 2200..2299
   roles:
   - pe-puppet-agent-windows
 <% } -%>
