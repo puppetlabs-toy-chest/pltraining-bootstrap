@@ -14,6 +14,7 @@ class bootstrap::profile::learning::learning_stickler_gems {
     { 'gem' => 'thin', 'version' => '1.7.0' },
     { 'gem' => 'eventmachine', 'version' => '1.0.4' },
     { 'gem' => 'daemons', 'version' => '1.0.9' },
+    { 'gem' => 'webrick', 'version' => '1.3.1' },
   ]
 
   $gems.each | Hash $gem | {
