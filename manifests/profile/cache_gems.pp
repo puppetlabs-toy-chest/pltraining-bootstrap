@@ -116,6 +116,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'parslet':                        version => '1.7.1'  }
   bootstrap::gem { 'pkg-config':                     version => '1.1.7'  }
   bootstrap::gem { 'public_suffix':                  version => '2.0.5'  }
+  bootstrap::gem { 'rack-contrib':                   version => '1.4.0'  }
   bootstrap::gem { 'redcarpet':                      version => '3.3.4'  }
   bootstrap::gem { 'ruby-dbus':                      version => '0.13.0' }
   bootstrap::gem { 'showoff':                        version => '0.14.2' }
