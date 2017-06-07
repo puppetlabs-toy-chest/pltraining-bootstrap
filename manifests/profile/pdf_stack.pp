@@ -22,9 +22,16 @@ class bootstrap::profile::pdf_stack {
     require             => Yumrepo['robert-gcj'],
   }
 
-  package { ['wkhtmltopdf', 'pdftk']:
+  package { 'pdftk':
     ensure  => present,
-    require => Yumrepo['robert-pdftk'],
+    require => [Yumrepo['robert-pdftk'],Package[$fonts]],
+  }
+
+  package { 'wkhtmltopdf':
+    ensure   => present,
+    source   => 'https://s3-us-west-2.amazonaws.com/education-packages/wkhtmltopdf-0.12.4_puppet_education-1.x86_64.rpm',
+    provider => 'rpm',
+    require  => Package[$fonts],
   }
 
   $fonts = [
