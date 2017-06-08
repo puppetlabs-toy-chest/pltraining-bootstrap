@@ -1,6 +1,13 @@
 class bootstrap::profile::pdf_stack {
   $admin_user = $bootstrap::params::admin_user
   
+  $fonts = [
+    'ucs-miscfixed-fonts.noarch',
+    'xorg-x11-fonts-75dpi.noarch',
+    'xorg-x11-fonts-Type1.noarch',
+    'open-sans-fonts.noarch',
+  ]
+  
   yumrepo { 'robert-gcj':
     ensure              => 'present',
     baseurl             => 'https://copr-be.cloud.fedoraproject.org/results/robert/gcj/epel-7-$basearch/',
@@ -33,13 +40,6 @@ class bootstrap::profile::pdf_stack {
     provider => 'rpm',
     require  => Package[$fonts],
   }
-
-  $fonts = [
-    'ucs-miscfixed-fonts.noarch',
-    'xorg-x11-fonts-75dpi.noarch',
-    'xorg-x11-fonts-Type1.noarch',
-    'open-sans-fonts.noarch',
-  ]
 
   package { $fonts:
     ensure => present,
