@@ -21,6 +21,7 @@ class bootstrap::role::master {
   include bootstrap::profile::cache_gitea
   include bootstrap::profile::deployer
   include bootstrap::profile::cache_gems
+  include bootstrap::profile::pe_tuning
 
   # Ensure that the Ruby gems are cached on the master before
   # caching the Docker image. A null mount needs to be in place
