@@ -23,7 +23,6 @@ class bootstrap::profile::ruby (
   package { 'ruby_augeas_lib':
     ensure  => 'present',
     name    => $ruby_aug_package,
-    require => Class['localrepo']
   }
   package { 'puppet-lint':
     ensure   => present,

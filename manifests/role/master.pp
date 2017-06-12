@@ -1,7 +1,4 @@
 class bootstrap::role::master {
-  class { 'localrepo':
-    build_name => 'master',
-  }
   include bootstrap
   include bootstrap::profile::ruby
   include bootstrap::profile::network

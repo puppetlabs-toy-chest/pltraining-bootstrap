@@ -1,5 +1,4 @@
 class bootstrap::role::training inherits bootstrap::params {
-  include localrepo
   include bootstrap
   include bootstrap::profile::ruby
   include bootstrap::profile::cache_modules
