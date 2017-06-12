@@ -1,6 +1,7 @@
 class bootstrap::role::master {
   include bootstrap
   include bootstrap::profile::ruby
+  include bootstrap::profile::cache_rpms
   include bootstrap::profile::network
   include bootstrap::profile::cache_modules
   include userprefs::defaults

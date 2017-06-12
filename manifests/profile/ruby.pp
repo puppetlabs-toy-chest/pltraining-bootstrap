@@ -4,7 +4,7 @@ class bootstrap::profile::ruby (
   # need rubygems to cache rubygems
   package { 'rubygems' :
     ensure  => present,
-    require => Class['localrepo'],
+    require => Yumrepo['local'],
     before  => Class['bootstrap::profile::cache_gems'],
   }
 
