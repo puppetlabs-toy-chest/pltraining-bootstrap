@@ -13,6 +13,7 @@ class bootstrap::profile::cache_rpms {
     command   => "yum install --downloadonly --downloaddir=${repo_dir} ${pkglist}",
     path      => '/bin',
     logoutput => false,
+    require   => Yumrepo['epel'],
   }
   exec {"createrepo .":
     path      => '/bin',
@@ -22,8 +23,9 @@ class bootstrap::profile::cache_rpms {
     before    => Yumrepo['local'],
   }
   yumrepo { 'local':
-    baseurl => "file://${repo_dir}",
-    enabled => 1,
+    name     => 'local',
+    baseurl  => "file://${repo_dir}",
+    enabled  => 1,
     gpgcheck => 0,
     priority => 1,
   }
