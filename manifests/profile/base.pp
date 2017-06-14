@@ -56,11 +56,11 @@ class bootstrap::profile::base {
   augeas { "PrintMotd_enable":
     context => '/files/etc/ssh/sshd_config',
     changes => 'set PrintMotd yes',
-    require => Package['ruby_augeas_lib'],
+    require => Package['ruby-augeas'],
   }
   augeas { "UsePAM_enable":
     context => '/files/etc/ssh/sshd_config',
     changes => 'set UsePAM yes',
-    require => Package['ruby_augeas_lib'],
+    require => Package['ruby-augeas'],
   }
 }

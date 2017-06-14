@@ -15,14 +15,9 @@ class bootstrap::profile::ruby (
     }
   }
 
-  $ruby_aug_package = $::osfamily ? {
-    'RedHat' => 'ruby-augeas',
-    'Debian' => 'libaugeas-ruby',
-  }
-
-  package { 'ruby_augeas_lib':
+  package { 'ruby-augeas':
     ensure  => 'present',
-    name    => $ruby_aug_package,
+    require => Yumrepo['epel'],
   }
   package { 'puppet-lint':
     ensure   => present,

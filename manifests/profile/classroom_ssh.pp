@@ -10,7 +10,7 @@ class bootstrap::profile::classroom_ssh {
   augeas { "GSSAPI_disable":
     context => '/files/etc/ssh/sshd_config',
     changes => 'set GSSAPIAuthentication no',
-    require => Package['ruby_augeas_lib'],
+    require => Package['ruby-augeas'],
   }
 
   service { 'sshd':

@@ -18,7 +18,7 @@ class bootstrap::profile::yum {
     changes => [
       "set enabled 1",
     ],
-    require => [Package['yum-plugin-priorities'],Package['ruby_augeas_lib']],
+    require => [Package['yum-plugin-priorities'],Package['ruby-augeas']],
   }
 
 }
