@@ -13,7 +13,7 @@ class bootstrap::profile::cache_rpms {
     command   => "yum install --downloadonly --downloaddir=${repo_dir} ${pkglist}",
     path      => '/bin',
     logoutput => false,
-    require   => Yumrepo['epel'],
+    require   => Class['epel'],
   }
   exec {"createrepo .":
     path      => '/bin',
