@@ -140,6 +140,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'aws-sdk':                        version => '2.9.25' }
   bootstrap::gem { 'aws-sdk-core':                   version => '2.9.25' }
   bootstrap::gem { 'aws-sdk-resources':              version => '2.9.25' }
+  bootstrap::gem { 'aws-sigv4':                      version => '1.0' }
   bootstrap::gem { 'jmespath':                       version => '1.3.1'  }
 
   # Unidentified dependencies
