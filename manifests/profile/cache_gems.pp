@@ -104,7 +104,7 @@ class bootstrap::profile::cache_gems (
 
   # Showoff dependencies
   bootstrap::gem { 'addressable':                    version => '2.5.1'  }
-  bootstrap::gem { 'commonmarker': }
+  bootstrap::gem { 'commonmarker':                   version => '0.14.2' }
   bootstrap::gem { 'daemons':                        version => '1.2.4'  }
   bootstrap::gem { 'em-websocket':                   version => '0.3.8'  }
   bootstrap::gem { 'eventmachine':                   version => '1.2.3' }
