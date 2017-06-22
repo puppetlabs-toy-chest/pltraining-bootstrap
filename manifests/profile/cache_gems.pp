@@ -104,12 +104,16 @@ class bootstrap::profile::cache_gems (
 
   # Showoff dependencies
   bootstrap::gem { 'addressable':                    version => '2.5.1'  }
+  bootstrap::gem { 'commonmarker': }
   bootstrap::gem { 'daemons':                        version => '1.2.4'  }
   bootstrap::gem { 'em-websocket':                   version => '0.3.8'  }
   bootstrap::gem { 'eventmachine':                   version => '1.2.3' }
   bootstrap::gem { 'fidget':                         version => '0.0.4'  }
+  bootstrap::gem { 'git-version-bump':               version => '0.15' }
   bootstrap::gem { 'gli':                            version => '2.16.0' }
   bootstrap::gem { 'htmlentities':                   version => '4.3.4'  }
+  bootstrap::gem { 'i18n': }
+  bootstrap::gem { 'iso-639': }
   bootstrap::gem { 'mini_portile2':                  version => '2.1.0'  }
   bootstrap::gem { 'nokogiri':                       version => '1.6.8.1' }
   bootstrap::gem { 'parslet':                        version => '1.8.0'  }
