@@ -1,9 +1,7 @@
 class bootstrap::role::master {
-  class { 'localrepo':
-    build_name => 'master',
-  }
   include bootstrap
   include bootstrap::profile::ruby
+  include bootstrap::profile::cache_rpms
   include bootstrap::profile::network
   include bootstrap::profile::cache_modules
   include userprefs::defaults
@@ -21,6 +19,7 @@ class bootstrap::role::master {
   include bootstrap::profile::cache_gitea
   include bootstrap::profile::deployer
   include bootstrap::profile::cache_gems
+  include bootstrap::profile::pe_tuning
 
   # Ensure that the Ruby gems are cached on the master before
   # caching the Docker image. A null mount needs to be in place
