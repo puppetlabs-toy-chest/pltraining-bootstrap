@@ -10,7 +10,7 @@ class bootstrap::profile::cache_rpms {
     ensure => present,
   }
   exec {'cache packages':
-    command   => "yumdownloader --resolve --destdir=${repo_dir} ${pkglist}",
+    command   => "yumdownloader --resolve --installroot=/tmp --destdir=${repo_dir} ${pkglist}",
     path      => '/bin',
     logoutput => false,
     require   => Yumrepo['epel'],
