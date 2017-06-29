@@ -10,8 +10,9 @@ class bootstrap::profile::cache_rpms {
     ensure => present,
   }
   exec {'cache packages':
-    command   => "yum install --downloadonly --downloaddir=${repo_dir} ${pkglist}",
+    command   => "repotrack -p ${repo_dir} ${pkglist}",
     path      => '/bin',
+    timeout   => '600',
     logoutput => false,
     require   => Yumrepo['epel'],
   }
