@@ -1,7 +1,7 @@
 class bootstrap::role::learning {
-  include localrepo
   include userprefs::profile
   include bootstrap
+  include bootstrap::profile::cache_rpms
   include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
