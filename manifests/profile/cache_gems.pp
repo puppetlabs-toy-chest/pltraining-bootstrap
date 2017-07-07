@@ -166,7 +166,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'mixlib-cli':                     version => '1.7.0'  }
   bootstrap::gem { 'mixlib-config':                  version => '2.2.4'  }
   bootstrap::gem { 'word_wrap':                      version => '1.0.0'  }
-  bootstrap::gem { 'puppet-courseware-manager':      version => '0.5.4'  }
+  bootstrap::gem { 'puppet-courseware-manager':      version => '0.6.0'  }
 
   Bootstrap::Gem <| |> -> File['/root/.gemrc']
 
