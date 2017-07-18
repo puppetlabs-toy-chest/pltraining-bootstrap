@@ -18,7 +18,6 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::local_modules
   include bootstrap::profile::learning::learning_stickler_gems
   class { 'dockeragent':
-    create_no_agent_image => true,
     lvm_bashrc            => true,
     learning_user         => true,
     yum_cache             => true,
