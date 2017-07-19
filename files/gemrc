@@ -1,13 +1,7 @@
-<%- |
-  $use_stickler = false,
-| -%>
 :backtrace: false
 :benchmark: false
 :bulk_threshold: 1000
 :sources:
-<% if $use_stickler { -%>
-- http://localhost:6789
-<% } -%>
 - file:///var/cache/rubygems/
 - https://rubygems.org
 :update_sources: true

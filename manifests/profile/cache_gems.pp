@@ -1,7 +1,6 @@
 class bootstrap::profile::cache_gems (
   $cache_dir = '/var/cache/rubygems',
   $file_cache = '/training/file_cache',
-  $use_stickler = false
 ) {
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
@@ -48,14 +47,8 @@ class bootstrap::profile::cache_gems (
   # Let's just put .gemrc everywhere!
   file { ['/root/.gemrc', '/.gemrc', '/etc/gemrc', '/opt/puppetlabs/puppet/etc/gemrc']:
     ensure => file,
-    content => epp('bootstrap/gemrc.epp', { 'use_stickler' => $use_stickler }),
+    source => 'puppet:///modules/bootstrap/gemrc',
   }
-
-
-  unless defined('bootstrap::profile::stickler_server') {
-    warning("You have configured Puppet's gemrc to prefer stickler without installing the stickler server!")
-  }
-
 
   # Please keep this list alphabetized and organized. It makes it much easier to update.
   # Puppet Enterprise
@@ -134,8 +127,21 @@ class bootstrap::profile::cache_gems (
   # used to provide color output for various scripts
   bootstrap::gem { 'colorize':                       version => '0.8.1'  }
 
-  # Learning VM gems
-  bootstrap::gem { 'cowsay':                         version => '0.2.0'  }
+  # Gems needed to complete Learning VM Quests
+  bootstrap::gem { 'cowsay':                         version => '0.3.0'  }
+  bootstrap::gem { 'daemons':                        version => '1.0.9' } 
+  bootstrap::gem { 'eventmachine':                   version => '1.0.4' }
+  bootstrap::gem { 'gli':                            version => '2.13.2' }
+  bootstrap::gem { 'mono_logger':                    version => '1.1.0' }
+  bootstrap::gem { 'pasture':                        version => '0.2.0' }
+  bootstrap::gem { 'pg':                             version => '0.19.0' }
+  bootstrap::gem { 'rack':                           version => '1.6.4' }
+  bootstrap::gem { 'rack-protection':                version => '1.5.3' }
+  bootstrap::gem { 'sequel':                         version => '4.42.1' }
+  bootstrap::gem { 'sinatra':                        version => '1.4.7' }
+  bootstrap::gem { 'tilt':                           version => '2.0.5' }
+  bootstrap::gem { 'thin':                           version => '1.7.0' }
+  bootstrap::gem { 'webrick':                        version => '1.3.1' } 
 
   # Add bundler to make r10k & ruby happy
   bootstrap::gem { 'bundler':                        version => '1.10.6' }
@@ -153,7 +159,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'blankslate':                     version => '3.1.3'  }
   bootstrap::gem { 'retries':                        version => '0.0.5'  }
 
-# Required by metrics scripts
+  # Required by metrics scripts
   bootstrap::gem { 'jmx':}
   bootstrap::gem { 'table_print':}
 
