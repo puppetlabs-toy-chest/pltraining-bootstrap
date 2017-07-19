@@ -3,7 +3,6 @@ class bootstrap::role::learning {
   include bootstrap
   include bootstrap::profile::cache_rpms
   include bootstrap::profile::rubygems
-  include bootstrap::profile::cache_gems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
   include bootstrap::profile::abalone
@@ -16,6 +15,11 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::quest_tool
   include bootstrap::profile::learning::multi_node
   include bootstrap::profile::learning::local_modules
+  class { 'bootstrap::profile::cache_gems':
+    $puppetfactory = false,
+    showoff        = false,
+    $learning_vm   = true,
+  }
   class { 'dockeragent':
     create_no_agent_image => true,
     lvm_bashrc            => true,
