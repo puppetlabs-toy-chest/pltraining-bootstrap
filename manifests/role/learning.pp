@@ -16,9 +16,9 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::multi_node
   include bootstrap::profile::learning::local_modules
   class { 'bootstrap::profile::cache_gems':
-    $puppetfactory = false,
+    puppetfactory = false,
     showoff        = false,
-    $learning_vm   = true,
+    learning_vm   = true,
   }
   class { 'dockeragent':
     create_no_agent_image => true,
