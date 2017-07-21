@@ -14,7 +14,6 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::quest_guide_server
   include bootstrap::profile::learning::ssh
   include bootstrap::profile::learning::quest_tool
-  include bootstrap::profile::learning::multi_node
   include bootstrap::profile::learning::local_modules
   include bootstrap::profile::learning::learning_stickler_gems
   class { 'dockeragent':
