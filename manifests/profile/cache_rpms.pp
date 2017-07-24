@@ -1,7 +1,11 @@
-class bootstrap::profile::cache_rpms {
-  $pkglist = template('bootstrap/packages.erb')
+class bootstrap::profile::cache_rpms (
+  $build = 'master', # used when generating package lists
+) {
+  $pkglist   = template('bootstrap/packages.erb')
+  $custompkg = template('bootstrap/custom_packages.erb')
   $repo_base = '/var/yum'
-  $repo_dir = "${repo_base}/mirror"
+  $repo_dir  = "${repo_base}/mirror"
+
   file { [$repo_base,$repo_dir]:
     ensure => directory,
     before => Exec['cache packages'],
@@ -15,13 +19,23 @@ class bootstrap::profile::cache_rpms {
     timeout   => '600',
     logoutput => false,
     require   => Yumrepo['epel'],
+    notify    => Exec['createrepo'],
   }
-  exec {"createrepo .":
-    path      => '/bin',
-    cwd       => $repo_dir,
-    logoutput => true,
-    require   => [Exec['cache packages'],Package['createrepo']],
-    before    => Yumrepo['local'],
+
+  $custompkg.split("\n").each |$url| {
+    archive { "${repo_dir}/${basename($url)}":
+      source => $url,
+      notify => Exec['createrepo'],
+    }
+  }
+
+  exec { 'createrepo':
+    command     => '/bin/createrepo .',
+    cwd         => $repo_dir,
+    logoutput   => true,
+    refreshonly => true,
+    require     => Package['createrepo'],
+    before      => Yumrepo['local'],
   }
   yumrepo { 'local':
     name     => 'local',
