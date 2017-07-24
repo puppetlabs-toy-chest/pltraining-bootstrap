@@ -1,3 +1,6 @@
+# DEPRECATED: This class is deprecated and should be removed after two
+#             pltraining-classroom module releases
+#
 # NOTE: The gitea RPM is built from the Vagrant environment in the
 #       pltraining-gitea-build repository. Please see
 #       https://github.com/puppetlabs/pltraining-gitea-build for detailed

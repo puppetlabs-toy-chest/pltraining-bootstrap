@@ -1,7 +1,6 @@
 class bootstrap::role::learning {
   include userprefs::profile
   include bootstrap
-  include bootstrap::profile::cache_rpms
   include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
@@ -24,6 +23,9 @@ class bootstrap::role::learning {
   }
   class { 'bootstrap::profile::cache_gems':
     use_stickler => true,
+  }
+  class { 'bootstrap::profile::cache_rpms':
+    build => 'learning',
   }
   class { 'bootstrap::profile::ruby':
     install_bundler => true,
