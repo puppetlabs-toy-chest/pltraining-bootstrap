@@ -6,10 +6,17 @@ class bootstrap::profile::cache_docker {
   contain docker
 
   # Build the centos docker container so it is cached
-  dockeragent::image { 'centosagent':
-    install_agent => true,
-    yum_cache => true,
+  file { '/etc/docker/centosagent/':
+    ensure => directory,
+  }
+  file { '/etc/docker/centosagent/Dockerfile':
+    ensure  => file,
+    content => 'FROM agent',
+  }
+  include dockeragent
+  docker::image { 'centosagent':
+    ensure      => present,
+    docker_file => '/etc/docker/centosagent/Dockerfile',
   }
 
 }
-
