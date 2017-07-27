@@ -1,7 +1,6 @@
 class bootstrap::role::learning {
   include userprefs::profile
   include bootstrap
-  include bootstrap::profile::cache_rpms
   include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
@@ -13,7 +12,6 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::quest_guide_server
   include bootstrap::profile::learning::ssh
   include bootstrap::profile::learning::quest_tool
-  include bootstrap::profile::learning::multi_node
   include bootstrap::profile::learning::local_modules
   class { 'bootstrap::profile::cache_gems':
     puppetfactory = false,
@@ -21,11 +19,14 @@ class bootstrap::role::learning {
     learning_vm   = true,
   }
   class { 'dockeragent':
-    create_no_agent_image => true,
     lvm_bashrc            => true,
     learning_user         => true,
     yum_cache             => true,
     install_dev_tools     => true,
+  }
+
+  class { 'bootstrap::profile::cache_rpms':
+    build => 'learning',
   }
   class { 'bootstrap::profile::ruby':
     install_bundler => true,

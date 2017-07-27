@@ -31,6 +31,7 @@
     {"name":"razorsedge/network"},
     {"name":"puppetlabs/stdlib"},
     {"name":"puppet/virtualbox"},
+    {"name":"puppet/archive"},
     {"name":"unibet/vagrant"}
   ]
 }
