@@ -4,7 +4,6 @@ class bootstrap::role::learning {
   include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
-  include bootstrap::profile::stickler_server
   include bootstrap::profile::abalone
   include bootstrap::profile::puppet_forge_server
   include bootstrap::profile::learning::quest_guide
@@ -14,16 +13,18 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::ssh
   include bootstrap::profile::learning::quest_tool
   include bootstrap::profile::learning::local_modules
-  include bootstrap::profile::learning::learning_stickler_gems
+  class { 'bootstrap::profile::cache_gems':
+    puppetfactory = false,
+    showoff        = false,
+    learning_vm   = true,
+  }
   class { 'dockeragent':
     lvm_bashrc            => true,
     learning_user         => true,
     yum_cache             => true,
     install_dev_tools     => true,
   }
-  class { 'bootstrap::profile::cache_gems':
-    use_stickler => true,
-  }
+
   class { 'bootstrap::profile::cache_rpms':
     build => 'learning',
   }
