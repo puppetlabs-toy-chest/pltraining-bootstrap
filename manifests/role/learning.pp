@@ -13,11 +13,7 @@ class bootstrap::role::learning {
   include bootstrap::profile::learning::ssh
   include bootstrap::profile::learning::quest_tool
   include bootstrap::profile::learning::local_modules
-  class { 'bootstrap::profile::cache_gems':
-    puppetfactory = false,
-    showoff        = false,
-    learning_vm   = true,
-  }
+  include bootstrap::profile::cache_gems
   class { 'dockeragent':
     lvm_bashrc            => true,
     learning_user         => true,
