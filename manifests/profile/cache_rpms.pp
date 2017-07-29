@@ -20,7 +20,7 @@ class bootstrap::profile::cache_rpms (
     notify  => Exec['cache packages'],
   }
   exec {'cache packages':
-    command     => "repotrack -p ${repo_dir} \$(cat ${pkglist})",
+    command     => "repotrack -p ${repo_dir} -r base -r updates -r epel \$(cat ${pkglist})",
     path        => '/bin',
     timeout     => '600',
     logoutput   => false,
