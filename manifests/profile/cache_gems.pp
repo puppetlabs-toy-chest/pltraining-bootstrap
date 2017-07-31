@@ -48,7 +48,6 @@ class bootstrap::profile::cache_gems (
   file { ['/root/.gemrc', '/.gemrc', '/etc/gemrc', '/opt/puppetlabs/puppet/etc/gemrc']:
     ensure => file,
     source => 'puppet:///modules/bootstrap/gemrc',
-    tag    => 'gemrc',
   }
 
   # Please keep this list alphabetized and organized. It makes it much easier to update.
@@ -97,7 +96,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'commonmarker':                   version => '0.14.2', tag => ['showoff'] }
   bootstrap::gem { 'em-websocket':                   version => '0.3.8', tag => ['showoff'] }
   bootstrap::gem { 'fidget':                         version => '0.0.4', tag => ['showoff'] }
-  bootstrap::gem { 'git-version-bump':               version => '0.15', tag => ['showoff'] }
+  bootstrap::gem { 'git-version-bump':               version => '0.15.0', tag => ['showoff'] }
   bootstrap::gem { 'htmlentities':                   version => '4.3.4', tag => ['showoff'] }
   bootstrap::gem { 'i18n': tag => ['showoff'] }
   bootstrap::gem { 'iso-639': tag => ['showoff'] }
@@ -122,7 +121,7 @@ class bootstrap::profile::cache_gems (
 
   # Gems needed to complete Learning VM Quests
   bootstrap::gem { 'cowsay':                         version => '0.3.0', tag => ['lvm'] }
-  bootstrap::gem { 'daemons':                        version => '1.0.9', tag => ['lvm','showoff'] } 
+  bootstrap::gem { 'daemons':                        version => '1.0.9', tag => ['lvm','showoff'] }
   bootstrap::gem { 'eventmachine':                   version => '1.0.4', tag => ['lvm','showoff'] }
   bootstrap::gem { 'gli':                            version => '2.13.2', tag => ['lvm','showoff'] }
   bootstrap::gem { 'mono_logger':                    version => '1.1.0', tag => ['lvm'] }
@@ -134,7 +133,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'sinatra':                        version => '1.4.7', tag => ['lvm','puppetfactory'] }
   bootstrap::gem { 'tilt':                           version => '2.0.5', tag => ['lvm', 'puppetfactory'] }
   bootstrap::gem { 'thin':                           version => '1.7.0', tag => ['lvm', 'showoff'] }
-  bootstrap::gem { 'webrick':                        version => '1.3.1', tag => ['lvm'] } 
+  bootstrap::gem { 'webrick':                        version => '1.3.1', tag => ['lvm'] }
 
   # Add bundler to make r10k & ruby happy
   bootstrap::gem { 'bundler':                        version => '1.10.6' }
@@ -143,7 +142,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'aws-sdk':                        version => '2.9.25' }
   bootstrap::gem { 'aws-sdk-core':                   version => '2.9.25' }
   bootstrap::gem { 'aws-sdk-resources':              version => '2.9.25' }
-  bootstrap::gem { 'aws-sigv4':                      version => '1.0' }
+  bootstrap::gem { 'aws-sigv4':                      version => '1.0.0'  }
   bootstrap::gem { 'jmespath':                       version => '1.3.1'  }
 
   # Unidentified dependencies
@@ -166,7 +165,5 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'mixlib-config':                  version => '2.2.4'  }
   bootstrap::gem { 'word_wrap':                      version => '1.0.0'  }
   bootstrap::gem { 'puppet-courseware-manager':      version => '0.6.0'  }
-
-  Bootstrap::Gem <| |> -> File <| tag == 'gemrc' |>
 
 }
