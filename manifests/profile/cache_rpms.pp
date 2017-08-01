@@ -10,7 +10,7 @@ class bootstrap::profile::cache_rpms (
     ensure => directory,
     before => Exec['cache packages'],
   }
-  package { 'createrepo':
+  package { ['createrepo', 'yum-utils']:
     ensure => present,
   }
 
@@ -20,7 +20,7 @@ class bootstrap::profile::cache_rpms (
     notify  => Exec['cache packages'],
   }
   exec {'cache packages':
-    command     => "repotrack -p ${repo_dir} \$(cat ${pkglist})",
+    command     => "repotrack -p ${repo_dir} -r base -r updates -r epel \$(cat ${pkglist})",
     path        => '/bin',
     timeout     => '600',
     logoutput   => false,
@@ -46,6 +46,7 @@ class bootstrap::profile::cache_rpms (
   }
   yumrepo { 'local':
     name     => 'local',
+    descr    => 'Packages mirrored to simplify classroom exercises',
     baseurl  => "file://${repo_dir}",
     enabled  => 1,
     gpgcheck => 0,

@@ -1,10 +1,16 @@
 class bootstrap::profile::base {
+  include bootstrap::params
   include epel
 
   File {
     owner => 'root',
     group => 'root',
     mode  => '0644',
+  }
+
+  user { $bootstrap::params::admin_user:
+    ensure     => present,
+    managehome => true,
   }
 
   # Moving the root user declaration to the userprefs module.
@@ -25,12 +31,13 @@ class bootstrap::profile::base {
 
   # Add a few extra packages for convenience
   package { [ 'patch',
+              'git',
               'jq',
-              'screen', 
-              'ntpdate', 
+              'screen',
+              'ntpdate',
               'telnet',
-              'tree', 
-              'stunnel', 
+              'tree',
+              'stunnel',
               'redhat-lsb',
               'zsh',
               'tcsh',

@@ -3,7 +3,7 @@ class bootstrap::profile::rubygems {
 
   include epel
   # These are required by rubygems compiling native code
-  package { ['cmake3', 'cmake', 'gcc', 'zlib', 'zlib-devel']:
+  package { ['cmake3', 'cmake', 'gcc', 'gcc-c++', 'zlib', 'zlib-devel', 'ruby-devel' ]:
     ensure => present,
     require => Class['epel'],
     before  => Package['puppetdb-ruby', 'colorize', 'puppetclassify', 'nokogiri'],
