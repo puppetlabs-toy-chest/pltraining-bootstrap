@@ -1,5 +1,4 @@
 class bootstrap::profile::abalone {
-  
   class { 'abalone':
     port => '9091',
     bannerfile => '/etc/issue',
@@ -12,4 +11,4 @@ class bootstrap::profile::abalone {
     match => 'pam_securetty.so$',
   }
 
-} 
+}
