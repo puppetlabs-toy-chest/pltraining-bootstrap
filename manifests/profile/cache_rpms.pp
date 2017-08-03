@@ -1,10 +1,10 @@
 class bootstrap::profile::cache_rpms (
   $build = 'master', # used when generating package lists
 ) {
-  $pkglist   = template('bootstrap/packages.erb')
-  $custompkg = template('bootstrap/custom_packages.erb')
   $repo_base = '/var/yum'
   $repo_dir  = "${repo_base}/mirror"
+  $pkglist   = '/etc/yum/repotrack.pkg'
+  $custompkg = template('bootstrap/custom_packages.erb')
 
   file { [$repo_base,$repo_dir]:
     ensure => directory,
@@ -13,13 +13,20 @@ class bootstrap::profile::cache_rpms (
   package { 'createrepo':
     ensure => present,
   }
+
+  file { $pkglist:
+    ensure  => file,
+    content => template('bootstrap/packages.erb'),
+    notify  => Exec['cache packages'],
+  }
   exec {'cache packages':
-    command   => "repotrack -p ${repo_dir} ${pkglist}",
-    path      => '/bin',
-    timeout   => '600',
-    logoutput => false,
-    require   => Yumrepo['epel'],
-    notify    => Exec['createrepo'],
+    command     => "repotrack -p ${repo_dir} -r base -r updates -r epel \$(cat ${pkglist})",
+    path        => '/bin',
+    timeout     => '1200',
+    logoutput   => false,
+    refreshonly => true,
+    require     => Yumrepo['epel'],
+    notify      => Exec['createrepo'],
   }
 
   $custompkg.split("\n").each |$url| {
