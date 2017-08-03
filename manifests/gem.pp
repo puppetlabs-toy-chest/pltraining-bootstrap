@@ -20,7 +20,7 @@ define bootstrap::gem(
     $command = "wget ${source}"
   }
   else {
-    $command = "gem fetch ${gem}"
+    $command = "gem fetch --clear-sources --source https://rubygems.org ${gem}"
   }
 
   # use unless instead of creates because without a version number, we need a regex
