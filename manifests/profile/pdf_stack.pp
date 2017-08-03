@@ -6,6 +6,7 @@ class bootstrap::profile::pdf_stack {
     'xorg-x11-fonts-75dpi.noarch',
     'xorg-x11-fonts-Type1.noarch',
     'open-sans-fonts.noarch',
+    'google-droid-sans-mono',
   ]
   
   yumrepo { 'robert-gcj':
@@ -42,7 +43,8 @@ class bootstrap::profile::pdf_stack {
   }
 
   package { $fonts:
-    ensure => present,
+    ensure  => present,
+    require => Class['bootstrap::profile::cache_rpms'],
   }
   
   # This must be installed before the eventmachine gem so we get https support
