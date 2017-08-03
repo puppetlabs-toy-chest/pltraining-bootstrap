@@ -1,25 +1,32 @@
 class bootstrap::profile::cache_rpms (
   $build = 'master', # used when generating package lists
 ) {
-  $pkglist   = template('bootstrap/packages.erb')
-  $custompkg = template('bootstrap/custom_packages.erb')
   $repo_base = '/var/yum'
   $repo_dir  = "${repo_base}/mirror"
+  $pkglist   = '/etc/yum/repotrack.pkg'
+  $custompkg = template('bootstrap/custom_packages.erb')
 
   file { [$repo_base,$repo_dir]:
     ensure => directory,
     before => Exec['cache packages'],
   }
-  package { 'createrepo':
+  package { ['createrepo', 'yum-utils']:
     ensure => present,
   }
+
+  file { $pkglist:
+    ensure  => file,
+    content => template('bootstrap/packages.erb'),
+    notify  => Exec['cache packages'],
+  }
   exec {'cache packages':
-    command   => "repotrack -p ${repo_dir} ${pkglist}",
-    path      => '/bin',
-    timeout   => '600',
-    logoutput => false,
-    require   => Yumrepo['epel'],
-    notify    => Exec['createrepo'],
+    command     => "repotrack -p ${repo_dir} -r base -r updates -r epel \$(cat ${pkglist})",
+    path        => '/bin',
+    timeout     => '600',
+    logoutput   => false,
+    refreshonly => true,
+    require     => Yumrepo['epel'],
+    notify      => Exec['createrepo'],
   }
 
   $custompkg.split("\n").each |$url| {
@@ -39,6 +46,7 @@ class bootstrap::profile::cache_rpms (
   }
   yumrepo { 'local':
     name     => 'local',
+    descr    => 'Packages mirrored to simplify classroom exercises',
     baseurl  => "file://${repo_dir}",
     enabled  => 1,
     gpgcheck => 0,
