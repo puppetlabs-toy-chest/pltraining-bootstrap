@@ -1,4 +1,4 @@
-class bootstrap::profile::courseware {
+class bootstrap::profile::courseware ($key) {
   include bootstrap::params
 
   file { 'courseware ssh key':
@@ -6,8 +6,7 @@ class bootstrap::profile::courseware {
     owner   => $bootstrap::params::admin_user,
     group   => $bootstrap::params::admin_user,
     mode    => '0600',
-    content => file('bootstrap/courseware.key'),
-    #content => hiera('bootstrap::courseware::key'),
+    content => $key, # to come from hiera auto param lookup
   }
 
   file { $bootstrap::params::courseware_cache:
