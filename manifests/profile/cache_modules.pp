@@ -1,15 +1,35 @@
-class bootstrap::profile::cache_modules(
-  $cache_dir = '/usr/src/forge',
-) {
+class bootstrap::profile::cache_modules {
+  include bootstrap::params
+  $stagedir = $bootstrap::params::stagedir
+  $codedir  = $bootstrap::params::codedir
 
-  file { $cache_dir:
+  File {
+    owner => 'pe-puppet',
+    group => 'pe-puppet',
+    mode  => '0644',
+  }
+
+  file { [$stagedir, $codedir]:
     ensure => directory,
   }
 
-  exec { 'cache modules':
-    command => "puppet module install pltraining-classroom --modulepath=${cache_dir}",
-    creates => "${cache_dir}/classroom",
-    path    => '/bin:/usr/bin:/opt/puppetlabs/bin',
-    require => File[$cache_dir],
+  file { "${stagedir}/Puppetfile":
+    ensure => file,
+    source => 'puppet:///modules/bootstrap/Puppetfile',
+    notify => Exec['install modules'],
+  }
+
+  exec { 'install modules':
+    command     => "r10k puppetfile install",
+    path        => '/bin:/usr/bin:/opt/puppetlabs/bin',
+    cwd         => $stagedir,
+    refreshonly => true,
+  }
+
+  file { "${codedir}/modules":
+    ensure  => directory,
+    source  => "${stagedir}/modules",
+    recurse => true,
+    require => Exec['install modules'],
   }
 }

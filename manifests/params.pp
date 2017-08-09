@@ -11,4 +11,7 @@ class bootstrap::params {
   $courseware_cache = '/var/cache/showoff/courseware'
   $courseware_url   = 'git@github.com:puppet-training/courseware.git'
 
+  $stagedir         = '/etc/puppetlabs/code-staging'
+  $codedir          = '/etc/puppetlabs/code'
+
 }
