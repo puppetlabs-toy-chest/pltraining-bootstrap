@@ -6,30 +6,13 @@ class bootstrap::profile::cache_gems (
     cache_dir => "${cache_dir}/gems",
   }
 
-  file { $cache_dir :
+  file { [$cache_dir, "${cache_dir}/gems"] :
     ensure => directory,
-  }
-
-  #Check for local build file cache from packer or vagrant
-  if file_exists ("${file_cache}/gems") == 1 {
-    file { "${cache_dir}/gems" :
-      ensure => directory,
-      recurse => true,
-      source => "${file_cache}/gems",
-      require => File[$cache_dir],
-    }
-  }
-  else {
-    file { "${cache_dir}/gems" :
-      ensure => directory,
-      require => File[$cache_dir],
-    }
   }
 
   package { 'builder':
     ensure   => present,
     provider => 'puppet_gem',
-    require  => Package['rubygems'],
   }
 
   exec { 'rebuild_gem_cache':
@@ -87,29 +70,29 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'trollop':                        version => '2.0'    }
 
   # Sinatra and Puppetfactory gems
-  bootstrap::gem { 'abalone':                        version => '0.4.1', tag => ['puppetfactory'] }
-  bootstrap::gem { 'rest-client':                    version => '1.8.0', tag => ['puppetfactory'] }
-  bootstrap::gem { 'puppetclassify':                 version => '0.1.7', tag => ['puppetfactory'] }
+  bootstrap::gem { 'abalone':                        version => '0.4.1',   tag => ['puppetfactory'] }
+  bootstrap::gem { 'rest-client':                    version => '1.8.0',   tag => ['puppetfactory'] }
+  bootstrap::gem { 'puppetclassify':                 version => '0.1.7',   tag => ['puppetfactory'] }
 
   # Showoff dependencies
-  bootstrap::gem { 'addressable':                    version => '2.5.1', tag => ['showoff'] }
-  bootstrap::gem { 'commonmarker':                   version => '0.14.2', tag => ['showoff'] }
-  bootstrap::gem { 'em-websocket':                   version => '0.3.8', tag => ['showoff'] }
-  bootstrap::gem { 'fidget':                         version => '0.0.4', tag => ['showoff'] }
-  bootstrap::gem { 'git-version-bump':               version => '0.15.0', tag => ['showoff'] }
-  bootstrap::gem { 'htmlentities':                   version => '4.3.4', tag => ['showoff'] }
-  bootstrap::gem { 'i18n': tag => ['showoff'] }
-  bootstrap::gem { 'iso-639': tag => ['showoff'] }
-  bootstrap::gem { 'mini_portile2':                  version => '2.1.0', tag => ['showoff'] }
+  bootstrap::gem { 'addressable':                    version => '2.5.1',   tag => ['showoff'] }
+  bootstrap::gem { 'commonmarker':                   version => '0.14.2',  tag => ['showoff'] }
+  bootstrap::gem { 'em-websocket':                   version => '0.3.8',   tag => ['showoff'] }
+  bootstrap::gem { 'fidget':                         version => '0.0.4',   tag => ['showoff'] }
+  bootstrap::gem { 'git-version-bump':               version => '0.15.0',  tag => ['showoff'] }
+  bootstrap::gem { 'htmlentities':                   version => '4.3.4',   tag => ['showoff'] }
+  bootstrap::gem { 'i18n':                                                 tag => ['showoff'] }
+  bootstrap::gem { 'iso-639':                                              tag => ['showoff'] }
+  bootstrap::gem { 'mini_portile2':                  version => '2.1.0',   tag => ['showoff'] }
   bootstrap::gem { 'nokogiri':                       version => '1.6.8.1', tag => ['showoff'] }
-  bootstrap::gem { 'parslet':                        version => '1.8.0', tag => ['showoff'] }
-  bootstrap::gem { 'pkg-config':                     version => '1.1.7', tag => ['showoff'] }
-  bootstrap::gem { 'public_suffix':                  version => '2.0.5', tag => ['showoff'] }
-  bootstrap::gem { 'rack-contrib':                   version => '1.4.0', tag => ['showoff'] }
-  bootstrap::gem { 'redcarpet':                      version => '3.4.0', tag => ['showoff'] }
-  bootstrap::gem { 'ruby-dbus':                      version => '0.13.0', tag => ['showoff'] }
-  bootstrap::gem { 'showoff':                        version => '0.18.1', tag => ['showoff'] }
-  bootstrap::gem { 'sinatra-websocket':              version => '0.3.1', tag => ['showoff'] }
+  bootstrap::gem { 'parslet':                        version => '1.8.0',   tag => ['showoff'] }
+  bootstrap::gem { 'pkg-config':                     version => '1.1.7',   tag => ['showoff'] }
+  bootstrap::gem { 'public_suffix':                  version => '2.0.5',   tag => ['showoff'] }
+  bootstrap::gem { 'rack-contrib':                   version => '1.4.0',   tag => ['showoff'] }
+  bootstrap::gem { 'redcarpet':                      version => '3.4.0',   tag => ['showoff'] }
+  bootstrap::gem { 'ruby-dbus':                      version => '0.13.0',  tag => ['showoff'] }
+  bootstrap::gem { 'showoff':                        version => '0.18.1',  tag => ['showoff'] }
+  bootstrap::gem { 'sinatra-websocket':              version => '0.3.1',   tag => ['showoff'] }
 
   # puppetdb-ruby & deps
   bootstrap::gem { 'httparty':                       version => '0.15.5' }
@@ -120,20 +103,20 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'colorize':                       version => '0.8.1'  }
 
   # Gems needed to complete Learning VM Quests
-  bootstrap::gem { 'cowsay':                         version => '0.3.0', tag => ['lvm'] }
-  bootstrap::gem { 'daemons':                        version => '1.0.9', tag => ['lvm','showoff'] }
-  bootstrap::gem { 'eventmachine':                   version => '1.0.4', tag => ['lvm','showoff'] }
-  bootstrap::gem { 'gli':                            version => '2.13.2', tag => ['lvm','showoff'] }
-  bootstrap::gem { 'mono_logger':                    version => '1.1.0', tag => ['lvm'] }
-  bootstrap::gem { 'pasture':                        version => '0.2.0', tag => ['lvm'] }
-  bootstrap::gem { 'pg':                             version => '0.19.0', tag => ['lvm'] }
-  bootstrap::gem { 'rack':                           version => '1.6.4', tag => ['lvm','puppetfactory'] }
-  bootstrap::gem { 'rack-protection':                version => '1.5.3', tag => ['lvm','puppetfactory'] }
-  bootstrap::gem { 'sequel':                         version => '4.42.1', tag => ['lvm'] }
-  bootstrap::gem { 'sinatra':                        version => '1.4.7', tag => ['lvm','puppetfactory'] }
-  bootstrap::gem { 'tilt':                           version => '2.0.5', tag => ['lvm', 'puppetfactory'] }
-  bootstrap::gem { 'thin':                           version => '1.7.0', tag => ['lvm', 'showoff'] }
-  bootstrap::gem { 'webrick':                        version => '1.3.1', tag => ['lvm'] }
+  bootstrap::gem { 'cowsay':                         version => '0.3.0',   tag => ['lvm'] }
+  bootstrap::gem { 'daemons':                        version => '1.0.9',   tag => ['lvm','showoff'] }
+  bootstrap::gem { 'eventmachine':                   version => '1.0.4',   tag => ['lvm','showoff'] }
+  bootstrap::gem { 'gli':                            version => '2.13.2',  tag => ['lvm','showoff'] }
+  bootstrap::gem { 'mono_logger':                    version => '1.1.0',   tag => ['lvm'] }
+  bootstrap::gem { 'pasture':                        version => '0.2.0',   tag => ['lvm'] }
+  bootstrap::gem { 'pg':                             version => '0.19.0',  tag => ['lvm'] }
+  bootstrap::gem { 'rack':                           version => '1.6.4',   tag => ['lvm','puppetfactory'] }
+  bootstrap::gem { 'rack-protection':                version => '1.5.3',   tag => ['lvm','puppetfactory'] }
+  bootstrap::gem { 'sequel':                         version => '4.42.1',  tag => ['lvm'] }
+  bootstrap::gem { 'sinatra':                        version => '1.4.7',   tag => ['lvm','puppetfactory'] }
+  bootstrap::gem { 'tilt':                           version => '2.0.5',   tag => ['lvm','puppetfactory'] }
+  bootstrap::gem { 'thin':                           version => '1.7.0',   tag => ['lvm','showoff'] }
+  bootstrap::gem { 'webrick':                        version => '1.3.1',   tag => ['lvm'] }
 
   # Add bundler to make r10k & ruby happy
   bootstrap::gem { 'bundler':                        version => '1.10.6' }
