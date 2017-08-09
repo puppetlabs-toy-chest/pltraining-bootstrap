@@ -9,6 +9,11 @@ class bootstrap::profile::courseware ($key) {
     content => $key, # to come from hiera auto param lookup
   }
 
+  dirtree { $bootstrap::params::courseware_cache:
+    ensure  => present,
+    parents => true,
+  }
+
   file { $bootstrap::params::courseware_cache:
     ensure  => directory,
     owner   => $bootstrap::params::admin_user,
