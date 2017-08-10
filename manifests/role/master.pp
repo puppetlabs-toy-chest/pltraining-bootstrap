@@ -1,6 +1,7 @@
 class bootstrap::role::master {
   include bootstrap
   include bootstrap::profile::ruby
+  include bootstrap::profile::pe_master
   include bootstrap::profile::cache_rpms
   include bootstrap::profile::network
   include bootstrap::profile::cache_modules
@@ -20,6 +21,7 @@ class bootstrap::role::master {
   include bootstrap::profile::deployer
   include bootstrap::profile::cache_gems
   include bootstrap::profile::pe_tuning
+  include bootstrap::profile::courseware
 
   # Ensure that the Ruby gems are cached on the master before
   # caching the Docker image. A null mount needs to be in place

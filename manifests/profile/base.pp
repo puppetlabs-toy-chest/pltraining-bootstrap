@@ -51,11 +51,9 @@ class bootstrap::profile::base {
     provider => gem,
   }
 
-  # /etc/puppet/ssl is confusing to have around. Sloppy. Kill.
-  file {'/etc/puppet':
-    ensure  => absent,
-    recurse => true,
-    force   => true,
+  file {'/etc/puppetlabs-release':
+    ensure  => file,
+    content => $bootstrap::params::ptb_version,
   }
 
   # Enable PrintMotd for classroom VMs.

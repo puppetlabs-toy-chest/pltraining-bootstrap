@@ -3,7 +3,7 @@ class bootstrap::params {
   $admin_user       = 'training'
   $ec2_lock_passwd  = true
 
-
+  $ptb_version      = '7.0'
   $pe_version       = '2017.1.0'
   $docroot          = '/var/www'
   $psk              = 'figaro'
