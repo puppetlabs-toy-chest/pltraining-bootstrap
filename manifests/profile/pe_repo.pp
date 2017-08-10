@@ -1,8 +1,10 @@
 class bootstrap::profile::pe_repo {
-  include pe_repo
+  # we need to declare these directly so we can specify the $pe_version & $master we need.
+  # otherwise it will just use values from the classroom.puppet.com master, which may not be correct.
+  class { 'pe_repo':
+    master => $fqdn,
+  }
 
-  # we need to declare these directly so we can specify the $pe_version we need.
-  # otherwise it will just use the version of the master, which may not be correct.
   pe_repo::windows { 'windows-x86_64':
     arch          => 'x64',
     agent_version => $aio_agent_version,
