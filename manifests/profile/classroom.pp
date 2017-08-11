@@ -27,7 +27,7 @@ class bootstrap::profile::classroom ($role = 'master') {
 
   # make sure the vendored gem matches what the provisioner is running
   package { 'puppet':
-    ensure          => installed,
+    ensure          => $serverversion,
     provider        => gem,
     install_options => { '--bindir' => '/opt/pltraining/bin' },
   }
