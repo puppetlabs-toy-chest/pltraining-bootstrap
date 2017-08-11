@@ -31,3 +31,7 @@ end
 describe command('docker images') do
   its(:stdout) { should match /centosagent/ }
 end
+
+describe docker_image('centosagent') do
+  it { should exist }
+end
