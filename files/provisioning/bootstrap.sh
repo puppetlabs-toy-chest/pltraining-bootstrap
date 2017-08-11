@@ -77,15 +77,16 @@ fi
 
 
 # TODO: role selection as a menu:
-#         * standard training VM
-#         * learning VM
+#         * standard training VM (master)
+#         * learning VM          (learning)
 #       Maybe:
+#         * proxy VM for classroom exercises
 #         * bare VM w/o PE installed but all the other tools (for partners who demo the install)
 #         * architect student VM (bare VM w/o installer)
 #         * student VM? (hopefully we can drop this with the github/gitea workflow)
 #         * other?
 if [[ ! -v ROLE ]]; then
-  ROLE='training'
+  ROLE='master'
 fi
 
 
@@ -114,7 +115,7 @@ else
 fi
 
 mkdir -p ${BINDIR}
-gem install puppet --bindir ${BINDIR}
+gem install puppet --no-ri --no-rdoc --version 4.9.4 --bindir ${BINDIR}
 ntpdate time.nist.gov
 
 mkdir -p ${CONFDIR}
