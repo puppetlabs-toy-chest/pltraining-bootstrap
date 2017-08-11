@@ -16,6 +16,7 @@ class bootstrap::profile::classroom ($role = 'master') {
   file { '/opt/pltraining/spec/localhost':
     ensure  => directory,
     recurse => true,
+    purge   => true,
     source  => "puppet:///modules/bootstrap/serverspec/${role}",
   }
 
