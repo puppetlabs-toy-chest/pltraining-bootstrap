@@ -13,7 +13,7 @@ mod 'golja/gnupg',                    '1.2.3'
 mod 'hunner/wordpress',               '1.0.0'
 mod 'jordan/fileshare',               '2.0.4'
 mod 'maestrodev/rvm',                 '1.13.1'
-mod 'pltraining/classroom',           '1.7.7'
+#mod 'pltraining/classroom',           '1.7.7'
 mod 'pltraining/dirtree',             '0.3.0'
 mod 'pltraining/dockeragent',         '0.0.14'
 mod 'pltraining/puppetfactory',       '0.5.11'
@@ -49,3 +49,7 @@ mod 'puppetlabs/wsus_client',         '1.0.3'
 mod 'stahnma/epel',                   '1.2.2'
 mod 'zack/exports',                   '0.0.6'
 mod 'zack/r10k',                      '999.999.999'
+
+mod 'classroom',
+  :git    => 'https://github.com/puppetlabs/pltraining-classroom.git',
+  :branch => 'reboot'
