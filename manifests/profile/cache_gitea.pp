@@ -7,7 +7,7 @@
 #       instructions to build an updated RPM.
 class bootstrap::profile::cache_gitea (
   $bucket_url   = 'https://s3-us-west-2.amazonaws.com/education-packages/',
-  $package_name = 'gitea-1.0-1.x86_64.rpm',
+  $package_name = 'gitea-1.1.3-0.x86_64.rpm',
 ){
 
   file { '/usr/src/rpm_cache':
