@@ -1,4 +1,5 @@
 hostname: <%= $ec2_hostname %>
+preserve_hostname: true
 system_info:
   default_user:
     name: <%= $admin_user %>
