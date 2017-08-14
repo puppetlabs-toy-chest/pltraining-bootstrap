@@ -12,8 +12,6 @@ class bootstrap::profile::pe_tuning {
 
 # Make sure that Hiera is configured for the master so that we
 # can demo and so we can use hiera for configuration.
-class classroom::master::hiera {
-  assert_private('This class should not be called directly')
 
   File {
     owner => 'root',
