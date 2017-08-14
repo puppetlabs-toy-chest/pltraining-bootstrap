@@ -2,6 +2,8 @@ class bootstrap::profile::cache_gems (
   $cache_dir     = '/var/cache/rubygems',
   $file_cache    = '/training/file_cache',
 ) {
+  require bootstrap::profile::pe_master
+  
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
   }
