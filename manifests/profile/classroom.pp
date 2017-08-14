@@ -1,4 +1,6 @@
 class bootstrap::profile::classroom ($role = 'master') {
+  require bootstrap::profile::rubygems
+
   File {
     owner   => 'root',
     group   => 'root',

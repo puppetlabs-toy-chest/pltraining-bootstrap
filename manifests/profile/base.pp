@@ -56,15 +56,6 @@ class bootstrap::profile::base {
     content => $bootstrap::params::ptb_version,
   }
 
-  group { 'pe-puppet':
-    ensure => present,
-  }
-
-  user { 'pe-puppet':
-    ensure => present,
-    gid    => 'pe-puppet',
-  }
-
   # Enable PrintMotd for classroom VMs.
   # See: https://tickets.puppetlabs.com/browse/COURSES-2240
   augeas { "PrintMotd_enable":
