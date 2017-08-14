@@ -1,3 +1,4 @@
+<% | String $hieradata | -%>
 ---
 :backends:
   - yaml
@@ -9,5 +10,5 @@
   - global
 
 :yaml:
-  :datadir: /etc/puppetlabs/code/hieradata
+  :datadir: <%= $hieradata %> 
 
