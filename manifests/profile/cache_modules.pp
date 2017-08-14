@@ -1,5 +1,7 @@
 class bootstrap::profile::cache_modules {
   include bootstrap::params
+  require bootstrap::profile::pe_master
+  
   $stagedir = $bootstrap::params::stagedir
   $codedir  = $bootstrap::params::codedir
 
