@@ -1,4 +1,5 @@
 class bootstrap::profile::cache_modules {
+  require bootstrap::profile::pe_master
   include bootstrap::params
   require bootstrap::profile::pe_master
   
