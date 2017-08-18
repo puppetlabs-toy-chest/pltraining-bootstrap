@@ -4,6 +4,7 @@ class bootstrap::role::training inherits bootstrap::params {
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_rpms
   include bootstrap::profile::cache_docker
+  include bootstrap::profile::pdf_stack
   include bootstrap::profile::network
   include userprefs::defaults
   include bootstrap::profile::splash
