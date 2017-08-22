@@ -2,14 +2,14 @@ class bootstrap::profile::cache_modules {
   require bootstrap::profile::pe_master
   include bootstrap::params
   require bootstrap::profile::pe_master
-  
+
   $stagedir = $bootstrap::params::stagedir
   $codedir  = $bootstrap::params::codedir
 
   File {
     owner => 'pe-puppet',
     group => 'pe-puppet',
-    mode  => '0644',
+    mode  => '0640',
   }
 
   file { [$stagedir, $codedir]:
