@@ -12,6 +12,11 @@ class bootstrap::profile::pe_tuning {
     ensure => file,
     source => 'puppet:///modules/bootstrap/defaults.yaml',
   }
+  
+  file { "${hieradata}/master.puppetlabs.vm.yaml":
+    ensure => link,
+    target => "${hieradata}/${fqdn}.yaml",
+   }
 
   # Make sure that Hiera is configured for the master so that we
   # can demo and so we can use hiera for configuration.
