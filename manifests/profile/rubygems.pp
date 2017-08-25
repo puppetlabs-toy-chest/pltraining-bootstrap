@@ -19,7 +19,7 @@ class bootstrap::profile::rubygems {
     provider => gem,
   }
   package { 'public_suffix':
-    ensure => '2.0.5',
+    ensure   => '2.0.5',
     provider => gem,
   }
 }
