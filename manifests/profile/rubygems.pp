@@ -18,5 +18,8 @@ class bootstrap::profile::rubygems {
     ensure   => '1.6.8.1',
     provider => gem,
   }
+  package { 'public_suffix':
+    ensure   => '2.0.5',
+    provider => gem,
+  }
 }
-
