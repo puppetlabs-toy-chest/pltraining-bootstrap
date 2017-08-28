@@ -21,6 +21,7 @@
   "dependencies": [
     {"name": "binford2k/abalone"      },
     {"name": "garethr/docker"         },
+    {"name": "herculesteam-augeasproviders_grub" },
     {"name": "jfryman/selinux"        },
     {"name": "stahnma/epel"           },
     {"name": "pltraining/userprefs"   },
