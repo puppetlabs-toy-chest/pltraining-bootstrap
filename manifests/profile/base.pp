@@ -51,6 +51,12 @@ class bootstrap::profile::base {
     provider => gem,
   }
 
+  # make the console text usable again. It's way too high resolution for a VM by default.
+  kernel_parameter { 'vga':
+    ensure => present,
+    value  => '832',  # 800x600 @ 32bit
+  }
+
   file {'/etc/puppetlabs-release':
     ensure  => file,
     content => $bootstrap::params::ptb_version,
