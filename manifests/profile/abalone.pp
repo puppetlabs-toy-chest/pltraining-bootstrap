@@ -3,6 +3,7 @@ class bootstrap::profile::abalone {
   class { 'abalone':
     port => '9091',
     bannerfile => '/etc/issue',
+    require => Class['bootstrap::profile::rubygems'],
   }
 
   file_line { 'pam_securetty':
