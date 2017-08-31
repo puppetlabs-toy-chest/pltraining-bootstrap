@@ -6,7 +6,7 @@ class bootstrap::profile::rubygems {
   package { ['cmake3', 'cmake', 'gcc', 'zlib', 'zlib-devel']:
     ensure => present,
     require => Class['epel'],
-    before  => Package['puppetdb-ruby', 'colorize', 'puppetclassify', 'nokogiri'],
+    before  => Package['puppetdb-ruby', 'colorize', 'puppetclassify', 'nokogiri', 'public_suffix'],
   }
 
   # these are used for various scripts
@@ -21,5 +21,6 @@ class bootstrap::profile::rubygems {
   package { 'public_suffix':
     ensure   => '2.0.5',
     provider => gem,
+    before   => Package['abalone'],
   }
 }
