@@ -1,6 +1,7 @@
 class bootstrap::role::training inherits bootstrap::params {
   include bootstrap
   include bootstrap::profile::ruby
+  include bootstrap::profile::rubygems
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_rpms
   include bootstrap::profile::cache_docker
@@ -17,5 +18,6 @@ class bootstrap::role::training inherits bootstrap::params {
   class { 'abalone':
     port     => '9091',
     watchdog => true,
+    require  => Class['bootstrap::profile::rubygems'],
   }
 }

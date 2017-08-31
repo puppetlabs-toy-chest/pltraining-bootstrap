@@ -21,6 +21,5 @@ class bootstrap::profile::rubygems {
   package { 'public_suffix':
     ensure   => '2.0.5',
     provider => gem,
-    before   => Package['abalone'],
   }
 }
