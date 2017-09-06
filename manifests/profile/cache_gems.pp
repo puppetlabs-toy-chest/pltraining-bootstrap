@@ -3,7 +3,7 @@ class bootstrap::profile::cache_gems (
   $file_cache    = '/training/file_cache',
 ) {
   require bootstrap::profile::pe_master
-  
+
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
   }
