@@ -34,6 +34,7 @@
     {"name": "puppetlabs/pe_gem"                 },
     {"name": "pltraining/dirtree"                },
     {"name": "razorsedge/network"                },
+    {"name": "saz/sudo"                          },
     {"name": "unibet/vagrant"                    }
   ]
 }

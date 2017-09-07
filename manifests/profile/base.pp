@@ -1,6 +1,7 @@
 class bootstrap::profile::base {
   include bootstrap::params
   include epel
+  include sudo
 
   File {
     owner => 'root',
@@ -11,6 +12,9 @@ class bootstrap::profile::base {
   user { $bootstrap::params::admin_user:
     ensure     => present,
     managehome => true,
+  }
+  sudo::conf { $bootstrap::params::admin_user:
+    content => "${bootstrap::params::admin_user} ALL=(ALL) NOPASSWD: ALL",
   }
 
   # Moving the root user declaration to the userprefs module.
