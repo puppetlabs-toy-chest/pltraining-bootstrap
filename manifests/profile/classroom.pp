@@ -28,6 +28,11 @@ class bootstrap::profile::classroom ($role = 'master') {
     provider => gem,
   }
 
+  file { '/opt/pltraining/etc/pagerduty.key':
+    ensure  => file,
+    content => $bootstrap::profile::pagerduty_key,
+  }
+
   # make sure the vendored gem matches what the provisioner is running
   package { 'puppet':
     ensure          => $serverversion,

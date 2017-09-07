@@ -13,9 +13,12 @@ class bootstrap::params {
   $docroot          = '/var/www'
   $psk              = 'figaro'
 
+  $pagerduty_key    = 'ba4fab31f58c4fb09ded4508d0493b31'
+
   $courseware_cache = '/var/cache/showoff/courseware'
   $courseware_url   = 'git@github.com:puppet-training/courseware.git'
 
   $stagedir         = '/etc/puppetlabs/code-staging'
   $codedir          = '/etc/puppetlabs/code'
+
 }
