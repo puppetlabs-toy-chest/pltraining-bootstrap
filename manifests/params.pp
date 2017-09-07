@@ -1,8 +1,8 @@
 class bootstrap::params {
   # This set of variables defines releases of the VM and PE versions
   $ptb_version      = '7.0'
-  $pe_version       = '2017.1.0'
-  $agent_version    = '1.9.3'
+  $pe_version       = '2017.2.2'
+  $agent_version    = '1.10.4'
 
 
   # the following config variables should rarely be touched
