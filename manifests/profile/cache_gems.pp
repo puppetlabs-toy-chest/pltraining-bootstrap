@@ -87,7 +87,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'trollop':                        version => '2.0'    }
 
   # Sinatra and Puppetfactory gems
-  bootstrap::gem { 'abalone':                        version => '0.4.1',   tag => ['puppetfactory'] }
+  bootstrap::gem { 'abalone':                        version => '0.4.2',   tag => ['puppetfactory'] }
   bootstrap::gem { 'rest-client':                    version => '1.8.0',   tag => ['puppetfactory'] }
   bootstrap::gem { 'puppetclassify':                 version => '0.1.7',   tag => ['puppetfactory'] }
 
