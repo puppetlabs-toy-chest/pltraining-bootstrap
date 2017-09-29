@@ -1,9 +1,9 @@
 class bootstrap::role::ciab inherits bootstrap::params {
-  include localrepo
   include bootstrap
   include bootstrap::profile::ruby
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_gems
+  include bootstrap::profile::cache_rpms
   include userprefs::defaults
   include bootstrap::profile::create_ap
   include bootstrap::profile::vagrant
