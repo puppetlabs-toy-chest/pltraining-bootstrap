@@ -1,9 +1,11 @@
 class bootstrap::role::ciab inherits bootstrap::params {
   include bootstrap
   include bootstrap::profile::ruby
+  include bootstrap::profile::rubygems
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_gems
   include bootstrap::profile::cache_rpms
+  include bootstrap::profile::abalone
   include userprefs::defaults
   include bootstrap::profile::create_ap
   include bootstrap::profile::vagrant
@@ -21,10 +23,6 @@ class bootstrap::role::ciab inherits bootstrap::params {
   }
 
   include bootstrap::profile::disable_selinux 
-
-  class { 'abalone':
-    port => '9091'
-  }
 
   # Start the wifi access point before the vagrant boxes are provisioned
   Class['bootstrap::profile::create_ap'] ->
