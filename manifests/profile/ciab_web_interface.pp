@@ -20,19 +20,23 @@ class bootstrap::profile::ciab_web_interface {
 
     file { "${docroot}/index.html":
       content => epp('bootstrap/ciab_web_interface/index.html.epp',
-		      { ciab_ip => $ciab_ip } ),
+                     { ciab_ip => $ciab_ip } ),
+      require => Class['nginx'],
     }
 
     file { "${docroot}/Puppet-Logo-Amber-White-sm.png":
-      source => 'puppet:///modules/bootstrap/ciab_web_interface/Puppet-Logo-Amber-White-sm.png',
+      source  => 'puppet:///modules/bootstrap/ciab_web_interface/Puppet-Logo-Amber-White-sm.png',
+      require => Class['nginx'],
     }
 
     file { "${docroot}/css":
-      ensure => directory,
+      ensure  => directory,
+      require => Class['nginx'],
     }
 
     file { "${docroot}/css/ciab.css":
-      source => 'puppet:///modules/bootstrap/ciab_web_interface/css/ciab.css',
+      source  => 'puppet:///modules/bootstrap/ciab_web_interface/css/ciab.css',
+      require => Class['nginx'],
     }
   }
 }
