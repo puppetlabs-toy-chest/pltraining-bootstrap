@@ -15,7 +15,7 @@ class bootstrap::role::training inherits bootstrap::params {
 
   class { 'bootstrap::public_key':
     ec2_lock_passwd => false,
-    additional_key  => $bootstrap::params::admin_ssh_key
+    additional_key  => $bootstrap::params::additional_key,
   }
 
   class { 'abalone':
