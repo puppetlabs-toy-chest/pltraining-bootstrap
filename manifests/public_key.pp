@@ -1,6 +1,8 @@
 class bootstrap::public_key (
-  $admin_user = $bootstrap::params::admin_user,
-  $ec2_lock_passwd = $bootstrap::params::ec2_lock_passwd
+  String           $admin_user      = $bootstrap::params::admin_user,
+  Boolean          $ec2_lock_passwd = $bootstrap::params::ec2_lock_passwd,
+  String           $ssh_key         = $bootstrap::params::admin_ssh_key,
+  Optional[String] $additional_key  = undef,
 ) inherits bootstrap::params {
 
   file { "/home/${admin_user}/.ssh":
@@ -13,7 +15,18 @@ class bootstrap::public_key (
   ssh_authorized_key { 'instructor':
     user => $admin_user,
     type => 'ssh-rsa',
-    key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCv+89n9QU8kPxhsoRAHt5CZMy4cyA7vQ8k60wZmyUHnmFtXH8Ipusj9QyV8GsL/F64ci3bS0eHlk5XlAFACsLy4Gai6CQ2NAjkZRT7qG5BtoGr4aGXhxFCUZ2hgo2j18uU6GKl2akRPsYMsRgNrRglidENLY4WUCzacgr/1Cw8eRN95Mo9b4tgSLTCyd/783CBdeM8qU9Go7xq0nVRGNgsFIqf1SY+9k5dpSbL0M5lvDzl35IC1tRIQE/ZbafJok8g1XmhwKokWpGBRk9/GneWz3jDvJRZPjYHzQs+gSHNkl2F6i55EIlQqbfm/7lvtB73Pd2vT+i1AIgrx90YB4Yd',
+    key  => $ssh_key,
+  }
+
+  if $additional_key {
+    # Provide a backup login method, primarily for student masters in Architect.
+    # The public half of this key is on the Downloads page of the Courseware presentation
+    ssh_authorized_key { 'student@puppet.com':
+      ensure => present,
+      user   => $admin_user,
+      type   => 'ssh-rsa',
+      key    => $additional_key,
+    }
   }
 
   if defined('$::ec2_metadata') {
