@@ -51,5 +51,4 @@ mod 'zack/exports',                   '0.0.6'
 mod 'zack/r10k',                      '999.999.999'
 
 mod 'classroom',
-  :git    => 'https://github.com/puppetlabs/pltraining-classroom.git',
-  :branch => 'reboot'
+  :git    => 'https://github.com/puppetlabs/pltraining-classroom.git'
