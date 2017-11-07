@@ -1,10 +1,20 @@
 class bootstrap::profile::base {
+  include bootstrap::params
   include epel
+  include sudo
 
   File {
     owner => 'root',
     group => 'root',
     mode  => '0644',
+  }
+
+  user { $bootstrap::params::admin_user:
+    ensure     => present,
+    managehome => true,
+  }
+  sudo::conf { $bootstrap::params::admin_user:
+    content => "${bootstrap::params::admin_user} ALL=(ALL) NOPASSWD: ALL",
   }
 
   # Moving the root user declaration to the userprefs module.
@@ -25,12 +35,13 @@ class bootstrap::profile::base {
 
   # Add a few extra packages for convenience
   package { [ 'patch',
+              'git',
               'jq',
-              'screen', 
-              'ntpdate', 
+              'screen',
+              'ntpdate',
               'telnet',
-              'tree', 
-              'stunnel', 
+              'tree',
+              'stunnel',
               'redhat-lsb',
               'zsh',
               'tcsh',
@@ -44,11 +55,15 @@ class bootstrap::profile::base {
     provider => gem,
   }
 
-  # /etc/puppet/ssl is confusing to have around. Sloppy. Kill.
-  file {'/etc/puppet':
-    ensure  => absent,
-    recurse => true,
-    force   => true,
+  # make the console text usable again. It's way too high resolution for a VM by default.
+  kernel_parameter { 'vga':
+    ensure => present,
+    value  => '832',  # 800x600 @ 32bit
+  }
+
+  file {'/etc/puppetlabs-release':
+    ensure  => file,
+    content => $bootstrap::params::ptb_version,
   }
 
   # Enable PrintMotd for classroom VMs.

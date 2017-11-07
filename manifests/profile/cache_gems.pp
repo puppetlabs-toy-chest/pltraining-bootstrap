@@ -2,34 +2,19 @@ class bootstrap::profile::cache_gems (
   $cache_dir     = '/var/cache/rubygems',
   $file_cache    = '/training/file_cache',
 ) {
+  require bootstrap::profile::pe_master
+
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
   }
 
-  file { $cache_dir :
+  file { [$cache_dir, "${cache_dir}/gems"] :
     ensure => directory,
-  }
-
-  #Check for local build file cache from packer or vagrant
-  if file_exists ("${file_cache}/gems") == 1 {
-    file { "${cache_dir}/gems" :
-      ensure => directory,
-      recurse => true,
-      source => "${file_cache}/gems",
-      require => File[$cache_dir],
-    }
-  }
-  else {
-    file { "${cache_dir}/gems" :
-      ensure => directory,
-      require => File[$cache_dir],
-    }
   }
 
   package { 'builder':
     ensure   => present,
     provider => 'puppet_gem',
-    require  => Package['rubygems'],
   }
 
   exec { 'rebuild_gem_cache':

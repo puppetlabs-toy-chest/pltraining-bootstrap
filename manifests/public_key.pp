@@ -5,6 +5,13 @@ class bootstrap::public_key (
   Optional[String] $additional_key  = undef,
 ) inherits bootstrap::params {
 
+  file { "/home/${admin_user}/.ssh":
+    ensure => directory,
+    owner  => $admin_user,
+    group  => $admin_user,
+    mode   => '0700',
+  }
+
   ssh_authorized_key { 'instructor':
     user => $admin_user,
     type => 'ssh-rsa',
