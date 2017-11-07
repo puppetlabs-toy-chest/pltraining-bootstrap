@@ -9,9 +9,9 @@ class bootstrap::profile::learning::ssh {
   augeas { "disable_key_checking":
     context => '/files/etc/ssh/ssh_config',
     changes =>
-      ["set Host[.='*.puppet.vm'] *.puppet.vm",
-       "set Host[.='*.puppet.vm']/StrictHostKeyChecking no",
-       "set Host[.='*.puppet.vm']/UserKnownHostsFile /dev/null"],
+      ["set Host[.='*.puppet.vm *.auroch.vm *.beauvine.vm'] '*.puppet.vm *.auroch.vm *.beauvine.vm'",
+       "set Host[.='*.puppet.vm *.auroch.vm *.beauvine.vm']/StrictHostKeyChecking no",
+       "set Host[.='*.puppet.vm *.auroch.vm *.beauvine.vm']/UserKnownHostsFile /dev/null"],
     require => Package['ruby-augeas'],
   }
 
