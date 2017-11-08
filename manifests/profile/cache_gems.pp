@@ -2,7 +2,7 @@ class bootstrap::profile::cache_gems (
   $cache_dir     = '/var/cache/rubygems',
   $file_cache    = '/training/file_cache',
 ) {
-  require bootstrap::profile::pe_master
+  require bootstrap::profile::ruby
 
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
@@ -14,19 +14,20 @@ class bootstrap::profile::cache_gems (
 
   package { 'builder':
     ensure   => present,
-    provider => 'puppet_gem',
+    provider => 'gem',
   }
 
   exec { 'rebuild_gem_cache':
     command     => "gem generate_index -d ${cache_dir}",
-    path        => '/opt/puppetlabs/puppet/bin:/usr/local/bin:/usr/bin:/bin',
+    path        => '/usr/local/bin:/usr/bin:/bin:/opt/puppetlabs/puppet/bin',
     refreshonly => true,
     require     => Package['builder'],
   }
 
-  # this is for the vendored gem install.
-  file { '/opt/puppetlabs/puppet/etc':
-    ensure => directory,
+  # this is for the vendored gemrc.
+  dirtree { '/opt/puppetlabs/puppet/etc':
+    ensure  => present,
+    parents => true,
   }
 
   # Let's just put .gemrc everywhere!
