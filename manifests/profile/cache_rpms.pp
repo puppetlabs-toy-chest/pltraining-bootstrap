@@ -10,7 +10,7 @@ class bootstrap::profile::cache_rpms (
     ensure => directory,
     before => Exec['cache packages'],
   }
-  package { 'createrepo':
+  package { ['createrepo', 'yum-utils']:
     ensure => present,
   }
 
@@ -44,8 +44,18 @@ class bootstrap::profile::cache_rpms (
     require     => Package['createrepo'],
     before      => Yumrepo['local'],
   }
+  
+  exec {'clear cache':
+    command     => 'yum clean all',
+    path        => '/bin',
+    refreshonly => true,
+    require     => Exec['createrepo'],
+    before      => Yumrepo['local'],
+  }
+  
   yumrepo { 'local':
     name     => 'local',
+    descr    => 'Packages mirrored to simplify classroom exercises',
     baseurl  => "file://${repo_dir}",
     enabled  => 1,
     gpgcheck => 0,
