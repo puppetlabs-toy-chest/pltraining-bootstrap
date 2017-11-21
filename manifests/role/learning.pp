@@ -4,6 +4,7 @@ class bootstrap::role::learning {
   include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
+  include bootstrap::profile::disable_mco
   include bootstrap::profile::abalone
   include bootstrap::profile::puppet_forge_server
   include bootstrap::profile::learning::quest_guide

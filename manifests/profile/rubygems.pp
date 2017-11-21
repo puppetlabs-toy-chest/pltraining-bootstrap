@@ -29,5 +29,6 @@ class bootstrap::profile::rubygems {
   package { 'rack':
     ensure   => '1.6.4',
     provider => gem,
+    before   => Package['rack-test'],
   }
 }
