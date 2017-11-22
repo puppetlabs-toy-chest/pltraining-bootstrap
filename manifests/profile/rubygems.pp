@@ -23,7 +23,7 @@ class bootstrap::profile::rubygems {
     provider => gem,
   }
   package { 'rack-test':
-    ensure   => '7.0',
+    ensure   => '0.7.0',
     provider => gem,
   }
 }
