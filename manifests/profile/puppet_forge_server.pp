@@ -25,7 +25,7 @@ class bootstrap::profile::puppet_forge_server(
     user        => 'puppet-forge-server',
     environment => ['HOME=/home/puppet-forge-server'],
     logoutput   => on_failure,
-    require     => [Vcsrepo['/usr/src/puppet-forge-server'], Package['bundler'], User['puppet-forge-server']],
+    require     => [Vcsrepo['/usr/src/puppet-forge-server'], Package['bundler', 'rack-test'], User['puppet-forge-server']],
   }
   file { $module_source_dir:
     ensure => directory,
