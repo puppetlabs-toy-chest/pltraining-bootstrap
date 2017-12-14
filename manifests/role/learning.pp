@@ -6,6 +6,8 @@ class bootstrap::role::learning {
   include bootstrap::profile::pe_tweaks
   include bootstrap::profile::abalone
   include bootstrap::profile::puppet_forge_server
+  include bootstrap::profile::cache_gitea
+  include bootstrap::profile::gitea
   include bootstrap::profile::learning::quest_guide
   include bootstrap::profile::learning::pe_tuning
   include bootstrap::profile::learning::install
