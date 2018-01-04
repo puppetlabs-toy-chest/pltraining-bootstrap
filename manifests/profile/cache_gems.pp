@@ -2,7 +2,7 @@ class bootstrap::profile::cache_gems (
   $cache_dir     = '/var/cache/rubygems',
   $file_cache    = '/training/file_cache',
 ) {
-  require bootstrap::profile::pe_master
+  require bootstrap::profile::ruby
 
   Bootstrap::Gem {
     cache_dir => "${cache_dir}/gems",
@@ -14,19 +14,20 @@ class bootstrap::profile::cache_gems (
 
   package { 'builder':
     ensure   => present,
-    provider => 'puppet_gem',
+    provider => 'gem',
   }
 
   exec { 'rebuild_gem_cache':
     command     => "gem generate_index -d ${cache_dir}",
-    path        => '/opt/puppetlabs/puppet/bin:/usr/local/bin:/usr/bin:/bin',
+    path        => '/usr/local/bin:/usr/bin:/bin:/opt/puppetlabs/puppet/bin',
     refreshonly => true,
     require     => Package['builder'],
   }
 
-  # this is for the vendored gem install.
-  file { '/opt/puppetlabs/puppet/etc':
-    ensure => directory,
+  # this is for the vendored gemrc.
+  dirtree { '/opt/puppetlabs/puppet/etc':
+    ensure  => present,
+    parents => true,
   }
 
   # Let's just put .gemrc everywhere!
@@ -75,7 +76,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'abalone':                        version => '0.4.2',   tag => ['puppetfactory'] }
   bootstrap::gem { 'rest-client':                    version => '1.8.0',   tag => ['puppetfactory'] }
   bootstrap::gem { 'puppetclassify':                 version => '0.1.7',   tag => ['puppetfactory'] }
-  bootstrap::gem { 'puppetfactory':                  version => '0.6.0',   tag => ['puppetfactory'] }
+  bootstrap::gem { 'puppetfactory':                  version => '0.6.3',   tag => ['puppetfactory'] }
 
   # Showoff dependencies
   bootstrap::gem { 'addressable':                    version => '2.5.2',   tag => ['showoff'] }
@@ -92,7 +93,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'parslet':                        version => '1.8.0',   tag => ['showoff'] }
   bootstrap::gem { 'pkg-config':                     version => '1.1.7',   tag => ['showoff'] }
   bootstrap::gem { 'public_suffix':                  version => '2.0.5',   tag => ['showoff'] }
-  bootstrap::gem { 'rack-contrib':                   version => '1.6.0',   tag => ['showoff'] }
+  bootstrap::gem { 'rack-contrib':                   version => '1.8.0',   tag => ['showoff'] }
   bootstrap::gem { 'redcarpet':                      version => '3.4.0',   tag => ['showoff'] }
   bootstrap::gem { 'ruby-dbus':                      version => '0.13.0',  tag => ['showoff'] }
   bootstrap::gem { 'showoff':                        version => '0.19.1',  tag => ['showoff'] }
@@ -114,7 +115,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'mono_logger':                    version => '1.1.0',   tag => ['lvm'] }
   bootstrap::gem { 'pasture':                        version => '0.2.0',   tag => ['lvm'] }
   bootstrap::gem { 'pg':                             version => '0.19.0',  tag => ['lvm'] }
-  bootstrap::gem { 'rack':                           version => '1.6.4',   tag => ['lvm','puppetfactory'] }
+  bootstrap::gem { 'rack':                           version => '1.6.8',   tag => ['lvm','puppetfactory'] }
   bootstrap::gem { 'rack-protection':                version => '1.5.3',   tag => ['lvm','puppetfactory'] }
   bootstrap::gem { 'sequel':                         version => '4.42.1',  tag => ['lvm'] }
   bootstrap::gem { 'sinatra':                        version => '1.4.8',   tag => ['lvm','puppetfactory'] }

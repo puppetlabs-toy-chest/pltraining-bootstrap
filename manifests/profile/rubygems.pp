@@ -22,4 +22,16 @@ class bootstrap::profile::rubygems {
     ensure   => '2.0.5',
     provider => gem,
   }
+  package { 'rack':
+    ensure   => '1.6.8',
+    provider => gem,
+  }
+  package { 'rack-contrib':
+    ensure   => '1.8.0',
+    provider => gem,
+  }
+  package { 'rack-test':
+    ensure   => '0.7.0',
+    provider => gem,
+  }
 }
