@@ -30,7 +30,7 @@ class bootstrap::profile::classroom ($role = 'master') {
 
   file { '/opt/pltraining/etc/pagerduty.key':
     ensure  => file,
-    content => $bootstrap::profile::pagerduty_key,
+    content => $bootstrap::params::pagerduty_key,
   }
 
   # make sure the vendored gem matches what the provisioner is running
