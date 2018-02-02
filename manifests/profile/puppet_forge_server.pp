@@ -15,7 +15,7 @@ class bootstrap::profile::puppet_forge_server(
     provider => git,
     owner    => 'puppet-forge-server',
     group    => 'puppet-forge-server',
-    source   => 'https://github.com/unibet/puppet-forge-server.git',
+    source   => 'https://github.com/kjhenner/puppet-forge-server.git',
     revision => '1.10.1',
     require  => User['puppet-forge-server'],
   }
