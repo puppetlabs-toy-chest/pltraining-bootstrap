@@ -31,4 +31,8 @@ class bootstrap::profile::rubygems {
     provider => gem,
     before   => Package['rack-test'],
   }
+  package { 'rest-client':
+    ensure => '2.0.2',
+    provider => gem,
+  }
 }
