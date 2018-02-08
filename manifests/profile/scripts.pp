@@ -17,5 +17,6 @@ class bootstrap::profile::scripts {
   package { ['puppetdb-ruby', 'colorize', 'puppetclassify']:
     ensure   => present,
     provider => puppet_gem,
+    require  => Class['bootstrap::profile::pe_master'],
   }
 }
