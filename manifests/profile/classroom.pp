@@ -37,6 +37,10 @@ class bootstrap::profile::classroom (
     ensure  => file,
     content => $pagerduty_key,
   }
+
+  file { '/root/.aws':
+    ensure  => directory,
+  }
   
   file { '/root/.aws/credentials':
     ensure  => file,
