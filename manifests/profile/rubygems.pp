@@ -9,11 +9,6 @@ class bootstrap::profile::rubygems {
     before  => Package['puppetdb-ruby', 'colorize', 'puppetclassify', 'nokogiri', 'public_suffix'],
   }
 
-  # these are used for various scripts
-  package { ['puppetdb-ruby', 'colorize', 'puppetclassify']:
-    ensure   => present,
-    provider => puppet_gem,
-  }
   package { 'nokogiri':
     ensure   => '1.6.8.1',
     provider => gem,
