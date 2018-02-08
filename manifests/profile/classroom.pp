@@ -1,4 +1,9 @@
-class bootstrap::profile::classroom ($role = 'master') {
+class bootstrap::profile::classroom (
+  $role          = 'master',
+  $pagerduty_key = undef,
+  $aws_access    = undef,
+  $aws_secret    = undef,
+) {
   require bootstrap::profile::rubygems
 
   File {
@@ -30,7 +35,16 @@ class bootstrap::profile::classroom ($role = 'master') {
 
   file { '/opt/pltraining/etc/pagerduty.key':
     ensure  => file,
-    content => $bootstrap::params::pagerduty_key,
+    content => $pagerduty_key,
+  }
+
+  file { '/root/.aws':
+    ensure  => directory,
+  }
+  
+  file { '/root/.aws/credentials':
+    ensure  => file,
+    content => epp('bootstrap/aws_credentials.epp', { access => $aws_access, secret => $aws_secret } )
   }
 
   # make sure the vendored gem matches what the provisioner is running
