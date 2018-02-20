@@ -1,5 +1,5 @@
 mod 'binford2k/abalone',              '0.0.8'
-mod 'pltraining/classroom',           '1.9.1'
+mod 'pltraining/classroom',           '2.0.0'
 mod 'pltraining/classroom_legacy',    '1.8.4'  ## for legacy classroom support
 mod 'pltraining/dirtree',             '0.3.0'
 mod 'pltraining/dockeragent',         '0.0.14'
