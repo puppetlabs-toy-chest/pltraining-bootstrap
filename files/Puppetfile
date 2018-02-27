@@ -3,7 +3,7 @@ mod 'pltraining/classroom',           '2.0.0'
 mod 'pltraining/classroom_legacy',    '1.8.4'  ## for legacy classroom support
 mod 'pltraining/dirtree',             '0.3.0'
 mod 'pltraining/dockeragent',         '0.0.14'
-mod 'pltraining/puppetfactory',       '0.5.12'
+mod 'pltraining/puppetfactory',       '0.5.13'
 mod 'pltraining/rbac',                '0.0.6'
 mod 'pltraining/showoff',             '0.0.1'
 mod 'pltraining/userprefs',           '1.0.18'
