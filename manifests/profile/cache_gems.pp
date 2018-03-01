@@ -96,7 +96,7 @@ class bootstrap::profile::cache_gems (
   bootstrap::gem { 'rack-contrib':                   version => '1.8.0',   tag => ['showoff'] }
   bootstrap::gem { 'redcarpet':                      version => '3.4.0',   tag => ['showoff'] }
   bootstrap::gem { 'ruby-dbus':                      version => '0.13.0',  tag => ['showoff'] }
-  bootstrap::gem { 'showoff':                        version => '0.19.1',  tag => ['showoff'] }
+  bootstrap::gem { 'showoff':                        version => '0.19.5',  tag => ['showoff'] }
   bootstrap::gem { 'sinatra-websocket':              version => '0.3.1',   tag => ['showoff'] }
 
   # puppetdb-ruby & deps
