@@ -13,20 +13,15 @@ httpd-itk
 ipset
 iptables
 kernel
-mariadb
-mariadb-server
 memcached
 mg
 nano
 net-tools
-nginx
 ntp
 ntpdate
 openssh
 openssh-server
 openssl
-php
-php-mysql
 postgresql
 postgresql-server
 python-devel
@@ -42,3 +37,10 @@ xmlto
 zlib
 zlib-devel
 zsh
+<% unless @build == 'learning' -%>
+mariadb
+mariadb-server
+nginx
+php
+php-mysql
+<% end -%>
