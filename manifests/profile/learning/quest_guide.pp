@@ -41,6 +41,7 @@ class bootstrap::profile::learning::quest_guide (
   file { ['/root/.npm', '/root/.gitbook']:
     ensure  => absent,
     force   => true,
+    backup  => false,
     require => Exec['gitbook build'],
   }
 
