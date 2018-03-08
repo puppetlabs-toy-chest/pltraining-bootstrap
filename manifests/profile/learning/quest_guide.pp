@@ -36,6 +36,14 @@ class bootstrap::profile::learning::quest_guide (
     creates => "${content_repo_dir}/_book",
     require => [Vcsrepo[$content_repo_dir], Package['gitbook-cli']],
   }
+  
+  # Clean up .npm and .gitbook directories because they're HUGE
+  file { ['/root/.npm', '/root/.gitbook']:
+    ensure  => absent,
+    force   => true,
+    backup  => false,
+    require => Exec['gitbook build'],
+  }
 
   file { "/var/www/quest":
     ensure  => symlink,
