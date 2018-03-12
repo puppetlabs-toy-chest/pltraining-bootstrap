@@ -5,7 +5,7 @@ mod 'pltraining/dirtree',             '0.3.0'
 mod 'pltraining/dockeragent',         '0.0.14'
 mod 'pltraining/puppetfactory',       '0.5.14'
 mod 'pltraining/rbac',                '0.0.6'
-mod 'pltraining/showoff',             '0.0.1'
+mod 'pltraining/showoff',             '0.0.2'
 mod 'pltraining/userprefs',           '1.0.18'
 
 mod 'arusso/stunnel',                 '3.0.0'
