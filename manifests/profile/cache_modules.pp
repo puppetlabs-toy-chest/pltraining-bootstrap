@@ -11,7 +11,7 @@ class bootstrap::profile::cache_modules {
     mode  => '0644',
   }
 
-  file { [$stagedir, $codedir]:
+  file { $stagedir: # $codedir is managed prior to the PE install now
     ensure => directory,
   }
 
