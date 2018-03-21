@@ -39,6 +39,9 @@ class bootstrap::profile::pe_master (
 
   # Ensure that the redirect setting persists post install
   # This should be replaced by filesync as soon as the classroom is classified.
+  user { 'pe-puppet':
+    ensure => present,
+  }
   file { dirtree($hieradata, '/etc/puppetlabs'):
     ensure => directory,
     owner => 'pe-puppet',
