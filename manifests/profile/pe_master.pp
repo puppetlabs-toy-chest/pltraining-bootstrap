@@ -44,8 +44,8 @@ class bootstrap::profile::pe_master (
   }
   file { '/etc/puppetlabs/code/environments/production/hieradata/common.yaml':
     ensure  => file,
-    owner   => 'root',
-    group   => 'root',
+    owner   => 'pe-puppet',
+    group   => 'pe-puppet',
     mode    => '0644',
     content => 'puppet:///modules/bootstrap/hieradata/common.yaml',
     notify  => Exec['install pe'],
