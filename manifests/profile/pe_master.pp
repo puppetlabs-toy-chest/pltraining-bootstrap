@@ -36,6 +36,21 @@ class bootstrap::profile::pe_master (
     notify  => Exec['install pe'],
   }
 
+  # Ensure that the redirect setting persists post install
+  # This should be replaced by filesync as soon as the classroom is classified.
+  dirtree { '/etc/puppetlabs/code/environments/production/hieradata/':
+    ensure  => present,
+    parents => true,
+  }
+  file { '/etc/puppetlabs/code/environments/production/hieradata/common.yaml':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => 'puppet:///modules/bootstrap/hieradata/common.yaml',
+    notify  => Exec['install pe'],
+  }
+
   exec { 'install pe':
     command     => "${destination}/puppet-enterprise-installer -D -c /opt/pltraining/etc/pe.conf",
     refreshonly => true,
