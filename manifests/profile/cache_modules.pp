@@ -32,8 +32,8 @@ class bootstrap::profile::cache_modules {
   # Ensure that the redirect setting persists post install
   # This will be replaced by filesync as soon as the classroom is classified.
   file { "${hieradata}/common.yaml":
-    ensure  => file,
-    content => 'puppet:///modules/bootstrap/hieradata/common.yaml',
+    ensure => file,
+    source => 'puppet:///modules/bootstrap/hieradata/common.yaml',
   }
 
   file { "${codedir}/modules":
