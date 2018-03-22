@@ -4,7 +4,7 @@ class bootstrap::profile::cache_modules {
 
   $stagedir  = $bootstrap::params::stagedir
   $codedir   = $bootstrap::params::codedir
-  $hieradata = "${stagedir}/environments/production/hieradata"
+  $hieradata = "${codedir}/environments/production/hieradata"
 
   File {
     owner => 'pe-puppet',
@@ -12,7 +12,7 @@ class bootstrap::profile::cache_modules {
     mode  => '0644',
   }
 
-  file { [$stagedir, $codedir]:
+  file { [$stagedir, $codedir, $hieradata]:
     ensure => directory,
   }
 
@@ -31,13 +31,9 @@ class bootstrap::profile::cache_modules {
 
   # Ensure that the redirect setting persists post install
   # This will be replaced by filesync as soon as the classroom is classified.
-  file { dirtree($hieradata, $stagedir):
-    ensure => directory,
-  }
   file { "${hieradata}/common.yaml":
     ensure  => file,
     content => 'puppet:///modules/bootstrap/hieradata/common.yaml',
-    before  => File["${codedir}/modules"],
   }
 
   file { "${codedir}/modules":
