@@ -16,6 +16,9 @@ class bootstrap::profile::base {
   sudo::conf { $bootstrap::params::admin_user:
     content => "${bootstrap::params::admin_user} ALL=(ALL) NOPASSWD: ALL",
   }
+  sudo::conf { 'retain vagrant sudo ability':
+    content => "vagrant ALL=(ALL) NOPASSWD: ALL",
+  }
 
   # Moving the root user declaration to the userprefs module.
   # user { 'root':
