@@ -1,4 +1,4 @@
-mod 'binford2k/abalone',              '0.0.8'
+mod 'binford2k/abalone',              '0.0.9'
 mod 'pltraining/classroom',           '2.0.2'
 mod 'pltraining/classroom_legacy',    '1.8.4'  ## for legacy classroom support
 mod 'pltraining/dirtree',             '0.3.0'
