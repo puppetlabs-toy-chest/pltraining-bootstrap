@@ -27,10 +27,17 @@ class bootstrap::profile::classroom (
     source  => "puppet:///modules/bootstrap/serverspec/${role}",
   }
 
+  # Required specinfra version to not require ruby >= 2.2.6
+  package { 'specinfra':
+    ensure   => '2.74.0',
+    provider => gem,
+  }
+
   # used for updating and managing the classroom
   package { 'puppet-classroom-manager':
     ensure   => installed,
     provider => gem,
+    require  => Package['specinfra'],
   }
 
   file { '/opt/pltraining/etc/pagerduty.key':
