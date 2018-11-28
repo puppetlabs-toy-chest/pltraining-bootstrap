@@ -24,8 +24,20 @@ class bootstrap::profile::learning::quest_tool (
     source => 'puppet:///modules/bootstrap/learning/bashrc.learningvm',
   }
 
+  # The quest gem specifies "~> 4.1" for the timers gem, but versions
+  # of that gem >= 4.2 require an upgraded version of ruby. The best option
+  # would be to update the quest gem's gemspec file to specify "~> 4.1.0",
+  # but it's currently unknown how to publish an update to the quest gem.
+  # So preinstall the timers gem with a pinned version here to avoid the
+  # upgraded ruby version requirement.
+  package { 'timers':
+    ensure   => '4.1.2',
+    provider => 'gem',
+  }
+
   package { 'quest':
     provider => gem,
+    require  => Package['timers'],
   }
 
   file { '/etc/systemd/system/quest.service':
