@@ -2,7 +2,7 @@ mod 'binford2k/abalone',              '0.0.9'
 mod 'pltraining/classroom',           '2.0.5'
 mod 'pltraining/classroom_legacy',    '1.8.4'  ## for legacy classroom support
 mod 'pltraining/dirtree',             '0.3.0'
-mod 'pltraining/dockeragent',         '0.0.15'
+mod 'pltraining/dockeragent',         '0.0.16'
 mod 'pltraining/puppetfactory',       '0.5.14'
 mod 'pltraining/rbac',                '0.0.7'
 mod 'pltraining/showoff',             '0.0.2'
