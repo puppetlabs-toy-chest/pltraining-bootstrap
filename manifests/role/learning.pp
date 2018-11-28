@@ -24,9 +24,9 @@ class bootstrap::role::learning {
   class { 'bootstrap::profile::cache_rpms':
     build => 'learning',
   }
-  class { 'bootstrap::profile::ruby':
-    install_bundler => true,
-  }
+  # class { 'bootstrap::profile::ruby':
+  #   install_bundler => true,
+  # }
   class { 'userprefs::bash':
     password => '$1$hgIZHl1r$tEqMTzoXz.NBwtW3kFv33/',
     replace  => true,
