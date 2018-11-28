@@ -29,4 +29,9 @@ class bootstrap::profile::rubygems {
     ensure   => '0.7.0',
     provider => gem,
   }
+  package { 'timers':
+    ensure   => '4.1.2',
+    provider => 'gem',
+    before   => Package['quest'],
+  }
 }
