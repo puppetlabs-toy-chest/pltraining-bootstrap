@@ -2,6 +2,9 @@ class bootstrap::profile::cache_gems (
   $cache_dir     = '/var/cache/rubygems',
   $file_cache    = '/training/file_cache',
 ) {
+  class { 'bootstrap::profile::ruby':
+    install_bundler => true,
+  }
   require bootstrap::profile::ruby
 
   Bootstrap::Gem {
