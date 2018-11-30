@@ -27,6 +27,13 @@ class bootstrap::profile::pe_master (
     notify        => Exec['install pe'],
   }
 
+  file { [ '/opt/pltraining', '/opt/pltraining/etc' ]:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
   file { '/opt/pltraining/etc/pe.conf':
     ensure  => file,
     owner   => 'root',
