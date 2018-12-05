@@ -34,4 +34,8 @@ class bootstrap::profile::rubygems {
     provider => 'gem',
     before   => Package['quest'],
   }
+  package { 'rest-client':
+    ensure   => '2.0.2',
+    provider => 'gem',
+  }
 }
