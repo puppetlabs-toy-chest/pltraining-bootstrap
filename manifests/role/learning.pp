@@ -1,6 +1,7 @@
 class bootstrap::role::learning {
   include userprefs::profile
   include bootstrap
+  include bootstrap::profile::cache_gitea
   include bootstrap::profile::rubygems
   include bootstrap::profile::network
   include bootstrap::profile::pe_tweaks
