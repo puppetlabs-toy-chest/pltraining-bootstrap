@@ -21,7 +21,6 @@ class bootstrap::role::learning {
     learning_user         => true,
     yum_cache             => true,
     install_dev_tools     => true,
-    disable_mco           => true,
   }
 
   class { 'bootstrap::profile::cache_rpms':
