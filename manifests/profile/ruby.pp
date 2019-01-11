@@ -10,7 +10,7 @@ class bootstrap::profile::ruby (
 
   if $install_bundler {
     package { 'bundler':
-      ensure   => present,
+      ensure   => '1.17.3',
       provider => gem,
     }
   }
