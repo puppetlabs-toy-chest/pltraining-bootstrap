@@ -31,6 +31,14 @@ class bootstrap::profile::rubygems {
     provider => gem,
     before   => Package['rack-test'],
   }
+  # Preinstall this gem instead of letting 'timers' do it in order to
+  # avoid a required Ruby version breakage after it was updated from 1.3.0
+  # to 1.3.1
+  package { 'hitimes':
+    ensure   => '1.3.0',
+    provider => 'gem',
+    before   => Package['timers'],
+  }
   package { 'timers':
     ensure   => '4.1.2',
     provider => 'gem',
