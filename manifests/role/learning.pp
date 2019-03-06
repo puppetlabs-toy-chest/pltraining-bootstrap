@@ -8,7 +8,13 @@ class bootstrap::role::learning {
   include bootstrap::profile::puppet_forge_server
   include bootstrap::profile::cache_gitea
   include bootstrap::profile::gitea
-  include bootstrap::profile::learning::quest_guide
+  # include bootstrap::profile::learning::quest_guide
+
+  class { 'bootstrap::profile::learning::quest_guide':
+    git_branch         => 'fix_quest_tests',
+    content_repo_owner => 'greglarkin',
+  }
+
   include bootstrap::profile::learning::pe_tuning
   include bootstrap::profile::learning::install
   include bootstrap::profile::learning::quest_guide_server
