@@ -1,5 +1,5 @@
 class bootstrap::profile::learning::disable_bolt_analytics {
-  file { [ '/root/.puppetlabs', '/root/.puppetlabs/bolt'] :
+  file { [ '/root/.puppetlabs', '/root/.puppetlabs/bolt' ] :
     ensure => directory,
     owner  => 'root',
     group  => 'root',
