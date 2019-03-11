@@ -10,6 +10,7 @@ class bootstrap::role::learning {
   include bootstrap::profile::gitea
   include bootstrap::profile::learning::quest_guide
   include bootstrap::profile::learning::pe_tuning
+  include bootstrap::profile::learning::disable_bolt_analytics
   include bootstrap::profile::learning::install
   include bootstrap::profile::learning::quest_guide_server
   include bootstrap::profile::learning::ssh
