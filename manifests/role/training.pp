@@ -1,7 +1,7 @@
 class bootstrap::role::training inherits bootstrap::params {
   include bootstrap
   include userprefs::defaults
-  include bootstrap::profile::ruby
+  # include bootstrap::profile::ruby
   include bootstrap::profile::rubygems
   include bootstrap::profile::cache_modules
   include bootstrap::profile::cache_rpms
