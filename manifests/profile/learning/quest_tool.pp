@@ -24,6 +24,15 @@ class bootstrap::profile::learning::quest_tool (
     source => 'puppet:///modules/bootstrap/learning/bashrc.learningvm',
   }
 
+  # Install a specific version of minitest before the quest gem. This version
+  # does not force a specific version of Ruby as a dependency so it will not
+  # break the build if a later version is installed.
+  package { 'minitest':
+    ensure   => '5.11.1',
+    provider => gem,
+    before   => Package['quest'],
+  }
+
   package { 'quest':
     provider => gem,
   }
